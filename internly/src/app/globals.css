@@ -17,5 +17,34 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: BN-Reebox, sans-serif;
+}
+
+@font-face {
+  font-family: 'BN-Reebox';
+  src: url('/fonts/BNReebox-Rounded.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Inter'; 
+  src: url('/fonts/Inter-VariableFont.ttf') format('truetype');
+}
+
+.Titre {
+  color: #F9FAFB;
+text-align: center;
+font-family: "BN-Reebox";
+font-size: 100px;
+font-style: normal;
+font-weight: 200;
+line-height: normal;
+  
+}
+
+.Paragraphe {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  text-align: center;
 }
