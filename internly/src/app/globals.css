@@ -33,7 +33,7 @@
 */
 
 /*_____________________________________________________________________________________________*/
-/*                                          GLOBAL                                             */
+/*                                           Tests                                             */
 /*_____________________________________________________________________________________________*/
 
 body {
@@ -60,3 +60,16 @@ body {
   line-height: 1.5rem;
   text-align: center;
 }
+
+.trapezoid {
+  width: 300px;
+  height: 350px;
+  clip-path: polygon(15% 0, 85% 0, 100% 100%, 0 100%);
+  background: #CCFF00;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+ }
+

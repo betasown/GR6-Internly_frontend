@@ -41,7 +41,7 @@ export default function RootLayout({ children }) {
             <br/>
             <hr/>
             <h1 className="Titre">Internly</h1>
-            <p className="Paragraphe">&copy;2024 - Tous droits réservés</p>
+            <p className="Paragraphe">&copy;2025 - Tous droits réservés</p>
             <em><a href="/MentionsLegales">Mentions Légales</a></em>&nbsp;-&nbsp;
             <em><a href="/CGU">Conditions Générales d'Utilisation</a></em>&nbsp;-&nbsp;
             <em><a href="/">Github du projet</a></em>
