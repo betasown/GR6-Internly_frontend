@@ -6,18 +6,19 @@
   --background: #ffffff;
   --foreground: #171717;
 }
-
+/*
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
 }
+  */
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: BN-Reebox, sans-serif;
+  font-family: Inter, sans-serif;
 }
 
 @font-face {
@@ -31,13 +32,13 @@ body {
 }
 
 .Titre {
-  color: #F9FAFB;
-text-align: center;
-font-family: "BN-Reebox";
-font-size: 100px;
-font-style: normal;
-font-weight: 200;
-line-height: normal;
+  color: black;
+  text-align: center;
+  font-family: "BN-Reebox";
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 200;
+  line-height: normal;
   
 }
 
