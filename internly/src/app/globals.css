@@ -94,6 +94,7 @@ header {
   padding: 0.7rem 1.5rem;
   border-radius: 15px;
   font-weight: bolder;
+  text-decoration: none;
 }
 
 .connect-btn {
