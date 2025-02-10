@@ -78,7 +78,15 @@ header {
   text-decoration: none;
   color: black;
   font-weight: 500;
+  transition: font-weight 0.3s;
 }
+
+.nav-right a:hover {
+  text-decoration: underline;
+  color: black;
+  font-weight: bolder;
+}
+
 
 .nav-right a.connect-btn {
   background: var(--foregroundVar);
