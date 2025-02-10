@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
         <header>
 
           <div id="nav-left">
-            <img src="/icon-Internly.png" alt="LogoInternly"/>
+            <img src="/Assets/G-InternlyLogo.png" alt="LogoInternly"/>
           </div>
 
           <nav>
@@ -32,7 +32,6 @@ export default function RootLayout({ children }) {
               <a href="/Connexion" title="Se connecter">Se connecter</a>
             </div>
           </nav>
-        <hr/>
         </header>
         
           {children}
