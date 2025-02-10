@@ -13,26 +13,26 @@ export const metadata = {
   },
 };
 
+
 export default function RootLayout({ children }) {
   return (
     <html lang="fr">
         <body>
-        <header>
-
-          <div id="nav-left">
-            <img src="/Assets/G-InternlyLogo.png" alt="LogoInternly"/>
-          </div>
-
-          <nav>
-            <div className="nav-right">
-              <a href="/" title="Accueil">Accueil</a>&nbsp;&nbsp;&nbsp;
-              <a href="/Entreprises" title="Nos partenaires">Nos partenaires</a>&nbsp;&nbsp;&nbsp;
-              <a href="/Offres" title="Trouver un stage">Trouver un stage</a>&nbsp;&nbsp;&nbsp;
-              <a href="/Inscription" title="S'inscrire">S'inscrire</a>&nbsp;&nbsp;&nbsp;
-              <a href="/Connexion" title="Se connecter">Se connecter</a>
-            </div>
-          </nav>
-        </header>
+        
+        <div className="image-container">
+          <header>
+            
+            <nav>
+              <div className="nav-right">
+                <a href="/">Accueil</a>
+                <a href="/Entreprises">Nos partenaires</a>
+                <a href="/Offres">Trouver un stage</a>
+                <a href="/Inscription" >S'inscrire</a>
+                <a href="/Connexion" className="connect-btn">Se connecter</a>
+              </div>
+            </nav>
+          </header>
+        </div>
         
           {children}
 

@@ -1,9 +1,10 @@
 import Image from "next/image";
 
+
 export default function Home() {
   return (
     <div>
-      <img className="HP-Background" src="/Assets/HP-Background.png"/>
+      <img className="hero-image" src="/Assets/HP-Background.png"/>
 
       {
       /*_____________________________________________________________________*/

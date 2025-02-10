@@ -47,6 +47,64 @@ body {
   overflow-x: hidden;
 }
 
+header {
+  align-items: center;
+  background: white;
+  padding: 1rem;
+  padding-left: 2rem;
+  border-radius: 24px;
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+  transform: translateX(-50%);
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  left: 50%;
+  position: fixed;
+  gap: 5rem;
+
+  backdrop-filter: blur(50px);
+ -webkit-backdrop-filter: blur(10px);
+ background: rgba(255, 255, 255, 0.9);
+}
+
+.nav-right {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav-right a {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+}
+
+.nav-right a.connect-btn {
+  background: var(--foregroundVar);
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border-radius: 15px;
+  font-weight: bolder;
+}
+
+.connect-btn {
+  background: var(--foregroundVar);
+  padding: 0.7rem 1.5rem;
+  border-radius: 15px;
+  font-weight: bolder;
+  color: white;
+}
+
+a.connect-btn:hover {
+  background: var(--accentColor);
+  color: var(--foreground);
+}
+
+#nav-left img {
+  height: 60px;
+}
+
 .Titre {
   text-align: center;
   font-family: "BN-Reebox";
@@ -121,11 +179,12 @@ body {
   text-align: center;
  }
 
-.HP-Background {
-  height: 100%;
+.image-container {
+  position: relative;
+  justify-content: center;
+
   width: 100%;
-  margin-top: 0;
- }
+}
 
 .HP_STRAT1-APropos {
   background: var(--foreground);
