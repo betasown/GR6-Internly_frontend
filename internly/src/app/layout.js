@@ -25,10 +25,10 @@ export default function RootLayout({ children }) {
             <nav>
               <div className="nav-right">
                 <a href="/">Accueil</a>
-                <a href="/Entreprises">Nos partenaires</a>
-                <a href="/Offres">Trouver un stage</a>
-                <a href="/Inscription" >S'inscrire</a>
-                <a href="/Connexion" className="connect-btn">Se connecter</a>
+                <a href="/entreprises">Nos partenaires</a>
+                <a href="/offres">Trouver un stage</a>
+                <a href="/inscription" >S'inscrire</a>
+                <a href="/connexion" className="connect-btn">Se connecter</a>
               </div>
             </nav>
           </header>
