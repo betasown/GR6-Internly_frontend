@@ -19,7 +19,23 @@ export default function Home() {
       
 
         <div className="Container">
+
+          
+
                     <div className="HP-TrapezContainer-entreprise ">
+                    <div className="Trapez">
+                    <div className="HP-Trapez_v1">
+                      <h1 className="Titre"></h1>
+                    </div></div>
+                    <div className="Trapez">
+                    <div className="HP-Trapez_v2">
+                      <h1 className="Titre"></h1>
+                    </div></div>
+
+                    <div className="Trapez">
+                    <div className="HP-Trapez_v1">
+                      <h1 className="Titre"></h1>
+                    </div></div>
                     <div className="Trapez">
                             <div className="HP-ContentTrapez_v3"></div>
                             <div className="HP-ContentTrapezSmallv3">
@@ -43,6 +59,19 @@ export default function Home() {
                               <p className="Paragraphe">Entreprises</p>
                             </div>
                         </div>
+                        <div className="Trapez">
+                    <div className="HP-Trapez_v1">
+                      <h1 className="Titre"></h1>
+                    </div></div>
+                    <div className="Trapez">
+                    <div className="HP-Trapez_v2">
+                      <h1 className="Titre"></h1>
+                    </div></div>
+
+                    <div className="Trapez">
+                    <div className="HP-Trapez_v1">
+                      <h1 className="Titre"></h1>
+                    </div></div>
                     </div>
                 </div>
       </div>

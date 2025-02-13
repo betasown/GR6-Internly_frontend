@@ -256,9 +256,9 @@ a.connect-btn:hover {
 }
 
  .HP-Trapez_v2 {
+  position: relative;
   width: 300px;
   height: 350px;
-  clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
   background: #343434;
   color: var(--foreground);
   padding: 20px;
@@ -266,12 +266,13 @@ a.connect-btn:hover {
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  clip-path: polygon(15% 0, 85% 0, 100% 100%, 0 100%);
  }
 
  .HP-Trapez_v1 {
+  position: relative;
   width: 300px;
   height: 350px;
-  clip-path: polygon(15% 0, 85% 0, 100% 100%, 0 100%);
   background: #343434;
   color: var(--foreground);
   padding: 20px;
@@ -279,6 +280,7 @@ a.connect-btn:hover {
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
  }
 
  .HP_STRAT1-APropos {
@@ -382,3 +384,5 @@ a.connect-btn:hover {
   width: 200px; /* Ajuste la taille de l’image */
   height: auto;
 }
+
+
