@@ -381,6 +381,19 @@ a.connect-btn:hover {
   width: 100%;
 }
 
+.domaines-button{
+  background: var(--foregroundVar);
+  padding: 0.7rem 1.5rem;
+  border-radius: 15px;
+  font-weight: bolder;
+  color: white;
+}
+
+a.domaines-button:hover {
+  background: var(--accentColor);
+  color: var(--foreground);
+}
+
 /*_____________________________________________________________________________________________*/
 /*                                       Company Page                                          */
 /*_____________________________________________________________________________________________*/

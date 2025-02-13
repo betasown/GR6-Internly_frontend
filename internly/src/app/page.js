@@ -214,12 +214,11 @@ export default function Home() {
         </div>
     </div>
 
-
-    </div>
-
     
 
-      <a href="/" title="Découvrir les domaines">Afficher tous les domaines</a>
+    </div>
+    <a href="/" className="domaines-button">Afficher tous les domaines</a>
+      
 
 
       {
