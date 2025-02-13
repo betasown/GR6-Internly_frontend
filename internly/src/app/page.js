@@ -86,31 +86,138 @@ export default function Home() {
       /*_____________________________________________________________________*/
       }
 
-      <p className="Paragraphe">Découvrir les principaux</p>
-      <h1 className="Titre">Domaines</h1>
-      
-      <div className="HP-TrapezContainer">
+<div className="HP_STRAT1-Domaines">
 
-        <div className="HP-Trapez_v2">
-          <h1 className="Titre"></h1>
-        </div>
+  <p className="Paragraphe">Découvrir les principaux</p>
+  <h1 className="Titre">Domaines</h1>
 
-        <div className="HP-ContentTrapez_v1">
-          <h1 className="Titre">IT</h1>
-        </div>
 
-        <div className="HP-ContentTrapez_v2">
-          <h1 className="Titre">BTP</h1>
-        </div>
 
-        <div className="HP-ContentTrapez_v1">
-          <h1 className="Titre">Cyber</h1>
-        </div>
+    <div className="Container">
+        <div className="HP-TrapezContainer-entreprise ">
+            <div className="Trapez">
+              <div className="HP-Trapez_v4">
+                <h1 className="Titre"></h1>
+              </div>
+            </div>
+            <div className="Trapez">
+              <div className="HP-Trapez_v3">
+                <h1 className="Titre"></h1>
+              </div>
+            </div>
 
-        <div className="HP-Trapez_v2">
-          <h1 className="Titre"></h1>
+            <div className="Trapez">
+              <div className="HP-Trapez_v4">
+              </div>
+            </div>
+            <div className="Trapez">
+              <div className="HP-ContentTrapez_v3"></div>
+              <div className="HP-ContentTrapezSmallv3">
+                <h1 className="Titre">IT</h1>
+                <p className="Paragraphe"></p>
+              </div>
+            </div>
+                          
+            <div className="Trapez">
+              <div className="HP-ContentTrapez_v4"></div>
+                <div className="HP-ContentTrapezSmallv4">
+                    <h1 className="Titre">BTP</h1>
+                    <p className="Paragraphe"></p>
+                </div>
+            </div>
+
+            <div className="Trapez">
+              <div className="HP-ContentTrapez_v3"></div>
+              <div className="HP-ContentTrapezSmallv3">
+                <h1 className="Titre">cyber</h1>
+                <p className="Paragraphe"></p>
+              </div>
+            </div>
+            <div className="Trapez">
+              <div className="HP-Trapez_v4">
+                <h1 className="Titre"></h1>
+              </div>
+            </div>
+            <div className="Trapez">
+              <div className="HP-Trapez_v3">
+                <h1 className="Titre"></h1>
+              </div>
+            </div>
+
+            <div className="Trapez">
+              <div className="HP-Trapez_v4">
+                <h1 className="Titre"></h1>
+              </div>
+            </div>
         </div>
-      </div>
+    </div>
+
+
+
+
+    <div className="Container">
+        <div className="HP-TrapezContainer-entreprise ">
+            <div className="Trapez">
+              <div className="HP-Trapez_v3">
+                <h1 className="Titre"></h1>
+              </div>
+            </div>
+            <div className="Trapez">
+              <div className="HP-Trapez_v4">
+                <h1 className="Titre"></h1>
+              </div>
+            </div>
+
+            <div className="Trapez">
+              <div className="HP-Trapez_v3">
+              </div>
+            </div>
+            <div className="Trapez">
+              <div className="HP-ContentTrapez_v4"></div>
+              <div className="HP-ContentTrapezSmallv4">
+                <h1 className="Titre">WEB</h1>
+                <p className="Paragraphe"></p>
+              </div>
+            </div>
+                          
+            <div className="Trapez">
+              <div className="HP-ContentTrapez_v3"></div>
+                <div className="HP-ContentTrapezSmallv3">
+                    <h1 className="Titre">UI/UX</h1>
+                    <p className="Paragraphe"></p>
+                </div>
+            </div>
+
+            <div className="Trapez">
+              <div className="HP-ContentTrapez_v4"></div>
+              <div className="HP-ContentTrapezSmallv4">
+                <h1 className="Titre">Santé</h1>
+                <p className="Paragraphe"></p>
+              </div>
+            </div>
+            <div className="Trapez">
+              <div className="HP-Trapez_v3">
+                <h1 className="Titre"></h1>
+              </div>
+            </div>
+            <div className="Trapez">
+              <div className="HP-Trapez_v4">
+                <h1 className="Titre"></h1>
+              </div>
+            </div>
+
+            <div className="Trapez">
+              <div className="HP-Trapez_v3">
+                <h1 className="Titre"></h1>
+              </div>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+
+    
 
       <a href="/" title="Découvrir les domaines">Afficher tous les domaines</a>
 
