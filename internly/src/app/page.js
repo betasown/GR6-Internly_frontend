@@ -19,61 +19,64 @@ export default function Home() {
       
 
         <div className="Container">
+            <div className="HP-TrapezContainer-entreprise ">
+                <div className="Trapez">
+                  <div className="HP-Trapez_v1">
+                    <h1 className="Titre"></h1>
+                  </div>
+                </div>
+                <div className="Trapez">
+                  <div className="HP-Trapez_v2">
+                    <h1 className="Titre"></h1>
+                  </div>
+                </div>
 
-          
-
-                    <div className="HP-TrapezContainer-entreprise ">
-                    <div className="Trapez">
-                    <div className="HP-Trapez_v1">
-                      <h1 className="Titre"></h1>
-                    </div></div>
-                    <div className="Trapez">
-                    <div className="HP-Trapez_v2">
-                      <h1 className="Titre"></h1>
-                    </div></div>
-
-                    <div className="Trapez">
-                    <div className="HP-Trapez_v1">
-                      <h1 className="Titre"></h1>
-                    </div></div>
-                    <div className="Trapez">
-                            <div className="HP-ContentTrapez_v3"></div>
-                            <div className="HP-ContentTrapezSmallv3">
-                              <h1 className="Titre">+2K</h1>
-                              <p className="Paragraphe">Etudiants</p>
-                            </div>
-                        </div>
+                <div className="Trapez">
+                  <div className="HP-Trapez_v1">
+                    <h1 className="Titre"></h1>
+                  </div>
+                </div>
+                <div className="Trapez">
+                  <div className="HP-ContentTrapez_v3"></div>
+                  <div className="HP-ContentTrapezSmallv3">
+                    <h1 className="Titre">+2K</h1>
+                    <p className="Paragraphe">Etudiants</p>
+                  </div>
+                </div>
                               
-                        <div className="Trapez">
-                            <div className="HP-ContentTrapez_v4"></div>
-                            <div className="HP-ContentTrapezSmallv4">
-                              <h1 className="Titre">+80K</h1>
-                              <p className="Paragraphe">D'offres</p>
-                            </div>
-                        </div>
-
-                        <div className="Trapez">
-                            <div className="HP-ContentTrapez_v3"></div>
-                            <div className="HP-ContentTrapezSmallv3">
-                              <h1 className="Titre">+390</h1>
-                              <p className="Paragraphe">Entreprises</p>
-                            </div>
-                        </div>
-                        <div className="Trapez">
-                    <div className="HP-Trapez_v1">
-                      <h1 className="Titre"></h1>
-                    </div></div>
-                    <div className="Trapez">
-                    <div className="HP-Trapez_v2">
-                      <h1 className="Titre"></h1>
-                    </div></div>
-
-                    <div className="Trapez">
-                    <div className="HP-Trapez_v1">
-                      <h1 className="Titre"></h1>
-                    </div></div>
+                <div className="Trapez">
+                  <div className="HP-ContentTrapez_v4"></div>
+                    <div className="HP-ContentTrapezSmallv4">
+                        <h1 className="Titre">+80K</h1>
+                        <p className="Paragraphe">D'offres</p>
                     </div>
                 </div>
+
+                <div className="Trapez">
+                  <div className="HP-ContentTrapez_v3"></div>
+                  <div className="HP-ContentTrapezSmallv3">
+                    <h1 className="Titre">+390</h1>
+                    <p className="Paragraphe">Entreprises</p>
+                  </div>
+                </div>
+                <div className="Trapez">
+                  <div className="HP-Trapez_v1">
+                    <h1 className="Titre"></h1>
+                  </div>
+                </div>
+                <div className="Trapez">
+                  <div className="HP-Trapez_v2">
+                    <h1 className="Titre"></h1>
+                  </div>
+                </div>
+
+                <div className="Trapez">
+                  <div className="HP-Trapez_v1">
+                    <h1 className="Titre"></h1>
+                  </div>
+                </div>
+            </div>
+        </div>
       </div>
 
 
