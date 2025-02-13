@@ -382,3 +382,21 @@ a.connect-btn:hover {
   width: 200px; /* Ajuste la taille de l’image */
   height: auto;
 }
+
+/*_____________________________________________________________________________________________*/
+/*                                       Login Page                                            */
+/*_____________________________________________________________________________________________*/
+
+
+.JoinButton{
+  background: var(--foregroundVar);
+  padding: 0.7rem 1.5rem;
+  border-radius: 15px;
+  font-weight: bolder;
+  color: white;
+}
+
+a.JoinButton:hover {
+  background: var(--accentColor);
+  color: var(--foreground);
+}
