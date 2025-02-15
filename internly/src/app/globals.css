@@ -394,6 +394,13 @@ a.domaines-button:hover {
   color: var(--foreground);
 }
 
+.buttonContainer{
+  padding-top: 5%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
 /*_____________________________________________________________________________________________*/
 /*                                       Company Page                                          */
 /*_____________________________________________________________________________________________*/
@@ -439,5 +446,3 @@ a.domaines-button:hover {
   width: 200px; /* Ajuste la taille de l’image */
   height: auto;
 }
-
-

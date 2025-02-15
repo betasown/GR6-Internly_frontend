@@ -4,7 +4,15 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div>
-      <img className="hero-image" src="/Assets/HP-Background.png"/>
+      <div className="relative">
+        <div className="absolute top-1/2 left-5 -translate-y-1/2 text-white font-special">
+          <h1 className="text-3xl font-bold">Internly</h1>
+          <p className="text-lg">Une petite description du site.</p>
+        </div>
+        <img className="w-full h-auto" src="/Assets/HP-Background.png" />
+      </div>
+
+
 
       {
       /*_____________________________________________________________________*/
@@ -214,10 +222,12 @@ export default function Home() {
         </div>
     </div>
 
-    
+      <div className="buttonContainer">
+        <a href="/" className="domaines-button">Afficher tous les domaines</a>
+      </div>
 
     </div>
-    <a href="/" className="domaines-button">Afficher tous les domaines</a>
+    
       
 
 
@@ -227,24 +237,67 @@ export default function Home() {
       /*_____________________________________________________________________*/
       }
 
+      <div className="HP_STRAT1-APropos">
+
       <p className="Paragraphe">Ils nous font</p>
       <h1 className="Titre">Confiance</h1>
-      
-      <div className="HP-TrapezContainer">
-        <div className="HP-ContentTrapez_v1">
-          <h1 className="Titre">Apple</h1>
-        </div>
 
-        <div className="HP-ContentTrapez_v2">
-          <h1 className="Titre">Nvidia</h1>
-        </div>
 
-        <div className="HP-ContentTrapez_v1">
-          <h1 className="Titre">Google</h1>
-        </div>
+
+      <div className="Container">
+          <div className="HP-TrapezContainer-entreprise ">
+              <div className="Trapez">
+                <div className="HP-Trapez_v1">
+                  <h1 className="Titre"></h1>
+                </div>
+              </div>
+              <div className="Trapez">
+                <div className="HP-Trapez_v2">
+                  <h1 className="Titre"></h1>
+                </div>
+              </div>
+
+              <div className="Trapez">
+                <div className="HP-Trapez_v1">
+                  <h1 className="Titre"></h1>
+                </div>
+              </div>
+                <div className="Trapez">
+                  <div className="HP-ContentTrapez_v3"></div>
+                  <div className="HP-ContentTrapezSmallv3"><img src="/Assets/apple-logo.png" alt="Apple" /></div>
+                </div>
+                <div className="Trapez">
+                  <div className="HP-ContentTrapez_v4"></div>
+                  <div className="HP-ContentTrapezSmallv4"><img src="/Assets/nvidia-logo.png" alt="Nvidia" /></div>
+                </div>
+                <div className="Trapez">
+                  <div className="HP-ContentTrapez_v3"></div>
+                  <div className="HP-ContentTrapezSmallv3"><img src="/Assets/google-logo.png" alt="Google" /></div>
+                </div>
+              <div className="Trapez">
+                <div className="HP-Trapez_v1">
+                  <h1 className="Titre"></h1>
+                </div>
+              </div>
+              <div className="Trapez">
+                <div className="HP-Trapez_v2">
+                  <h1 className="Titre"></h1>
+                </div>
+              </div>
+
+              <div className="Trapez">
+                <div className="HP-Trapez_v1">
+                  <h1 className="Titre"></h1>
+                </div>
+              </div>
+          </div>
       </div>
 
-      <a href="/" title="Découvrir les entreprises">Afficher toutes les entreprises</a>
+      <div className="buttonContainer">
+        <a href="/entreprises" className="domaines-button">Découvrir les entreprises partenaires</a>
+      </div>
+
+      </div>
 
 
     </div>
