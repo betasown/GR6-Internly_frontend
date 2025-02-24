@@ -28,8 +28,8 @@ export default function RootLayout({ children }) {
             <nav className="navbar-desktop-only">
               <div className="nav-right">
                 <a href="/">Accueil</a>
-                <a href="/entreprises">Nos partenaires</a>
-                <a href="/offres">Trouver un stage</a>
+                <a href="/entreprises">Partenaires</a>
+                <a href="/offres">Offres</a>
                 <a href="/inscription" >S'inscrire</a>
                 <a href="/connexion" className="connect-btn">Se connecter</a>
               </div>
@@ -41,9 +41,8 @@ export default function RootLayout({ children }) {
 
           <footer>
             <br/>
-            <hr/>
-            <h1 className="Titre">Internly</h1>
-            <p className="Paragraphe">&copy;2025 - Tous droits réservés</p>
+            <h1 className="title">Internly</h1>
+            <p className="paragraphe">&copy;2025 - Tous droits réservés</p>
             <em><a href="/MentionsLegales">Mentions Légales</a></em>&nbsp;-&nbsp;
             <em><a href="/CGU">Conditions Générales d'Utilisation</a></em>&nbsp;-&nbsp;
             <em><a href="/">Github du projet</a></em>

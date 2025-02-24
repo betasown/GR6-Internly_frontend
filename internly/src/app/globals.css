@@ -122,7 +122,7 @@ a.connect-btn:hover {
   height: 60px;
 }
 
-.Titre {
+.title {
   text-align: center;
   font-family: "BN-Reebox";
   font-size: 60px;
@@ -132,7 +132,7 @@ a.connect-btn:hover {
   
 }
 
-.Paragraphe {
+.paragraphe {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 1rem;
@@ -140,13 +140,26 @@ a.connect-btn:hover {
   text-align: center;
 }
 
- .HP_STRAT1-APropos {
+.container-cta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1%;
+}
+
+
+
+/*_____________________________________________________________________________________________*/
+/*                                      Slides container                                       */
+/*_____________________________________________________________________________________________*/
+
+ .slide-statistiques-container {
   background: var(--black);
   color: var(--white);
   width: 100%;
 
   padding: 5%;
-  padding-bottom: 10%;
+  padding-bottom: 7%;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -155,6 +168,18 @@ a.connect-btn:hover {
   overflow: hidden;
 }
 
+.slide-domaines-container {
+  padding: 6%;
+  padding-bottom: 3%;
+}
+
+footer {
+  background: var(--black);
+  color: var(--white);
+  text-align: center;
+  font-size: 0.8rem;
+  padding-bottom: 2%;
+}
 
 /*_____________________________________________________________________________________________*/
 /*                                         Home Page                                           */
@@ -181,12 +206,22 @@ a.connect-btn:hover {
 
 /*_____________________________________________________________________________________________*/
 
+.container-cards-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
 .about-container {
   background-color: var(--black);
   padding: 48px 16px;
 }
 
 .cards-container {
+  color: var(--black);
   padding: 10px;
   width: 100%;
   margin: 0 auto;
@@ -224,7 +259,7 @@ a.connect-btn:hover {
 /*                                         RESPONSIVE                                          */
 /*_____________________________________________________________________________________________*/
 
-@media (max-width: 768px) {
+@media (max-width: 1340px) {
   body{
     justify-content: center;
 
@@ -268,14 +303,25 @@ a.connect-btn:hover {
 
   .cards-container {
     flex-direction: column;
+    font-size: 1rem;
     width: 100%;
     display: flex;
     gap: 24px;
-    padding-top: 5%;
+    align-items: center;
+  }
+  
+  .container-cards-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
   }
 
   .info-card {
     width: 90%;
+  }
+
+  .sub-mobile {
+    display: none;
   }
 }

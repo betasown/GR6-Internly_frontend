@@ -8,6 +8,7 @@ export default function Home() {
       /*                            STRAT - FIRST PICS                       */
       /*_____________________________________________________________________*/
       }
+
       <img className="hero-image" src="/Assets/hero-image.png"/>
 
       {
@@ -15,89 +16,63 @@ export default function Home() {
       /*                            STRAT - A PROPOS                         */
       /*_____________________________________________________________________*/
       }
-      <div className="HP_STRAT1-APropos">
-
+      <div className="slide-statistiques-container">
         <p className="Paragraphe">A prospos de</p>
-        <h1 className="Titre">Internly</h1>
+        <h1 className="title">Internly</h1>
 
         <div className="cards-container">
           <div className="info-card">
-            <div className="number">+2k</div>
-            <div className="text">Etudiants</div>
+            <div className="title">+2k</div>
+            <div className="Text">Etudiants</div>
           </div>
 
           <div className="info-card">
-            <div className="number">+80k</div>
-            <div className="text">Offres</div>
+            <div className="title">+80k</div>
+            <div className="Text">Offres</div>
           </div>
 
           <div className="info-card">
-            <div className="number">+390</div>
-            <div className="text">Entreprises</div>
+            <div className="title">+390</div>
+            <div className="Text">Entreprises</div>
           </div>
         </div>
       </div>
-      <img className="assets" src="/Assets/hero-separateur.png"/>
+
+      <img className="assets" src="/Assets/separateur-b2w.png"/>
 
       {
       /*_____________________________________________________________________*/
       /*                            STRAT - DOMAINES                         */
       /*_____________________________________________________________________*/
       }
-      <p className="Paragraphe">Découvrir les principaux</p>
-      <h1 className="Titre">Domaines</h1>
-      
-      <div className="HP-TrapezContainer">
+      <div className="slide-domaines-container">
+        <p className="paragraphe">Découvrir les principaux</p>
+        <h1 className="title">Domaines</h1>
 
-        <div className="HP-Trapez_v2">
-          <h1 className="Titre"></h1>
+        <div className="container-cards-container">
+          <div className="cards-container">
+            <div className="info-card"><div className="title">Web</div></div>
+            <div className="info-card"><div className="title">BTP</div></div>
+            <div className="info-card"><div className="title">Sécurité</div></div>
+          </div>
+          <div className="cards-container">
+            <div className="info-card"><div className="title">Finance </div></div>
+            <div className="info-card"><div className="title">Commerce </div></div>
+            <div className="info-card"><div className="title">Santé</div></div>
+          </div>
+          <div className="cards-container sub-mobile">
+            <div className="info-card"><div className="title">Design</div></div>
+            <div className="info-card"><div className="title">Data</div></div>
+            <div className="info-card"><div className="title">Louistiti</div></div>
+          </div>
         </div>
 
-        <div className="HP-ContentTrapez_v1">
-          <h1 className="Titre">IT</h1>
-        </div>
-
-        <div className="HP-ContentTrapez_v2">
-          <h1 className="Titre">BTP</h1>
-        </div>
-
-        <div className="HP-ContentTrapez_v1">
-          <h1 className="Titre">Cyber</h1>
-        </div>
-
-        <div className="HP-Trapez_v2">
-          <h1 className="Titre"></h1>
-        </div>
-      </div>
-
-      <a href="/" title="Découvrir les domaines">Afficher tous les domaines</a>
-
-
-      {
-      /*_____________________________________________________________________*/
-      /*                          STRAT - ENTREPRISES                        */
-      /*_____________________________________________________________________*/
-      }
-
-      <p className="Paragraphe">Ils nous font</p>
-      <h1 className="Titre">Confiance</h1>
-      
-      <div className="HP-TrapezContainer">
-        <div className="HP-ContentTrapez_v1">
-          <h1 className="Titre">Apple</h1>
-        </div>
-
-        <div className="HP-ContentTrapez_v2">
-          <h1 className="Titre">Nvidia</h1>
-        </div>
-
-        <div className="HP-ContentTrapez_v1">
-          <h1 className="Titre">Google</h1>
+        <div className="container-cta">
+          <a className="connect-btn" href="/" title="Découvrir les domaines">Afficher tous les domaines</a>
         </div>
       </div>
 
-      <a href="/" title="Découvrir les entreprises">Afficher toutes les entreprises</a>
-
+      <img className="assets" src="/Assets/separateur-w2b.png"/>
 
     </div>
   );
