@@ -30,7 +30,6 @@ export default function RootLayout({ children }) {
                 <a href="/">Accueil</a>
                 <a href="/entreprises">Partenaires</a>
                 <a href="/offres">Offres</a>
-                <a href="/inscription" >S'inscrire</a>
                 <a href="/connexion" className="connect-btn">Se connecter</a>
               </div>
             </nav>
