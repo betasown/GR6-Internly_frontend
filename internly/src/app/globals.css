@@ -76,6 +76,15 @@ header {
  -webkit-backdrop-filter: blur(10px);
 }
 
+.title-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 2%;
+}
+
 .nav-right {
   display: flex;
   gap: 1rem;
@@ -123,7 +132,6 @@ a.connect-btn:hover {
 }
 
 .title {
-  text-align: center;
   font-family: "BN-Reebox";
   font-size: 60px;
   font-style: normal;
@@ -137,7 +145,6 @@ a.connect-btn:hover {
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.5rem;
-  text-align: center;
 }
 
 .container-cta {
@@ -157,8 +164,9 @@ a.connect-btn:hover {
   background: var(--black);
   color: var(--white);
   width: 100%;
-
-  padding: 5%;
+  padding-top: 5%;
+  padding-right: 10%;
+  padding-left: 10%;
   padding-bottom: 7%;
   position: relative;
   display: flex;
@@ -172,6 +180,13 @@ a.connect-btn:hover {
   padding: 6%;
   padding-bottom: 3%;
 }
+
+.slide-entreprises-container {
+  padding-top: 8%;
+  padding-bottom: 3%;
+}
+
+
 
 footer {
   background: var(--black);

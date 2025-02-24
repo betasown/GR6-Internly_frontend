@@ -17,8 +17,10 @@ export default function Home() {
       /*_____________________________________________________________________*/
       }
       <div className="slide-statistiques-container">
-        <p className="Paragraphe">A prospos de</p>
-        <h1 className="title">Internly</h1>
+        <div className="title-container">
+          <p className="Paragraphe">A prospos de</p>
+          <h1 className="title">Internly</h1>
+        </div>
 
         <div className="cards-container">
           <div className="info-card">
@@ -46,8 +48,10 @@ export default function Home() {
       /*_____________________________________________________________________*/
       }
       <div className="slide-domaines-container">
-        <p className="paragraphe">Découvrir les principaux</p>
-        <h1 className="title">Domaines</h1>
+        <div className="title-container">
+          <p className="paragraphe">Découvrir les principaux</p>
+          <h1 className="title">Domaines</h1>
+        </div>
 
         <div className="container-cards-container">
           <div className="cards-container">
