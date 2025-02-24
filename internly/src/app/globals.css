@@ -281,6 +281,10 @@ a.connect-btn:hover {
   text-align: center;
  }
 
+ .transparent-background {
+  background: transparent;
+ }
+
  .HP_STRAT1-APropos {
   background: var(--foreground);
   color: var(--background);
@@ -387,4 +391,39 @@ a.connect-btn:hover {
 .content-container img {
   width: 200px; /* Ajuste la taille de l’image */
   height: auto;
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    padding: 1rem;
+    padding-left: 1rem;
+  }
+
+  .nav-right {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .HP-ContentTrapez_v1,
+  .HP-ContentTrapez_v2,
+  .HP-ContentTrapez_v3 {
+    width: 100%;
+    height: auto;
+    clip-path: none;
+  }
+
+  .HP-ContentTrapezSmallv3 {
+    width: 100%;
+    height: auto;
+    clip-path: none;
+  }
+
+  .Titre {
+    font-size: 2rem;
+  }
+
+  .Paragraphe {
+    font-size: 0.875rem;
+  }
 }

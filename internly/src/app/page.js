@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div>
       
-      <img className="hero-image" src="/Assets/image.png"/>
+      <img className="hero-image" src="/Assets/hero-image.png"/>
 
       {
       /*_____________________________________________________________________*/
@@ -23,7 +23,7 @@ export default function Home() {
                     <div className="HP-TrapezContainer-entreprise ">
                     <div className="Trapez">
                             <div className="HP-ContentTrapez_v3"></div>
-                            <div className="HP-ContentTrapezSmallv3">
+                            <div className="HP-ContentTrapezSmallv3 transparent-background">
                               <h1 className="Titre">+2K</h1>
                               <p className="Paragraphe">Etudiants</p>
                             </div>
@@ -31,7 +31,7 @@ export default function Home() {
                               
                         <div className="Trapez">
                             <div className="HP-ContentTrapez_v4"></div>
-                            <div className="HP-ContentTrapezSmallv4">
+                            <div className="HP-ContentTrapezSmallv4 transparent-background">
                               <h1 className="Titre">+80K</h1>
                               <p className="Paragraphe">D'offres</p>
                             </div>
@@ -39,7 +39,7 @@ export default function Home() {
 
                         <div className="Trapez">
                             <div className="HP-ContentTrapez_v3"></div>
-                            <div className="HP-ContentTrapezSmallv3">
+                            <div className="HP-ContentTrapezSmallv3 transparent-background">
                               <h1 className="Titre">+390</h1>
                               <p className="Paragraphe">Entreprises</p>
                             </div>
@@ -48,13 +48,13 @@ export default function Home() {
                 </div>
       </div>
 
+      <img className="hero-image" src="/Assets/hero-separateur.png"/>
 
       {
       /*_____________________________________________________________________*/
       /*                            STRAT - DOMAINES                         */
       /*_____________________________________________________________________*/
       }
-
       <p className="Paragraphe">Découvrir les principaux</p>
       <h1 className="Titre">Domaines</h1>
       
