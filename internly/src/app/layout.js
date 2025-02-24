@@ -1,5 +1,10 @@
+"use client";
+
 import "./globals.css";
 
+import { useState } from "react";
+
+/*
 export const metadata = {
   title: "Internly - Trouver le stage de vos rêves",
   description: "Internly est le meilleur site d'annonces en ligne pour trouver le stage de vos rêves. Postulez dès maintenant !",
@@ -12,17 +17,22 @@ export const metadata = {
     description: "Internly est le meilleur site d'annonces en ligne pour trouver le stage de vos rêves. Postulez dès maintenant !",
   },
 };
-
+*/
 
 export default function RootLayout({ children }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleHeaderClick = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   return (
     <html lang="fr">
         <body>
         
         <div className="image-container">
-          <header>
-            
-            <nav>
+          <header className={isExpanded ? "header-expanded" : ""} onClick={handleHeaderClick}>
+            <nav className="navbar-desktop-only hidden">
               <div className="nav-right">
                 <a href="/">Accueil</a>
                 <a href="/entreprises">Nos partenaires</a>

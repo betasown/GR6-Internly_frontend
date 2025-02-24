@@ -7,10 +7,19 @@
 /*_____________________________________________________________________________________________*/
 
 :root {
-  --background: #F9FAFB;
-  --foreground: #101010;
-  --accentColor: #C6D602;
-  --foregroundVar: #343434;
+  --white: #F9FAFB;         /*Main White Color*/
+
+  --black: #101010;         /*Main Black Color*/
+  --blackMedium: #6A6A6A;
+  --blackLight: #C3C3C3;
+
+  --grey: #343434;          /*Main Grey Color*/
+  --greyMedium : #808080;
+  --greyLight: #B3B3B3;
+
+  --green: #C6D602;         /*Main Accent Color*/
+  --greenMedium: #DBE561;
+  --greenLight: #F1F5C0;
 }
 
 @font-face {
@@ -49,7 +58,7 @@ body {
 
 header {
   align-items: center;
-  background: white;
+  background: var(--white);
   padding: 1rem;
   padding-left: 2rem;
   border-radius: 24px;
@@ -65,7 +74,6 @@ header {
 
   backdrop-filter: blur(50px);
  -webkit-backdrop-filter: blur(10px);
- background: rgba(255, 255, 255, 0.9);
 }
 
 .nav-right {
@@ -76,20 +84,20 @@ header {
 
 .nav-right a {
   text-decoration: none;
-  color: black;
+  color: var(--black);
   font-weight: 500;
   transition: font-weight 0.3s;
 }
 
 .nav-right a:hover {
   text-decoration: underline;
-  color: black;
+  color: var(--black);
   font-weight: bolder;
 }
 
 
 .nav-right a.connect-btn {
-  background: var(--foregroundVar);
+  background: var(--black);
   color: white;
   padding: 0.7rem 1.5rem;
   border-radius: 15px;
@@ -98,7 +106,7 @@ header {
 }
 
 .connect-btn {
-  background: var(--foregroundVar);
+  background: var(--black);
   padding: 0.7rem 1.5rem;
   border-radius: 15px;
   font-weight: bolder;
@@ -106,8 +114,8 @@ header {
 }
 
 a.connect-btn:hover {
-  background: var(--accentColor);
-  color: var(--foreground);
+  background: var(--green);
+  color: var(--black);
 }
 
 #nav-left img {
@@ -132,162 +140,9 @@ a.connect-btn:hover {
   text-align: center;
 }
 
-.HP-ContentTrapez_v1 {
-  position: relative;
-  width: 300px;
-  height: 350px;
-  clip-path: polygon(15% 0, 85% 0, 100% 100%, 0 100%);
-  background: #CCFF00;
-  color: var(--foreground);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
- }
-
- .HP-ContentTrapez_v2 {
-  width: 300px;
-  height: 350px;
-  clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
-  background: #CCFF00;
-  color: var(--foreground);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  border: 2px solid #CCFF00; 
- }
-
- .Trapez {
-  position: relative;
-  height: 300px;
-  overflow: hidden;
-}
-
- .HP-ContentTrapez_v3 {
-  position: relative;
-  width: 300px;
-  height: 350px;
-  background: #CCFF00;;
-  color: var(--foreground);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  clip-path: polygon(15% 0, 85% 0, 100% 100%, 0 100%);
-}
-
-.HP-ContentTrapezSmallv3 {
-  width: 250px; /* Ajustez la largeur selon vos besoins */
-  height: 300px; /* Ajustez la hauteur selon vos besoins */
-  position: absolute;
-  background: white;
-  padding: 15px; /* Ajustez le padding selon vos besoins */
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  clip-path: polygon(20% 5%, 80% 5%, 92.5% 95%, 7.5% 95%);
-  
-}
-
-.HP-ContentTrapezSmallv3 img {
-  padding: 20%;
-  width: auto; /* Permet à l'image de s'adapter à la largeur du conteneur */
-  height: auto; /* Permet à l'image de s'adapter à la hauteur du conteneur */
-  margin: auto; /* Centre l'image horizontalement */
-}
-
-.HP-ContentTrapezSmallv3 h1{
-  padding-top: 40%;
-  color: #101010;
-  justify-content: center;
-}
-
- .HP-ContentTrapezSmallv3 p {
-  margin: 0; /* Supprime les marges par défaut */
-  color: #101010;
-  justify-content: center;
-}
-
- .HP-ContentTrapez_v4 {
-  width: 300px;
-  height: 350px;
-  clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
-  background: #CCFF00;
-  color: var(--foreground);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
- }
-
- .HP-ContentTrapezSmallv4 {
-  position: absolute;
-  background: white;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  clip-path: polygon(5% 5%, 95% 5%, 82.5% 95%, 17.5% 95%);
-}
-
-.HP-ContentTrapezSmallv4 img {
-  padding: 20%;
-  width: auto; /* Permet à l'image de s'adapter à la largeur du conteneur */
-  height: auto; /* Permet à l'image de s'adapter à la hauteur du conteneur */
-  margin: auto; /* Centre l'image horizontalement */
-}
-
-.HP-ContentTrapezSmallv4 h1{
-  padding-top: 40%;
-  color: #101010;
-  justify-content: center;
-}
-
- .HP-ContentTrapezSmallv4 p {
-  margin: 0; /* Supprime les marges par défaut */
-  color: #101010;
-  justify-content: center;
-}
-
- .HP-Trapez_v2 {
-  width: 300px;
-  height: 350px;
-  clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
-  background: #343434;
-  color: var(--foreground);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
- }
-
- .HP-Trapez_v1 {
-  width: 300px;
-  height: 350px;
-  clip-path: polygon(15% 0, 85% 0, 100% 100%, 0 100%);
-  background: #343434;
-  color: var(--foreground);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
- }
-
- .transparent-background {
-  background: transparent;
- }
-
  .HP_STRAT1-APropos {
-  background: var(--foreground);
-  color: var(--background);
+  background: var(--black);
+  color: var(--white);
   width: 100%;
 
   padding: 5%;
@@ -300,35 +155,6 @@ a.connect-btn:hover {
   overflow: hidden;
 }
 
-.HP-TrapezContainer {
-  margin-top: 5%;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  overflow-x: hidden;
-  gap: 0; /* Ajout */
-  flex-wrap: nowrap;
-  min-width: 2700px;
-  position: relative;
-  left: 50%; /* Ajout */
-  transform: translateX(-50%);
-}
-
-.HP-TrapezContainer-entreprise {
-  margin-top: 2%;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  overflow-x: hidden;
-  gap: 0; /* Ajout */
-  flex-wrap: nowrap;
-  min-width: 2700px;
-  position: relative;
-  left: 50%; /* Ajout */
-  transform: translateX(-50%);
-}
 
 /*_____________________________________________________________________________________________*/
 /*                                         Home Page                                           */
@@ -347,76 +173,82 @@ a.connect-btn:hover {
   object-fit: cover;
 }
 
+.assets {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/*_____________________________________________________________________________________________*/
+
+.about-container {
+  background-color: var(--black);
+  padding: 48px 16px;
+}
+
+.cards-container {
+  padding: 10px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.info-card {
+  background-color: var(--green);
+  width: 40%;
+  border-radius: 24px;
+  padding: 4%;
+  text-align: center;
+}
+
+.info-card .number {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.info-card .text {
+  font-size: 20px;
+}
+
+
 /*_____________________________________________________________________________________________*/
 /*                                       Company Page                                          */
 /*_____________________________________________________________________________________________*/
 
-.white-entreprises {
-  padding: 150px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-}
-
-.entreprises-page {
-  display: flex;
-  flex-direction: column;
-  gap: 0; 
-}
 
 
-.title-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0; /* Supprime l'espace entre les enfants */
-}
 
-
-.content-container {
-  max-width: 900px; /* Ajuste cette valeur selon tes besoins */
-  margin: 0 auto; /* Centre la div dans la page */
-  display: flex;
-  align-items: flex-start; /* Aligne le texte en haut */
-  justify-content: space-between; /* Garde l'image à droite et le texte à gauche */
-  gap: 20px; /* Ajoute un petit espace entre le texte et l’image */
-}
-
-.content-container .text-content {
-  flex: 1; /* Permet au texte de s'étendre */
-  text-align: left; /* Garde le texte aligné à gauche */
-}
-
-.content-container img {
-  width: 200px; /* Ajuste la taille de l’image */
-  height: auto;
-}
+/*_____________________________________________________________________________________________*/
+/*                                         RESPONSIVE                                          */
+/*_____________________________________________________________________________________________*/
 
 @media (max-width: 768px) {
+  body{
+    justify-content: center;
+
+  }
+
   header {
     flex-direction: column;
     padding: 1rem;
-    padding-left: 1rem;
+    margin-left: 0;
+    margin-top: 8%;
+  }
+
+  .hero-image {
+    display: none;
+  }
+
+  .HP_STRAT1-APropos {
+    padding-top: 25%;
+    padding-bottom: 10%;
   }
 
   .nav-right {
     flex-direction: column;
     gap: 0.5rem;
-  }
-
-  .HP-ContentTrapez_v1,
-  .HP-ContentTrapez_v2,
-  .HP-ContentTrapez_v3 {
-    width: 100%;
-    height: auto;
-    clip-path: none;
-  }
-
-  .HP-ContentTrapezSmallv3 {
-    width: 100%;
-    height: auto;
-    clip-path: none;
   }
 
   .Titre {
@@ -425,5 +257,25 @@ a.connect-btn:hover {
 
   .Paragraphe {
     font-size: 0.875rem;
+  }
+
+
+  .header-expanded .navbar-desktop-only {
+    width: 112%;
+    padding-top: 5%;
+    display: block;
+  }
+
+  .cards-container {
+    flex-direction: column;
+    width: 100%;
+    display: flex;
+    gap: 24px;
+    padding-top: 5%;
+    align-items: center;
+  }
+
+  .info-card {
+    width: 90%;
   }
 }

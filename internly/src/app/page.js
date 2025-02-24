@@ -1,10 +1,13 @@
 import Image from "next/image";
 
-
 export default function Home() {
   return (
     <div>
-      
+      {
+      /*_____________________________________________________________________*/
+      /*                            STRAT - FIRST PICS                       */
+      /*_____________________________________________________________________*/
+      }
       <img className="hero-image" src="/Assets/hero-image.png"/>
 
       {
@@ -16,39 +19,25 @@ export default function Home() {
 
         <p className="Paragraphe">A prospos de</p>
         <h1 className="Titre">Internly</h1>
-      
-      
 
-        <div className="Container">
-                    <div className="HP-TrapezContainer-entreprise ">
-                    <div className="Trapez">
-                            <div className="HP-ContentTrapez_v3"></div>
-                            <div className="HP-ContentTrapezSmallv3 transparent-background">
-                              <h1 className="Titre">+2K</h1>
-                              <p className="Paragraphe">Etudiants</p>
-                            </div>
-                        </div>
-                              
-                        <div className="Trapez">
-                            <div className="HP-ContentTrapez_v4"></div>
-                            <div className="HP-ContentTrapezSmallv4 transparent-background">
-                              <h1 className="Titre">+80K</h1>
-                              <p className="Paragraphe">D'offres</p>
-                            </div>
-                        </div>
+        <div className="cards-container">
+          <div className="info-card">
+            <div className="number">+2k</div>
+            <div className="text">Etudiants</div>
+          </div>
 
-                        <div className="Trapez">
-                            <div className="HP-ContentTrapez_v3"></div>
-                            <div className="HP-ContentTrapezSmallv3 transparent-background">
-                              <h1 className="Titre">+390</h1>
-                              <p className="Paragraphe">Entreprises</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          <div className="info-card">
+            <div className="number">+80k</div>
+            <div className="text">Offres</div>
+          </div>
+
+          <div className="info-card">
+            <div className="number">+390</div>
+            <div className="text">Entreprises</div>
+          </div>
+        </div>
       </div>
-
-      <img className="hero-image" src="/Assets/hero-separateur.png"/>
+      <img className="assets" src="/Assets/hero-separateur.png"/>
 
       {
       /*_____________________________________________________________________*/
