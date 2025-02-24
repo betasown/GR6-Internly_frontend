@@ -133,6 +133,7 @@ a.connect-btn:hover {
 }
 
 .HP-ContentTrapez_v1 {
+  position: relative;
   width: 300px;
   height: 350px;
   clip-path: polygon(15% 0, 85% 0, 100% 100%, 0 100%);
@@ -156,7 +157,7 @@ a.connect-btn:hover {
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  border: 2px solid #CCFF00; /* Ajout de la bordure verte */
+  border: 2px solid #CCFF00; 
  }
 
  .Trapez {
@@ -190,6 +191,7 @@ a.connect-btn:hover {
   top: 0;
   left: 0;
   clip-path: polygon(20% 5%, 80% 5%, 92.5% 95%, 7.5% 95%);
+  
 }
 
 .HP-ContentTrapezSmallv3 img {
@@ -199,6 +201,17 @@ a.connect-btn:hover {
   margin: auto; /* Centre l'image horizontalement */
 }
 
+.HP-ContentTrapezSmallv3 h1{
+  padding-top: 40%;
+  color: #101010;
+  justify-content: center;
+}
+
+ .HP-ContentTrapezSmallv3 p {
+  margin: 0; /* Supprime les marges par défaut */
+  color: #101010;
+  justify-content: center;
+}
 
  .HP-ContentTrapez_v4 {
   width: 300px;
@@ -228,6 +241,18 @@ a.connect-btn:hover {
   width: auto; /* Permet à l'image de s'adapter à la largeur du conteneur */
   height: auto; /* Permet à l'image de s'adapter à la hauteur du conteneur */
   margin: auto; /* Centre l'image horizontalement */
+}
+
+.HP-ContentTrapezSmallv4 h1{
+  padding-top: 40%;
+  color: #101010;
+  justify-content: center;
+}
+
+ .HP-ContentTrapezSmallv4 p {
+  margin: 0; /* Supprime les marges par défaut */
+  color: #101010;
+  justify-content: center;
 }
 
  .HP-Trapez_v2 {
