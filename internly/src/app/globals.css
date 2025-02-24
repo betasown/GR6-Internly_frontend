@@ -186,7 +186,17 @@ a.connect-btn:hover {
   padding-bottom: 3%;
 }
 
+.slide-offres-container {
+  padding-top: 8%;
+  padding-bottom: 3%;
+}
 
+.slide-offres-detail-container {
+  padding-top: 8%;
+  padding-bottom: 3%;
+  padding-left: 10%;
+  padding-right: 10%;
+}
 
 footer {
   background: var(--black);
@@ -264,10 +274,223 @@ footer {
 
 
 /*_____________________________________________________________________________________________*/
-/*                                       Company Page                                          */
+/*                                       Offers Page                                          */
 /*_____________________________________________________________________________________________*/
 
+.offer-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  margin-bottom: 5%;
+}
 
+.offer-card {
+  background-color: var(--greyLight);
+  width: calc(33.333% - 24px);
+  border-radius: 24px;
+  padding: 2%;
+  text-align: left;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.offer-card .entreprise {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.offer-card .titre {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.offer-card .competences {
+  margin-bottom: 1rem;
+}
+
+.competence-pill {
+  display: inline-block;
+  background-color: var(--greenMedium);
+  color: var(--black);
+  border-radius: 12px;
+  padding: 0.25rem 0.5rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.apply-button {
+  background-color: var(--black);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.apply-button:hover {
+  background-color: var(--green);
+  color: var(--black);
+}
+
+/*_____________________________________________________________________________________________*/
+/*                                         Offer detail                                        */
+/*_____________________________________________________________________________________________*/
+
+.subline{
+  color: var(--greyMedium);
+}
+
+.form-text{
+  color: var(--grey);
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.form-input{
+  color: var(--grey);
+  font-weight: lighter;
+}
+
+select {
+  border: 1px;
+  border-radius: 4px;
+  padding: 0.5%;
+  margin-top: 5px;
+  background-color: var(--greenLight);
+}
+
+input {
+  border: 1px;
+  border-radius: 4px;
+  padding: 0.5%;
+  margin-top: 5px;
+  background-color: var(--greenLight);
+}
+
+textarea {
+  border: 1px;
+  border-radius: 4px;
+  padding: 0.5%;
+  margin-top: 5px;
+  width: 100%;
+  background-color: var(--greenLight);
+}
+
+input[type="radio"]:checked, input[type="checkbox"]:checked {
+  accent-color: var(--green);
+ }
+
+/*__________________________________________________________________________________*/
+
+.cv-upload {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.cv-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cv-info {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.cv-name {
+  flex-grow: 1;
+  padding: 8px;
+  background: var(--white);
+}
+
+.cv-action {
+  padding: 8px;
+}
+
+.remove-file {
+  padding: 4px 8px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.remove-file:hover {
+  background-color: #c82333;
+}
+
+.reinitialiser {
+  background: var(--white);
+  color: var(--black);
+  border: 2px solid var(--black);
+  border-radius: 15px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.reinitialiser:hover {
+  background: var(--green);
+  color: var(--black);
+}
+
+
+/*__________________________________________________________________________________*/
+
+.submit-status {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+}
+
+.submit-status.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.submit-status.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.875em;
+  margin-top: 4px;
+}
+
+.error-input {
+  background-color: #ffe6e6;
+  border-color: #dc3545;
+}
+
+.skills {
+  list-style: none;
+  padding: 1.2%;
+}
+
+.skills li {
+  display: inline-block;
+  border: 1px solid #000000;
+  background-color: white;
+  border-radius: 10px;
+  padding: 3px 8px;
+  margin-right: 30px;
+  margin-left: -20px;
+}
 
 
 /*_____________________________________________________________________________________________*/
@@ -338,5 +561,10 @@ footer {
 
   .sub-mobile {
     display: none;
+  }
+
+  .offer-card {
+    width: 100%; /* Pour 1 colonne sur les écrans encore plus petits */
+    padding: 6%;
   }
 }
