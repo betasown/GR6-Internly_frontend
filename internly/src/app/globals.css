@@ -557,6 +557,102 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   text-align: center;
 }
 
+/*_____________________________________________________________________________________________*/
+/*                                      Page Detail Entreprise                                 */
+/*_____________________________________________________________________________________________*/
+
+.slide-company-container {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.slide-company-container h1 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.slide-company-container p {
+  margin-bottom: 1rem;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  margin-bottom: 1rem;
+}
+
+.star {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.1em;
+  background-color: transparent;
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+}
+
+.full-star {
+  background-color: #ffc107;
+}
+
+.half-star {
+  background: linear-gradient(to right, #ffc107 50%, transparent 50%);
+}
+
+.empty-star {
+  background-color: var(--black);
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.edit-button, .delete-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.edit-button {
+  background-color: var(--grey);
+  color: #fff;
+}
+
+.delete-button {
+  background-color: var(--grey);
+  color: #fff;
+}
+
+.edit-button:hover {
+  background-color: var(--green);
+}
+
+.delete-button:hover {
+  background-color: #ee162c;
+}
 
 /*_____________________________________________________________________________________________*/
 /*                                         RESPONSIVE                                          */

@@ -10,7 +10,7 @@ export default function EntreprisesPage() {
 
             <div className="container-cards-container">
                 <div className="cards-container">
-                    <div className="info-card"><div className="title">Google</div></div>
+                    <a href="Google" className="info-card"><div className="title">Google inc.</div></a>  {/* Cette version est la bonne pour la carte cliquable */}
                     <div className="info-card"><div className="title">Apple</div></div>
                     <div className="info-card"><div className="title">IBM</div></div>
                 </div>
