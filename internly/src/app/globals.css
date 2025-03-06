@@ -655,6 +655,48 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
 }
 
 /*_____________________________________________________________________________________________*/
+/*                                      Popup de suppression                                   */
+/*_____________________________________________________________________________________________*/
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.popup-content button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 0.5rem;
+}
+
+.popup-content button:first-of-type {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.popup-content button:last-of-type {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+
+/*_____________________________________________________________________________________________*/
 /*                                         RESPONSIVE                                          */
 /*_____________________________________________________________________________________________*/
 

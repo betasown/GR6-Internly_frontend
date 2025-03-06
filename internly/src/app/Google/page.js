@@ -1,4 +1,6 @@
 "use client";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
     const company = {
@@ -12,6 +14,9 @@ export default function Page() {
         rating: 4.5,
         internsTaken: 120
     };
+
+    const [showConfirmPopup, setShowConfirmPopup] = useState(false);
+    const router = useRouter();
 
     const renderStars = (rating) => {
         const stars = [];
@@ -27,6 +32,21 @@ export default function Page() {
         return stars;
     };
 
+    const handleDeleteClick = () => {
+        setShowConfirmPopup(true);
+    };
+
+    const handleConfirmDelete = () => {
+        // Ajouter la logique de suppression ici
+        setShowConfirmPopup(false);
+        console.log('Entreprise supprimée');
+        router.push('/entreprises'); // Rediriger vers la page des entreprises
+    };
+
+    const handleCancelDelete = () => {
+        setShowConfirmPopup(false);
+    };
+
     return (
         <div className="slide-container">
             <div className="slide-company-container">
@@ -40,9 +60,19 @@ export default function Page() {
                 <p><strong>Nombre de stagiaires pris:</strong> {company.internsTaken}</p>
                 <div className="button-group">
                     <button className="edit-button">Modifier</button>
-                    <button className="delete-button">Supprimer</button>
+                    <button className="delete-button" onClick={handleDeleteClick}>Supprimer</button>
                 </div>
             </div>
+
+            {showConfirmPopup && (
+                <div className="popup">
+                    <div className="popup-content">
+                        <p>Êtes-vous sûr de vouloir supprimer cette entreprise ?</p>
+                        <button onClick={handleConfirmDelete}>Oui</button>
+                        <button onClick={handleCancelDelete}>Non</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
