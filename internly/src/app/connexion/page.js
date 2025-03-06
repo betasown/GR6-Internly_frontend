@@ -35,38 +35,41 @@ export default function Page() {
     };
 
     return (
-        <div className="slide-container">
-        <div className="slide-login-container">
-            <h1 className='title'>Connexion</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="email">Adresse email</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={handleEmailChange}
-                        required
-                        className={error ? 'error-input' : ''}
-                    />
-                    {error && <p className="error-message">{error}</p>}
+        <div>
+            <div className="slide-container">
+                <div className="slide-login-container">
+                    <h1 className='title'>Connexion</h1>
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="email">Adresse email</label>
+                            <input
+                                type="email"
+                                id="email"
+                                value={email}
+                                onChange={handleEmailChange}
+                                required
+                                className={error ? 'error-input' : ''}
+                            />
+                            {error && <p className="error-message">{error}</p>}
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="password">Mot de passe</label>
+                            <input
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <button type="submit" className="login-button">Se connecter</button>
+                    </form>
+                    <p>
+                        <a href="/forgot-password">Mot de passe oublié ?</a>
+                    </p>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password">Mot de passe</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit" className="login-button">Se connecter</button>
-            </form>
-            <p>
-                <a href="/forgot-password">Mot de passe oublié ?</a>
-            </p>
-        </div>
+            </div>
+            <img className="assets" src="/Assets/separateur-w2b.png"/>
         </div>
     );
 }

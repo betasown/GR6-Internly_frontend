@@ -501,20 +501,20 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 70vh;
+  height: 65vh;
+  margin-bottom: 0; /* Réduire la marge inférieure */
 }
 
 .slide-login-container {
   width: 500px;
-  margin: auto;
   padding: 2rem;
   background-color: #f9f9f9;
   border-radius: 24px;
+  margin-bottom: 0; /* Réduire la marge inférieure */
 }
 
 .slide-login-container h1 {
   text-align: center;
-  margin-bottom: 2%;
 }
 
 .form-group {
