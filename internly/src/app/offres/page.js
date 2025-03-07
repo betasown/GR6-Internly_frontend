@@ -136,13 +136,14 @@ export default function Page() {
                         <p className="paragraphe">Découvrir nos</p>
                         <h1 className="title">Offres</h1>
                     </div>
-                    <button 
-                        className="apply-button"
-                        onClick={() => router.push('/createOffer')}
-                    >
-                        Créer une offre
-                    </button>
                 </div>
+                <button 
+                    className="create-offer-button"
+                    onClick={() => router.push('/createOffer')}
+                >
+                    <span className="button-text">Créer une offre</span>
+                    <span className="button-icon">+</span>
+                </button>
             </div>
 
             <div className="container-cards-container">

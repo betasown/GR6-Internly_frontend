@@ -343,7 +343,30 @@ footer {
   border: none;
 }
 
+.create-offer-button {
+  position: relative;
+  left: 86.5%;
+  background-color: var(--black);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+}
 
+.create-offer-button:hover {
+  background-color: var(--green);
+  color: var(--black);
+}
+
+.button-text {
+  display: inline;
+}
+
+.button-icon {
+  display: none;
+}
 
 
 /*_____________________________________________________________________________________________*/
@@ -850,5 +873,21 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   .offer-card {
     width: 100%; /* Pour 1 colonne sur les écrans encore plus petits */
     padding: 6%;
+  }
+
+  .create-offer-button {
+    padding: 0;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    border-radius: 20%;
+  }
+
+  .button-text {
+    display: none;
+  }
+
+  .button-icon {
+    display: inline;
   }
 }
