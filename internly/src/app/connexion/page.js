@@ -6,6 +6,7 @@ export default function Page() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
+{/* Fonction de validation de l'adresse email */}
     const validateEmail = (email) => {
         if (email === '') {
             setError('');

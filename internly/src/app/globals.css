@@ -70,10 +70,10 @@ header {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   left: 50%;
   position: fixed;
+  top: 0;
   gap: 5rem;
-
   backdrop-filter: blur(50px);
- -webkit-backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .title-container {
@@ -695,6 +695,79 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   color: #fff;
 }
 
+/*_____________________________________________________________________________________________*/
+/*                                     Page Modif Entreprise                                   */
+/*_____________________________________________________________________________________________*/
+
+.form-container {
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 10% auto 5%; /* Ajoutez une marge supérieure pour positionner le formulaire en dessous de la barre de navigation */
+}
+
+.form-container h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: var(--black);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--greyLight);
+  border-radius: 4px;
+  background-color: var(--greenLight);
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.button-group button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.button-group .save-button {
+  background-color: var(--green);
+  color: var(--black);
+}
+
+.button-group .quit-button {
+  background-color: var(--grey);
+  color: var(--white);
+}
+
+.button-group .save-button:hover {
+  background-color: var(--greenMedium);
+}
+
+.button-group .quit-button:hover {
+  background-color: var(--blackMedium);
+}
 
 /*_____________________________________________________________________________________________*/
 /*                                         RESPONSIVE                                          */

@@ -59,7 +59,7 @@ export default function Page() {
                 </div>
                 <p><strong>Nombre de stagiaires pris:</strong> {company.internsTaken}</p>
                 <div className="button-group">
-                    <button className="edit-button">Modifier</button>
+                    <button className="edit-button" onClick={() => router.push('/modifGoogle')}>Modifier</button>
                     <button className="delete-button" onClick={handleDeleteClick}>Supprimer</button>
                 </div>
             </div>
