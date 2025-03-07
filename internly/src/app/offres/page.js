@@ -131,9 +131,17 @@ export default function Page() {
     return (
         <div>
             <div className="slide-offres-container">
-                <div className="title-container"> 
-                    <p className="paragraphe">Découvrir nos</p>
-                    <h1 className="title">Offres</h1>
+                <div className="title-container">
+                    <div className="title-text">
+                        <p className="paragraphe">Découvrir nos</p>
+                        <h1 className="title">Offres</h1>
+                    </div>
+                    <button 
+                        className="apply-button"
+                        onClick={() => router.push('/createOffer')}
+                    >
+                        Créer une offre
+                    </button>
                 </div>
             </div>
 
@@ -160,7 +168,6 @@ export default function Page() {
             </div>
 
             <img className="assets" src="/Assets/separateur-w2b.png"/>
-
         </div>
     );
 }
