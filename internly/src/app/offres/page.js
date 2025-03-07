@@ -139,7 +139,7 @@ export default function Page() {
                 </div>
                 <button 
                     className="create-offer-button"
-                    onClick={() => router.push('/createOffer')}
+                    onClick={() => router.push('/createOffre')}
                 >
                     <span className="button-text">Créer une offre</span>
                     <span className="button-icon">+</span>
