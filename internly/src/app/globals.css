@@ -9,7 +9,7 @@
 :root {
   --white: #F9FAFB;         /*Main White Color*/
 
-  --black: #101010;         /*Main Black Color*/
+  --black: #171717;         /*Main Black Color*/
   --blackMedium: #6A6A6A;
   --blackLight: #C3C3C3;
 
@@ -890,4 +890,34 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   .button-icon {
     display: inline;
   }
+}
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: var(--black);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  display: none;
+  z-index: 1001;
+}
+
+.scroll-to-top:hover {
+  background-color: var(--green);
+  color : var(--black);
+}
+
+.scroll-to-top:active {
+  background-color: var(--green);
+  color : var(--black);
+}
+
+/* Affiche le bouton lorsque showScrollButton est true */
+.scroll-to-top {
+  display: block;
 }
