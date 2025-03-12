@@ -817,10 +817,8 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
 
   header {
     display: flex;
-    justify-content: flex-start; 
     align-items: center;
     padding: 10px; 
-
   }
 
   .burger-menu {
@@ -835,6 +833,8 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
     padding: 0;
   }
 
+
+  
   .hero-image {
     display: none;
   }

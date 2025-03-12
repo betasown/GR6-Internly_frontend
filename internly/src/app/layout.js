@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import "./globals.css";
-import { Menu, ArrowUp } from 'lucide-react';
+import { SquareMenu, ArrowUp } from 'lucide-react';
 
 export default function RootLayout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -40,7 +40,7 @@ export default function RootLayout({ children }) {
               </div>
             </nav>
             <button onClick={toggleMenu} className="burger-menu">
-              <Menu size={24}/>
+              <SquareMenu size={24}/>
             </button>
             {isMenuOpen && (
               <nav className="menu">
