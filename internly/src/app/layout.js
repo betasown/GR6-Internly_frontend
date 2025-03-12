@@ -8,6 +8,10 @@ export default function RootLayout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setShowScroll(window.scrollY > 200);
@@ -26,7 +30,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fr">
       <body>
-        <div className="image-container">
           <header>
             <nav className="navbar-desktop-only">
               <div className="nav-right">
@@ -36,8 +39,20 @@ export default function RootLayout({ children }) {
                 <a href="/connexion" className="connect-btn">Se connecter</a>
               </div>
             </nav>
+            <button onClick={toggleMenu} className="burger-menu">
+              <Menu size={24}/>
+            </button>
+            {isMenuOpen && (
+              <nav className="menu">
+                <ul>
+                  <li href="/">Accueil</li>
+                  <li href="/entreprises">Partenaires</li>
+                  <li href="/offres">Offres</li>
+                  <li href="/connexion" className="connect-btn">Se connecter</li>
+                </ul>
+              </nav>
+            )}
           </header>
-        </div>
         <main>{children}</main>
         
         {showScroll && (
