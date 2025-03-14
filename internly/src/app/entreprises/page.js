@@ -5,7 +5,7 @@ export default function EntreprisesPage() {
   const [entreprises, setEntreprises] = useState([]);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 9; // Nombre d'éléments par page
+  const itemsPerPage = 12; // Nombre d'éléments par page
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,9 +53,11 @@ export default function EntreprisesPage() {
             currentItems.length > 0 ? (
               currentItems.map((entreprise, index) => (
                 <div key={index} className="cards-container">
+                  {/*<a href="Google">*/}
                   <div className="info-card">
                     <div className="title">{entreprise.entreprise_nom}</div>
                   </div>
+                  {/*</a>*/}
                 </div>
               ))
             ) : (
