@@ -8,7 +8,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:8000/index.php");
+        const res = await fetch("http://localhost:8000/index.php?route=users");
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
@@ -30,9 +30,9 @@ const HomePage = () => {
       ) : (
         <ul>
           {users.length > 0 ? (
-            users.map((user) => (
-              <li key={user.id}>
-                {user.name} - {user.email}
+            users.map((user, index) => (
+              <li key={`${user.utilisateur_id}-${index}`}>
+                {user.utilisateur_nom} - {user.utilisateur_email}
               </li>
             ))
           ) : (
