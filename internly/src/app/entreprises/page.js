@@ -5,7 +5,7 @@ export default function EntreprisesPage() {
   const [entreprises, setEntreprises] = useState([]);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 9; // Nombre d'éléments par page
+  const itemsPerPage = 12; // Nombre d'éléments par page
 
   useEffect(() => {
     const fetchData = async () => {
