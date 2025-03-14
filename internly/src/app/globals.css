@@ -853,9 +853,11 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
     gap: 0.5rem;
   }
 
-  .Titre {
-    font-size: 2rem;
+  .title {
+    font-size: 3rem;
   }
+
+
 
   .Paragraphe {
     font-size: 0.875rem;
