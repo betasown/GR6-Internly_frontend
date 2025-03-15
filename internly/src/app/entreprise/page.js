@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function EntreprisesPage() {
   const [entreprises, setEntreprises] = useState([]);
@@ -53,9 +54,9 @@ export default function EntreprisesPage() {
             currentItems.length > 0 ? (
               currentItems.map((entreprise, index) => (
                 <div key={index} className="cards-container">
-                  <div className="info-card">
+                  <Link href={`/entreprise/${entreprise.entreprise_id}`} className="info-card">
                     <div className="title">{entreprise.entreprise_nom}</div>
-                  </div>
+                  </Link>
                 </div>
               ))
             ) : (

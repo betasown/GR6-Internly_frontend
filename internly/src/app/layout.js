@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
             <nav className="navbar-desktop-only">
               <div className="nav-right">
                 <a href="/testAPI">Accueil</a>
-                <a href="/entreprises">Partenaires</a>
+                <a href="/entreprise">Partenaires</a>
                 <a href="/offres">Offres</a>
                 <a href="/connexion" className="connect-btn">Se connecter</a>
               </div>
