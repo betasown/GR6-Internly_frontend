@@ -66,7 +66,7 @@ export default function EntreprisesPage() {
         </div>
 
         <div className="pagination">
-          <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>&laquo;</button>
+          <button onClick={() => paginate(1)} disabled={currentPage === 1}>&laquo;</button>
           {Array.from({ length: totalPages }, (_, index) => (
             <button
               key={index + 1}
@@ -76,7 +76,7 @@ export default function EntreprisesPage() {
               {index + 1}
             </button>
           ))}
-          <button onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPages}>&raquo;</button>
+          <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>&raquo;</button>
         </div>
       </div>
 

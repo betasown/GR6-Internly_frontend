@@ -13,7 +13,15 @@ const HomePage = () => {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
         const data = await res.json();
-        setUsers(data);
+        
+        // Remove duplicates
+        const uniqueUsers = data.filter((user, index, self) =>
+          index === self.findIndex((u) => (
+            u.utilisateur_id === user.utilisateur_id
+          ))
+        );
+
+        setUsers(uniqueUsers);
       } catch (error) {
         setError(error.message);
       }

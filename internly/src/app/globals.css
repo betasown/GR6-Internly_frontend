@@ -179,6 +179,12 @@ a.connect-btn:hover {
   color: var(--black);
 }
 
+.pagination button:disabled {
+  background-color: var(--greyMedium);
+  cursor: not-allowed;
+}
+
+
 /*_____________________________________________________________________________________________*/
 /*                                      Slides container                                       */
 /*_____________________________________________________________________________________________*/
