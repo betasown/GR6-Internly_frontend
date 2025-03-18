@@ -84,7 +84,7 @@ export default function Page() {
                                     </div>
                                     <button 
                                         className="apply-button" 
-                                        onClick={() => router.push('/fakeOffer')}
+                                        onClick={() => router.push(`/offres/${offre.offre_id}`)}
                                     >
                                         Candidater
                                     </button>
