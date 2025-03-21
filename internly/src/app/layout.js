@@ -1,23 +1,26 @@
+"use client";
 import "./globals.css";
-
-
-
-
-export const metadata = {
-  title: "Internly - Trouver le stage de vos rêves",
-  description: "Internly est le meilleur site d'annonces en ligne pour trouver le stage de vos rêves. Postulez dès maintenant !",
-  charset: "utf-8",
-  author: "Robin Noiret",
-  keywords: "Stage, Emploi, Offre, Annonce, Entreprise, Candidat, Postuler",
-  robots: "index, follow",
-  openGraph: {
-    title: "Internly - Trouver le stage de vos rêves",
-    description: "Internly est le meilleur site d'annonces en ligne pour trouver le stage de vos rêves. Postulez dès maintenant !",
-  },
-};
+import { useEffect, useState } from "react";
+import { SquareMenu, ArrowUp } from 'lucide-react';
 
 
 export default function RootLayout({ children }) {
+  const [showScroll, setShowScroll] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScroll(window.scrollY > 200);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <html lang="fr">
@@ -36,7 +39,13 @@ export default function RootLayout({ children }) {
           </header>
         </div>
         
-          {children}
+        <main>{children}</main>
+        
+        {showScroll && (
+          <button className="scroll-to-top" onClick={scrollToTop}>
+            <ArrowUp size={24} />
+          </button>
+        )}
 
           <footer>
             <br/>
