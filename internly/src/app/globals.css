@@ -154,6 +154,35 @@ a.connect-btn:hover {
   margin-top: 1%;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: var(--black);
+  color: var(--white);
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.pagination button:hover {
+  background-color: var(--green);
+}
+
+.pagination button.active {
+  background-color: var(--green);
+  color: var(--black);
+}
+
+.pagination button:disabled {
+  background-color: var(--greyMedium);
+  cursor: not-allowed;
+}
 
 
 /*_____________________________________________________________________________________________*/
@@ -233,34 +262,33 @@ footer {
 
 .container-cards-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-left: 5%;
-  padding-right: 5%;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  padding: 20px;
 }
 
 .about-container {
   background-color: var(--black);
-  padding: 48px 16px;
+  flex: 1 1 calc(33.333% - 20px);
+  box-sizing: border-box;
+  margin-bottom: 20px;
 }
 
 .cards-container {
-  color: var(--black);
-  padding: 10px;
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: row;
-  gap: 24px;
+  flex: 1 1 calc(33.333% - 20px);
+  box-sizing: border-box;
 }
 
 .info-card {
   background-color: var(--green);
-  width: 40%;
   border-radius: 24px;
   padding: 4%;
   text-align: center;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .info-card .number {
@@ -831,9 +859,11 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
     gap: 0.5rem;
   }
 
-  .Titre {
-    font-size: 2rem;
+  .title {
+    font-size: 3rem;
   }
+
+
 
   .Paragraphe {
     font-size: 0.875rem;
