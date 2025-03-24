@@ -144,13 +144,18 @@ export default function Home() {
                                     >
                                         Candidater
                                     </button>
+                                    
                                 </div>
                             ))
                         ) : (
                             <p>Aucune offre trouvée</p>
                         )
                     )}
+                <div className="container-btn">
+                  <a className="connect-btn" href="/offres" title="Découvrir les offres">Découvrir les offres</a>
                 </div>
+                </div>
+                
             </div>
 
       <img className="assets" src="/Assets/separateur-w2b.png"/>
