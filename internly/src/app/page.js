@@ -87,22 +87,19 @@ export default function Home() {
         <div className="container-cards-container">
         <div className="cards-container">
           <div className="info-card">
-            <div className="title">+{stats.offers}</div>
-            <div className="Paragraphe">Offres</div>
+            <div className="title">+{stats.offers} <div className="Paragraphe">Offres</div></div>
           </div>
         </div>
 
         <div className="cards-container">
           <div className="info-card">
-            <div className="title">+{stats.students}</div>
-            <div className="Paragraphe">Étudiants</div>
+            <div className="title">+{stats.students} <div className="Paragraphe">Étudiants</div></div>
           </div>
         </div>
 
         <div className="cards-container">
           <div className="info-card">
-            <div className="title">+{stats.entreprises}</div>
-            <div className="Paragraphe">Entreprises</div>
+            <div className="title">+{stats.entreprises} <div className="Paragraphe">Entreprises</div></div>
           </div>
         </div>
         </div>
