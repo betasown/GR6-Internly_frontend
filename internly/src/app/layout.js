@@ -52,8 +52,8 @@ export default function RootLayout({ children }) {
             <h1 className="title">Internly</h1>
             <p className="paragraphe">&copy;2025 - Tous droits réservés</p>
             <em>&nbsp;-&nbsp;<a href="/MentionsLegales">Mentions Légales</a></em>&nbsp;-&nbsp;
-            <em><a href="/CGU">Conditions Générales d'Utilisation</a></em>&nbsp;-&nbsp;
-            <em className="sub-mobile"><a href="/">Github du projet</a>&nbsp;-&nbsp;</em>
+            <em><a href="/MentionsLegales">Conditions Générales d'Utilisation</a></em>&nbsp;-&nbsp;
+            <em className="sub-mobile"><a href="https://github.com/betasown/GR6-Internly_frontend">Github du projet</a>&nbsp;-&nbsp;</em>
           </footer>
         </body>
     </html>
