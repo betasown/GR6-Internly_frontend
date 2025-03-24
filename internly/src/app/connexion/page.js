@@ -5,8 +5,9 @@ export default function Page() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
-{/* Fonction de validation de l'adresse email */}
+    // Fonction de validation de l'adresse email
     const validateEmail = (email) => {
         if (email === '') {
             setError('');
@@ -25,15 +26,55 @@ export default function Page() {
         validateEmail(e.target.value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (error) {
+        if (error || !email || !password) {
+            setError('Veuillez remplir tous les champs correctement.');
             return;
         }
-        // Ajouter la logique de connexion ici
-        console.log('Email:', email);
-        console.log('Password:', password);
+    
+        setLoading(true);
+        try {
+            const response = await fetch('http://localhost:8000/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+    
+            if (response.status === 401) {
+                throw new Error('Identifiants incorrects');
+            } else if (!response.ok) {
+                throw new Error('Erreur serveur');
+            }
+    
+            const data = await response.json();
+            console.log('Connexion réussie :', data);
+    
+            // Accédez directement aux propriétés de la réponse
+            if (data.id && data.email && data.status) {
+                const user = { id: data.id, email: data.email, status: data.status };
+    
+                // Stocker les informations utilisateur dans un cookie sécurisé
+                document.cookie = `user=${JSON.stringify(user)}; path=/;`;
+    
+                // Rediriger l'utilisateur en fonction de son statut
+                if (user.status === 'admin') {
+                    window.location.href = '/admin';
+                } else {
+                    window.location.href = '/';
+                }
+            } else {
+                throw new Error('Données utilisateur incomplètes');
+            }
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
     };
+    
 
     return (
         <div>
@@ -63,7 +104,9 @@ export default function Page() {
                                 required
                             />
                         </div>
-                        <button type="submit" className="login-button">Se connecter</button>
+                        <button type="submit" className="login-button" disabled={loading}>
+                            {loading ? 'Connexion...' : 'Se connecter'}
+                        </button>
                     </form>
                     <p>
                         <a href="/forgot-password">Mot de passe oublié ?</a>
