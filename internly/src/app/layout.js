@@ -1,13 +1,18 @@
 "use client";
 import "./globals.css";
 import { useEffect, useState } from "react";
-import { SquareMenu, ArrowUp } from 'lucide-react';
 
+import { User, ArrowUp } from "lucide-react"; // Importer l'icône "User" depuis Lucide React
 
 export default function RootLayout({ children }) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
 
   useEffect(() => {
+    
+    const userCookie = document.cookie.split("; ").find((row) => row.startsWith("user="));
+    setIsLoggedIn(!!userCookie); // Si le cookie existe, l'utilisateur est connecté
+    
     const handleScroll = () => {
       setShowScroll(window.scrollY > 200);
     };
@@ -22,10 +27,10 @@ export default function RootLayout({ children }) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+
   return (
     <html lang="fr">
-        <body>
-        
+      <body>
         <div className="image-container">
           <header>
             <nav className="navbar-desktop-only">
@@ -33,11 +38,17 @@ export default function RootLayout({ children }) {
                 <a href="/">Accueil</a>
                 <a href="/entreprise">Partenaires</a>
                 <a href="/offres">Offres</a>
-                <a href="/connexion" className="connect-btn">Se connecter</a>
+                {/* Afficher le bouton "Se connecter" uniquement si l'utilisateur n'est pas connecté */}
+                {!isLoggedIn && <a href="/connexion" className="connect-btn">Se connecter</a>}
+                {/* Afficher le bouton "Mon compte" avec une icône si l'utilisateur est connecté */}
+                {isLoggedIn && (
+                  <a href="/dashboard" className="connect-btn"><User size={20}/></a>
+                )}
               </div>
             </nav>
           </header>
         </div>
+
         
         <main>{children}</main>
         
