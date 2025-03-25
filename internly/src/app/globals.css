@@ -137,6 +137,7 @@ a.connect-btn:hover {
   font-style: normal;
   font-weight: 200;
   line-height: normal;
+  margin-bottom: 2%;
   
 }
 
@@ -256,6 +257,13 @@ footer {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.container-btn {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-top: 5%;
 }
 
 /*_____________________________________________________________________________________________*/
@@ -884,7 +892,7 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
     gap: 24px;
     align-items: center;
   }
-  
+
   .container-cards-container {
     display: flex;
     flex-direction: column;
@@ -893,8 +901,26 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   }
 
   .info-card {
-    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--green);
+    border-radius: 24px;
+    padding: 4%;
+    text-align: center;
+    height: 200px;
   }
+
+  .info-card .title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px; /* Ajout d'un espace entre le titre et le paragraphe */
+  }
+
+  .info-card .Paragraphe {
+  font-size: 20px;
+}
 
   .sub-mobile {
     display: none;
@@ -920,4 +946,85 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   .button-icon {
     display: inline;
   }
+}
+
+/*_____________________________________________________________________________________________*/
+/*                                        Scroll Button                                        */
+/*_____________________________________________________________________________________________*/
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: var(--black);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  display: none;
+  z-index: 1001;
+}
+
+.scroll-to-top:hover {
+  background-color: var(--green);
+  color : var(--black);
+}
+
+.scroll-to-top:active {
+  background-color: var(--green);
+  color : var(--black);
+}
+
+/* Affiche le bouton lorsque showScrollButton est true */
+.scroll-to-top {
+  display: block;
+}
+
+.heroContainer {
+  position: relative;
+  text-align: left;
+  color: white;
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+}
+
+.heroText {
+  position: absolute;
+  top: 40%;
+  left: 22.5%;
+  transform: translate(-50%, -50%);
+  color: var(--black);
+  max-width: 38%;
+}
+
+/*_____________________________________________________________________________________________*/
+/*                                   Mention legales                                           */
+/*_____________________________________________________________________________________________*/
+
+.legales-container {
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1100px;
+  margin: auto;
+}
+
+.titre-legales {
+  text-align: left;
+  margin: 0 auto;
+  font-size: 1.20rem;
+  padding: 1.5%;
+}
+
+.paragraphe-legales {
+  text-align: left;
+  margin: 0 auto;
+  font-size: 1rem;
+  padding: 0.5%;
 }
