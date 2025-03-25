@@ -1,28 +1,20 @@
+"use client";
 import "./globals.css";
-
-
-
-
-export const metadata = {
-  title: "Internly - Trouver le stage de vos rêves",
-  description: "Internly est le meilleur site d'annonces en ligne pour trouver le stage de vos rêves. Postulez dès maintenant !",
-  charset: "utf-8",
-  author: "Robin Noiret",
-  keywords: "Stage, Emploi, Offre, Annonce, Entreprise, Candidat, Postuler",
-  robots: "index, follow",
-  openGraph: {
-    title: "Internly - Trouver le stage de vos rêves",
-    description: "Internly est le meilleur site d'annonces en ligne pour trouver le stage de vos rêves. Postulez dès maintenant !",
-  },
-};
-
+import { useEffect, useState } from "react";
+import { User } from "lucide-react"; // Importer l'icône "User" depuis Lucide React
 
 export default function RootLayout({ children }) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Vérifier la présence du cookie utilisateur
+    const userCookie = document.cookie.split("; ").find((row) => row.startsWith("user="));
+    setIsLoggedIn(!!userCookie); // Si le cookie existe, l'utilisateur est connecté
+  }, []);
 
   return (
     <html lang="fr">
-        <body>
-        
+      <body>
         <div className="image-container">
           <header>
             <nav className="navbar-desktop-only">
@@ -30,23 +22,28 @@ export default function RootLayout({ children }) {
                 <a href="/">Accueil</a>
                 <a href="/entreprise">Partenaires</a>
                 <a href="/offres">Offres</a>
-                <a href="/connexion" className="connect-btn">Se connecter</a>
+                {/* Afficher le bouton "Se connecter" uniquement si l'utilisateur n'est pas connecté */}
+                {!isLoggedIn && <a href="/connexion" className="connect-btn">Se connecter</a>}
+                {/* Afficher le bouton "Mon compte" avec une icône si l'utilisateur est connecté */}
+                {isLoggedIn && (
+                  <a href="/dashboard" className="connect-btn"><User size={20}/></a>
+                )}
               </div>
             </nav>
           </header>
         </div>
-        
-          {children}
 
-          <footer>
-            <br/>
-            <h1 className="title">Internly</h1>
-            <p className="paragraphe">&copy;2025 - Tous droits réservés</p>
-            <em>&nbsp;-&nbsp;<a href="/MentionsLegales">Mentions Légales</a></em>&nbsp;-&nbsp;
-            <em><a href="/CGU">Conditions Générales d'Utilisation</a></em>&nbsp;-&nbsp;
-            <em className="sub-mobile"><a href="/">Github du projet</a>&nbsp;-&nbsp;</em>
-          </footer>
-        </body>
+        {children}
+
+        <footer>
+          <br />
+          <h1 className="title">Internly</h1>
+          <p className="paragraphe">&copy;2025 - Tous droits réservés</p>
+          <em>&nbsp;-&nbsp;<a href="/MentionsLegales">Mentions Légales</a></em>&nbsp;-&nbsp;
+          <em><a href="/CGU">Conditions Générales d'Utilisation</a></em>&nbsp;-&nbsp;
+          <em className="sub-mobile"><a href="/">Github du projet</a>&nbsp;-&nbsp;</em>
+        </footer>
+      </body>
     </html>
   );
 }

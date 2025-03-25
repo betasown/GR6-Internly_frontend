@@ -7,10 +7,16 @@ export default function Page() {
     const [offres, setOffres] = useState([]);
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
+    const [user, setUser] = useState(null); // État pour stocker les informations utilisateur
     const itemsPerPage = 12; // Nombre d'éléments par page
     const router = useRouter();
 
     useEffect(() => {
+        // Récupérer les informations de l'utilisateur à partir du cookie
+        const userData = JSON.parse(document.cookie.split('; ').find(row => row.startsWith('user='))?.split('=')[1] || '{}');
+        setUser(userData);
+
+        // Charger les offres
         const fetchData = async () => {
             try {
                 const res = await fetch('http://localhost:8000/index.php?route=offers_display');
@@ -54,13 +60,16 @@ export default function Page() {
                         <h1 className="title">Offres</h1>
                     </div>
                 </div>
-                <button 
-                    className="create-offer-button"
-                    onClick={() => router.push('/createOffre')}
-                >
-                    <span className="button-text">Créer une offre</span>
-                    <span className="button-icon">+</span>
-                </button>
+                {/* Afficher le bouton "Créer une offre" uniquement si l'utilisateur est admin */}
+                {user && user.status === 'admin' && (
+                    <button 
+                        className="create-offer-button"
+                        onClick={() => router.push('/createOffre')}
+                    >
+                        <span className="button-text">Créer une offre</span>
+                        <span className="button-icon">+</span>
+                    </button>
+                )}
             </div>
 
             <div className="container-cards-container">

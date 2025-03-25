@@ -13,7 +13,7 @@ export default function Page() {
             setError('');
             return;
         }
-        const emailRegex = /^(?:[a-z]+\.[a-z]+@viacesi\.fr|[a-z]+@cesi\.fr)$/;
+        const emailRegex = /^(?:[a-z]+\.[a-z]+@viacesi\.fr|[a-z]+@cesi\.fr|[a-z]+\.[a-z]+@internly\.fr)$/;
         if (!emailRegex.test(email)) {
             setError('Adresse email invalide');
         } else {
