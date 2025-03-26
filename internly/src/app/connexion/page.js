@@ -60,11 +60,8 @@ export default function Page() {
                 document.cookie = `user=${JSON.stringify(user)}; path=/;`;
     
                 // Rediriger l'utilisateur en fonction de son statut
-                if (user.status === 'admin') {
-                    window.location.href = '/admin';
-                } else {
-                    window.location.href = '/';
-                }
+                window.location.href = '/dashboard';
+                
             } else {
                 throw new Error('Données utilisateur incomplètes');
             }
