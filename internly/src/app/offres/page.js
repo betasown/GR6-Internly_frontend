@@ -2,9 +2,22 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
+
+function calculateDurationInMonths(startDate, endDate) {
+    if (!startDate || !endDate) return null; // Si une des dates est manquante, retourner null
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+    return months >= 0 ? months : null; // Retourner null si la durée est négative
+}
 
 export default function Page() {
     const [offres, setOffres] = useState([]);
+    const [wishListStats, setWishListStats] = useState([]);
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [user, setUser] = useState(null); // État pour stocker les informations utilisateur
@@ -35,6 +48,21 @@ export default function Page() {
         };
 
         fetchData();
+
+        const fetchWishListStats = async () => {
+            try {
+                const res = await fetch('http://localhost:8000/index.php?route=offers_stats');
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                const data = await res.json();
+                setWishListStats(data); // Met à jour les statistiques des wish lists
+            } catch (error) {
+                setError(error.message);
+            }
+        };
+    
+        fetchWishListStats();
     }, []);
 
     // Pagination logic
@@ -119,6 +147,107 @@ export default function Page() {
                 ))}
                 <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>&raquo;</button>
             </div>
+
+    <div className="statistics-section">
+    <h1 className='title'>Statistiques sur les Offres</h1>
+
+    <div className="bento-container">
+        {/* Répartition par compétences */}
+        <div className="bento-item">
+            <h3>Répartition par Compétences</h3>
+            <Pie
+                data={{
+                    labels: (() => {
+                        const competenceCounts = offres.reduce((acc, offre) => {
+                            offre.competences.forEach(competence => {
+                                acc[competence] = (acc[competence] || 0) + 1;
+                            });
+                            return acc;
+                        }, {});
+
+                        const sortedCompetences = Object.entries(competenceCounts).sort((a, b) => b[1] - a[1]);
+                        const topCompetences = sortedCompetences.slice(0, 5); // Top 5 compétences
+                        const otherCount = sortedCompetences.slice(5).reduce((sum, [, count]) => sum + count, 0);
+
+                        return [...topCompetences.map(([competence]) => competence), 'Autres'];
+                    })(),
+                    datasets: [
+                        {
+                            data: (() => {
+                                const competenceCounts = offres.reduce((acc, offre) => {
+                                    offre.competences.forEach(competence => {
+                                        acc[competence] = (acc[competence] || 0) + 1;
+                                    });
+                                    return acc;
+                                }, {});
+
+                                const sortedCompetences = Object.entries(competenceCounts).sort((a, b) => b[1] - a[1]);
+                                const topCounts = sortedCompetences.slice(0, 5).map(([, count]) => count); // Top 5 counts
+                                const otherCount = sortedCompetences.slice(5).reduce((sum, [, count]) => sum + count, 0);
+
+                                return [...topCounts, otherCount];
+                            })(),
+                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
+                            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
+                        },
+                    ],
+                }}
+            />
+        </div>
+
+        {/* Répartition par durée */}
+        <div className="bento-item">
+            <h3>Répartition par Durée</h3>
+            <Pie
+                data={{
+                    labels: ['Moins de 6 mois', '6 mois ou plus', 'Non spécifiée'],
+                    datasets: [
+                        {
+                            data: (() => {
+                                const durationCounts = offres.reduce((acc, offre) => {
+                                    const months = calculateDurationInMonths(offre.date_debut, offre.date_fin);
+                                    if (months === null) {
+                                        acc['Non spécifiée'] += 1;
+                                    } else if (months < 6) {
+                                        acc['Moins de 6 mois'] += 1;
+                                    } else {
+                                        acc['6 mois ou plus'] += 1;
+                                    }
+                                    return acc;
+                                }, { 'Moins de 6 mois': 0, '6 mois ou plus': 0, 'Non spécifiée': 0 });
+
+                                return [
+                                    durationCounts['Moins de 6 mois'],
+                                    durationCounts['6 mois ou plus'],
+                                    durationCounts['Non spécifiée'],
+                                ];
+                            })(),
+                            backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+                            hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+                        },
+                    ],
+                }}
+            />
+        </div>
+
+        {/* Top des wish lists */}
+        <div className="bento-item">
+            <h3>Top 10 des Wish Lists</h3>
+            <ul className="wishlist-list">
+                {wishListStats
+                    .sort((a, b) => b.wishListCount - a.wishListCount) // Trier par wishListCount décroissant
+                    .slice(0, 10) // Afficher uniquement les 10 premières offres
+                    .map((offre, index) => (
+                        <li key={offre.offre_id} className="wishlist-item">
+                            <span className="wishlist-rank">{index + 1}.</span>
+                            <span className="wishlist-title">{offre.offre_titre}</span>
+                            <span className="wishlist-count">{offre.wishListCount} wish lists</span>
+                        </li>
+                    ))}
+            </ul>
+        </div>
+    </div>
+</div>
 
             <img className="assets" src="/Assets/separateur-w2b.png"/>
         </div>

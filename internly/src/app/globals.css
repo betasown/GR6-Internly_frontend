@@ -1094,3 +1094,114 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   margin-top: 5%;
 }
 
+
+
+
+/*_____________________________________________________________________________________________*/
+/*                                      Statistiques Offres                                    */
+/*_____________________________________________________________________________________________*/
+
+.statistics-section {
+  margin-top: 5%;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.statistics-section .title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.bento-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.bento-item {
+  flex: 1 1 calc(33.333% - 1rem); /* 3 items par ligne */
+  max-width: calc(33.333% - 10rem);
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bento-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.bento-item h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.bento-item ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bento-item ul li {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Styles pour la liste des wish lists */
+.wishlist-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left; /* Aligner les éléments à gauche */
+}
+
+.wishlist-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wishlist-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.wishlist-rank {
+  font-weight: bold;
+  color: var(--green);
+  margin-right: 1rem;
+  font-size: 1.2rem;
+}
+
+.wishlist-title {
+  flex-grow: 1;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--black);
+}
+
+.wishlist-count {
+  background-color: var(--greenLight);
+  color: var(--black);
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
