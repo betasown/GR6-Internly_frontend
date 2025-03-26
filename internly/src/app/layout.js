@@ -41,9 +41,7 @@ export default function RootLayout({ children }) {
                 {/* Afficher le bouton "Se connecter" uniquement si l'utilisateur n'est pas connecté */}
                 {!isLoggedIn && <a href="/connexion" className="connect-btn">Se connecter</a>}
                 {/* Afficher le bouton "Mon compte" avec une icône si l'utilisateur est connecté */}
-                {isLoggedIn && (
-                  <a href="/dashboard" className="connect-btn"><User size={20}/></a>
-                )}
+                {isLoggedIn && (<a href="/dashboard" className="connect-btn"><User size={20}/></a>)}
               </div>
             </nav>
           </header>

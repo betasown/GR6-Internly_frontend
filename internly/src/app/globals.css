@@ -99,11 +99,9 @@ header {
 }
 
 .nav-right a:hover {
-  text-decoration: underline;
   color: var(--black);
   font-weight: bolder;
 }
-
 
 .nav-right a.connect-btn {
   background: var(--black);
@@ -486,7 +484,7 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   padding: 8px;
 }
 
-.remove-file {
+.remove-file-button {
   padding: 4px 8px;
   background-color: #dc3545;
   color: white;
@@ -495,7 +493,7 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   cursor: pointer;
 }
 
-.remove-file:hover {
+.remove-file-button:hover {
   background-color: #c82333;
 }
 
@@ -512,7 +510,6 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   background: var(--green);
   color: var(--black);
 }
-
 
 /*__________________________________________________________________________________*/
 
