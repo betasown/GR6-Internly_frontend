@@ -64,17 +64,16 @@ export default function Page() {
                     <div className="grid">
                         <div className="item">
                             <br></br>
-                                <div className="title-container">
-                                    <h1 className="title">Candidature en cours :</h1>
-                                </div>
-                            
+                            <div className="title-container">
+                                <h1 className="title">Candidature en cours :</h1>
+                            </div>
                             <table className="offer-table">
                                 <thead>
                                     <tr>
                                         <th>Nom de l'offre</th>
                                         <th>Entreprise</th>
-                                        <th>Ville</th>
-                                        <th>Code Postal</th>
+                                        <th>Ville, 
+                                        Code Postal</th>
                                         <th>Etudiant</th>
                                     </tr>
                                 </thead>
@@ -83,8 +82,8 @@ export default function Page() {
                                         <tr key={index}>
                                             <td>{offer.titre}</td>
                                             <td>{offer.entreprise_nom}</td>
-                                            <td>{offer.ville}</td>
-                                            <td>{offer.code_postal}</td>
+                                            <td>{offer.ville}, 
+                                            {offer.code_postal}</td>
                                             <td>{offer.utilisateur_prenom} {offer.utilisateur_nom}</td>
                                         </tr>
                                     ))}
