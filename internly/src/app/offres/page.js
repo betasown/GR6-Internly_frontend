@@ -238,7 +238,12 @@ export default function Page() {
                     .sort((a, b) => b.wishListCount - a.wishListCount) // Trier par wishListCount décroissant
                     .slice(0, 10) // Afficher uniquement les 10 premières offres
                     .map((offre, index) => (
-                        <li key={offre.offre_id} className="wishlist-item">
+                        <li
+                            key={offre.offre_id}
+                            className="wishlist-item"
+                            onClick={() => router.push(`/offres/${offre.offre_id}`)} // Redirection vers la page de l'offre
+                            style={{ cursor: 'pointer' }} // Ajouter un curseur pour indiquer que c'est cliquable
+                        >
                             <span className="wishlist-rank">{index + 1}.</span>
                             <span className="wishlist-title">{offre.offre_titre}</span>
                             <span className="wishlist-count">{offre.wishListCount} wish lists</span>
