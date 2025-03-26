@@ -166,7 +166,7 @@ export default function Page() {
                         }, {});
 
                         const sortedCompetences = Object.entries(competenceCounts).sort((a, b) => b[1] - a[1]);
-                        const topCompetences = sortedCompetences.slice(0, 5); // Top 5 compétences
+                        const topCompetences = sortedCompetences.slice(0, 5);
                         const otherCount = sortedCompetences.slice(5).reduce((sum, [, count]) => sum + count, 0);
 
                         return [...topCompetences.map(([competence]) => competence), 'Autres'];
@@ -182,7 +182,7 @@ export default function Page() {
                                 }, {});
 
                                 const sortedCompetences = Object.entries(competenceCounts).sort((a, b) => b[1] - a[1]);
-                                const topCounts = sortedCompetences.slice(0, 5).map(([, count]) => count); // Top 5 counts
+                                const topCounts = sortedCompetences.slice(0, 5).map(([, count]) => count);
                                 const otherCount = sortedCompetences.slice(5).reduce((sum, [, count]) => sum + count, 0);
 
                                 return [...topCounts, otherCount];
@@ -236,13 +236,13 @@ export default function Page() {
             <ul className="wishlist-list">
                 {wishListStats
                     .sort((a, b) => b.wishListCount - a.wishListCount) // Trier par wishListCount décroissant
-                    .slice(0, 10) // Afficher uniquement les 10 premières offres
+                    .slice(0, 10) // Prendre les 10 premiers
                     .map((offre, index) => (
                         <li
                             key={offre.offre_id}
                             className="wishlist-item"
-                            onClick={() => router.push(`/offres/${offre.offre_id}`)} // Redirection vers la page de l'offre
-                            style={{ cursor: 'pointer' }} // Ajouter un curseur pour indiquer que c'est cliquable
+                            onClick={() => router.push(`/offres/${offre.offre_id}`)}
+                            style={{ cursor: 'pointer' }}
                         >
                             <span className="wishlist-rank">{index + 1}.</span>
                             <span className="wishlist-title">{offre.offre_titre}</span>
