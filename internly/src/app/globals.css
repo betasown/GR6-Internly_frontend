@@ -321,7 +321,7 @@ footer {
 }
 
 .offer-card {
-  background-color: #f9f9f9;
+  background-color: #f8f5f5;
   width: calc(33.333% - 24px);
   border-radius: 24px;
   padding: 2%;
@@ -1061,7 +1061,7 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
 }
 
 .item {
-  background-color: #e7e7e7;
+  background-color: #f8f5f5;
   border-radius: 24px;
   padding: 2%;
   text-align: left;

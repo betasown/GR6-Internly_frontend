@@ -48,14 +48,23 @@ export default function Page() {
         <div>
             <div className="slide-entreprises-container">
                 <div className="title-container">
+                    <p className="paragraphe">Bienvenue sur votre </p>
                     <h1 className="title">dashboard</h1>
-                    <p className='paragraphe'>Statut: {userInfo.status}</p>
+                    </div>
+                <button className="create-offer-button" onClick={handleLogout}>
+                    <span className="button-text">Déconnexion</span>
+                    <span className="button-icon">+</span>
+                </button>
+                <div className="container-dashboard">
+                    <div className="grid">
+                        <div className="item"></div>
+                        <div className="item"></div>
+                        <div className="item"></div>
+                        <div className="item"></div>
+                        <div className="item"></div>
+                    </div>
                 </div>
             </div>
-            <button className="create-offer-button" onClick={handleLogout}>
-                <span className="button-text">Déconnexion</span>
-                <span className="button-icon">+</span>
-            </button>
             {showLogoutConfirmPopup && (
                 <div className="popup">
                     <div className="popup-content">
@@ -65,15 +74,7 @@ export default function Page() {
                     </div>
                 </div>
             )}
-            <div className="container-dashboard">
-                <div className="grid">
-                    <div className="item"></div>
-                    <div className="item"></div>
-                    <div className="item"></div>
-                    <div className="item"></div>
-                    <div className="item"></div>
-                </div>
-            </div>
+            
             <img className="assets" src="/Assets/separateur-w2b.png"/>
         </div>
     );
