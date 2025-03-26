@@ -295,6 +295,12 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
 .info-card .number {
@@ -320,6 +326,7 @@ footer {
   margin-bottom: 5%;
 }
 
+/* Styles pour les cartes des offres */
 .offer-card {
   background-color: #f9f9f9;
   width: calc(33.333% - 24px);
@@ -327,6 +334,12 @@ footer {
   padding: 2%;
   text-align: left;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Ajout de la transition */
+}
+
+.offer-card:hover {
+  transform: translateY(-5px); /* Lève légèrement la carte */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée */
 }
 
 .offer-card .entreprise {
@@ -943,6 +956,18 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   .button-icon {
     display: inline;
   }
+
+  .bento-container {
+    flex-direction: column; /* Passer les éléments en colonne */
+    align-items: center; /* Centrer les éléments */
+}
+
+.bento-item {
+    flex: none; /* Désactiver le comportement de flex-grow */
+    width: 100%; /* Chaque élément prend toute la largeur */
+    max-width: 100%; /* Supprimer la limite de largeur */
+    margin: 0 auto; /* Centrer les éléments */
+}
 }
 
 /*_____________________________________________________________________________________________*/
@@ -1120,19 +1145,13 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
 }
 
 .bento-item {
-  flex: 1 1 calc(33.333% - 1rem); /* 3 items par ligne */
-  max-width: calc(33.333% - 10rem);
+  flex: 1 1 calc(33.333% - 24px); /* 3 items par ligne */
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.bento-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  transition: none;
 }
 
 .bento-item h3 {
