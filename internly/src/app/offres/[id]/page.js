@@ -3,12 +3,27 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { ChevronDown, ChevronUp, Trash2 } from "lucide-react"; // Import des icônes
 
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) {
+    try {
+      return JSON.parse(parts.pop().split(';').shift()); // Parse le JSON du cookie
+    } catch (error) {
+      console.error("Erreur lors du parsing du cookie :", error);
+      return null;
+    }
+  }
+  return null;
+}
+
 export default function OffreDetail() {
   const { id } = useParams();
   const [offre, setOffre] = useState(null);
   const [error, setError] = useState(null);
   const [showMessageField, setShowMessageField] = useState(false); // État pour afficher/masquer le champ de message
   const [uploadedFile, setUploadedFile] = useState(null); // État pour gérer le fichier téléchargé
+  const [user, setUser] = useState({ nom: "", prenom: "", email: "" }); // État pour les informations utilisateur
 
   const toggleMessageField = () => {
     setShowMessageField(!showMessageField); // Inverse l'état
@@ -32,7 +47,35 @@ export default function OffreDetail() {
     return `${durationInMonths} mois`;
   };
 
+  // Récupération des informations utilisateur
   useEffect(() => {
+    const fetchUser = async () => {
+      const userCookie = getCookie("user"); // Remplacez "user" par le nom exact de votre cookie
+  
+      if (userCookie && userCookie.id) {
+        const userId = userCookie.id; // Récupère l'ID utilisateur
+  
+        try {
+          const res = await fetch(`http://localhost:8000/api/user/${userId}`); // URL de l'API utilisateur
+          if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+          const data = await res.json();
+          setUser({
+            nom: data.utilisateur_nom,
+            prenom: data.utilisateur_prenom,
+            email: data.utilisateur_email,
+          }); // Stocke les informations utilisateur
+        } catch (error) {
+          console.error("Erreur lors de la récupération des informations utilisateur :", error);
+        }
+      } else {
+        console.warn("Aucun ID utilisateur trouvé dans le cookie.");
+      }
+    };
+
+    fetchUser();
+
     if (id) {
       const fetchData = async () => {
         try {
@@ -73,7 +116,7 @@ export default function OffreDetail() {
             <span itemProp="jobLocation"> {offre.code_postal}, {offre.ville}</span>&nbsp;|&nbsp;
             <time dateTime={offre.offre_date_publication}>Publiée le {new Date(offre.offre_date_publication).toLocaleDateString()}</time>
           </p>
-          <br />
+          <br/>
           <h3>Résumé de l'offre</h3>
           <ul className="skills" itemProp="qualifications">
             <li>Durée : {calculateDuration(offre.offre_date_debut, offre.offre_date_fin)}</li>
@@ -81,36 +124,39 @@ export default function OffreDetail() {
             <li>Domaines : {offre.entreprise_domaine}</li>
             <li>Expérience requise : {offre.offre_experience_requise}</li>
           </ul>
-          <br /><br />
+          <br/><br/>
         </article>
         <form>
-          <label className="form-text">Nom<br />
-            <input 
-              className="form-input" 
-              name="nom" 
-              type="text" 
-              placeholder="Votre nom" 
-              required 
-            />
-          </label><br /><br />
-          <label className="form-text">Prénom<br />
-            <input 
-              className="form-input" 
-              name="prenom" 
-              type="text" 
-              placeholder="Votre prénom" 
-              required 
-            />
-          </label><br /><br />
-          <label className="form-text">Courriel<br />
-            <input 
-              className="form-input" 
-              name="courriel" 
-              type="email" 
-              placeholder="Votre adresse e-mail" 
-              required 
-            />
-          </label><br/><br/>
+        <label className="form-text">Nom<br/>
+          <input 
+            className="form-input" 
+            name="nom" 
+            type="text" 
+            placeholder="Votre nom" 
+            value={user.nom} // Prérempli avec le nom de l'utilisateur
+            readOnly
+          />
+        </label><br/><br/>
+        <label className="form-text">Prénom<br/>
+          <input 
+            className="form-input" 
+            name="prenom" 
+            type="text" 
+            placeholder="Votre prénom" 
+            value={user.prenom} // Prérempli avec le prénom de l'utilisateur
+            readOnly
+          />
+        </label><br/><br/>
+        <label className="form-text">Courriel<br/>
+          <input 
+            className="form-input" 
+            name="courriel" 
+            type="email"
+            placeholder="Votre adresse e-mail"
+            value={user.email} // Prérempli avec l'email de l'utilisateur
+            readOnly
+          />
+        </label><br/><br/>
           
           <label className="form-text">CV</label>
           <div className="cv-container">
@@ -143,7 +189,7 @@ export default function OffreDetail() {
   {/* Affichage conditionnel des lignes de poids et formats */}
   {!uploadedFile && (
     
-    <p className="subline">Poids max 2Mo <br /> Formats .pdf, .doc, .docx, .odt, .rtf, .jpg ou .png</p>
+    <p className="subline">Poids max 2Mo <br/> Formats .pdf, .doc, .docx, .odt, .rtf, .jpg ou .png</p>
   )}
 </div>
 
@@ -164,7 +210,7 @@ export default function OffreDetail() {
           {/* Champ de message conditionnel */}
           {showMessageField && (
             <div className="message-field">
-              <label className="form-text">Message au recruteur<br />
+              <label className="form-text">Message au recruteur<br/>
                 <textarea 
                   className="form-input" 
                   name="message" 
@@ -175,7 +221,7 @@ export default function OffreDetail() {
             </div>
           )}
           
-          <br /><br />
+          <br/><br/>
           <button 
             className="apply-button" 
             type="submit"
@@ -185,7 +231,7 @@ export default function OffreDetail() {
         </form>
         <p className="subline">En cliquant sur "Postuler", vous acceptez les <a href="/CGU">CGU</a> et déclarez avoir pris connaissance de la <a href="/MentionsLegales">politique de la protection des données</a> de notre site.</p>
       </div>
-      <br />
+      <br/>
       <img className="assets" src="/Assets/separateur-w2b.png" />
     </div>
   );
