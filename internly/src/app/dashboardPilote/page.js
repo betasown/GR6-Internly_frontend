@@ -1,9 +1,13 @@
 "use client"
 import { useEffect, useState } from 'react';
+import Link from "next/link";
 
 export default function Page() {
     const [userInfo, setUserInfo] = useState({ isLoggedIn: false, status: '' });
     const [showLogoutConfirmPopup, setShowLogoutConfirmPopup] = useState(false);
+    const [offers, setOffers] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
 
     useEffect(() => {
         const userCookie = document.cookie.split("; ").find((row) => row.startsWith("user="));
@@ -12,6 +16,11 @@ export default function Page() {
             const user = JSON.parse(userValue);
             setUserInfo({ isLoggedIn: true, status: user.status });
         }
+
+        fetch('http://localhost:8000/index.php?route=candidatures_with_details')
+            .then(response => response.json())
+            .then(data => setOffers(data))
+            .catch(error => console.error('Error fetching data:', error));
     }, []);
 
     const handleLogout = () => {
@@ -27,22 +36,18 @@ export default function Page() {
         setShowLogoutConfirmPopup(false);
     };
 
-    if (!userInfo.isLoggedIn) {
-        return (
-            <div>
-                <div className="slide-entreprises-container">
-                    <div className="title-container">
-                    
-                        <center><img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2NtMHF1ZnBieHBic3M1cHpyZWlubDVxYjZ6bHd4NmtrMzYxM3I0ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/Ll22OhMLAlVDb8UQWe/giphy.gif" width="190" height="220"/></center>
-                        <h1 className="title">Erreur 403</h1>
-                        <p className='paragraphe'>Accès refusé</p>
-                        <p className='paragraphe'>Vous devez être connecté pour accéder à cette page</p>
-                    </div>
-                </div>
-                <img className="assets" src="/Assets/separateur-w2b.png"/>
-            </div>
-        );
-    }
+    // Pagination logic
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = offers.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(offers.length / itemsPerPage);
+
+    const paginate = (pageNumber) => {
+        if (pageNumber > 0 && pageNumber <= totalPages) {
+            setCurrentPage(pageNumber);
+            // Scroll to top of the page
+        }
+    };
 
     return (
         <div>
@@ -50,18 +55,73 @@ export default function Page() {
                 <div className="title-container">
                     <p className="paragraphe">Bienvenue sur votre </p>
                     <h1 className="title">dashboard</h1>
-                    </div>
+                </div>
                 <button className="create-offer-button" onClick={handleLogout}>
                     <span className="button-text">Déconnexion</span>
                     <span className="button-icon">+</span>
                 </button>
                 <div className="container-dashboard">
                     <div className="grid">
-                        <div className="item"></div>
-                        <div className="item"></div>
-                        <div className="item"></div>
-                        <div className="item"></div>
-                        <div className="item"></div>
+                        <div className="item">
+                            <br></br>
+                                <div className="title-container">
+                                    <h1 className="title">Candidature en cours :</h1>
+                                </div>
+                            
+                            <table className="offer-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nom de l'offre</th>
+                                        <th>Entreprise</th>
+                                        <th>Ville</th>
+                                        <th>Code Postal</th>
+                                        <th>Etudiant</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {currentItems.map((offer, index) => (
+                                        <tr key={index}>
+                                            <td>{offer.titre}</td>
+                                            <td>{offer.entreprise_nom}</td>
+                                            <td>{offer.ville}</td>
+                                            <td>{offer.code_postal}</td>
+                                            <td>{offer.utilisateur_prenom} {offer.utilisateur_nom}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <div className="pagination">
+                                <button onClick={() => paginate(1)} disabled={currentPage === 1}>&laquo;</button>
+                                {Array.from({ length: totalPages }, (_, index) => (
+                                    <button
+                                        key={index + 1}
+                                        onClick={() => paginate(index + 1)}
+                                        className={currentPage === index + 1 ? 'active' : ''}
+                                    >
+                                        {index + 1}
+                                    </button>
+                                ))}
+                                <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>&raquo;</button>
+                            </div>
+                        </div>
+                        <div className="item">
+                                
+                        </div>
+                        <div className="item"> 
+                            <Link href={`/gestionOffres`} className="info-card">
+                                <div className="title" >Offres</div>
+                            </Link>
+                        </div>
+                        <div className="item">
+                            <Link href={`/gestionEntreprise`} className="info-card">
+                                <div className="title">entreprises</div>
+                            </Link>
+                        </div>
+                        <div className="item">
+                            <Link href={`/gestionEtudiant`} className="info-card">
+                                <div className="title">Etudiants</div>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,7 +134,6 @@ export default function Page() {
                     </div>
                 </div>
             )}
-            
             <img className="assets" src="/Assets/separateur-w2b.png"/>
         </div>
     );

@@ -1094,3 +1094,57 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   margin-top: 5%;
 }
 
+/*_____________________________________________________________________________________________*/
+/*                                       Dashboard                                             */
+/*_____________________________________________________________________________________________*/
+
+.offer-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.offer-item h2, .offer-item p {
+  margin: 0 10px;
+}
+
+.offer-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 1em;
+  font-family: 'Arial', sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.offer-table thead tr {
+  background-color: #C6D602;
+  color: #000000;
+  text-align: left;
+}
+
+.offer-table th,
+.offer-table td {
+  padding: 12px 15px;
+}
+
+.offer-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.offer-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.offer-table tbody tr:last-of-type {
+  border-bottom: 2px solid #C6D602;
+}
+
+.offer-table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}
