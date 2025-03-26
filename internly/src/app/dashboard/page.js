@@ -32,7 +32,9 @@ export default function Page() {
             <div>
                 <div className="slide-entreprises-container">
                     <div className="title-container">
-                        <h1 className="title">Erreur 403 : </h1>
+                    
+                        <center><img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2NtMHF1ZnBieHBic3M1cHpyZWlubDVxYjZ6bHd4NmtrMzYxM3I0ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/Ll22OhMLAlVDb8UQWe/giphy.gif" width="190" height="220"/></center>
+                        <h1 className="title">Erreur 403</h1>
                         <p className='paragraphe'>Accès refusé</p>
                         <p className='paragraphe'>Vous devez être connecté pour accéder à cette page</p>
                     </div>
