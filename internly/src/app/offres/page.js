@@ -18,6 +18,7 @@ function calculateDurationInMonths(startDate, endDate) {
 export default function Page() {
     const [offres, setOffres] = useState([]);
     const [wishListStats, setWishListStats] = useState([]);
+    const [durationStats, setDurationStats] = useState([]);
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [user, setUser] = useState(null); // État pour stocker les informations utilisateur
@@ -63,6 +64,21 @@ export default function Page() {
         };
     
         fetchWishListStats();
+
+        const fetchDurationStats = async () => {
+            try {
+                const res = await fetch('http://localhost:8000/index.php?route=offers_duration');
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                const data = await res.json();
+                setDurationStats(data); // Met à jour les statistiques de durée
+            } catch (error) {
+                setError(error.message);
+            }
+        };
+    
+        fetchDurationStats();
     }, []);
 
     // Pagination logic
@@ -197,33 +213,15 @@ export default function Page() {
 
         {/* Répartition par durée */}
         <div className="bento-item">
-            <h3>Répartition par Durée</h3>
+            <h3>Répartition par Durée (API)</h3>
             <Pie
                 data={{
-                    labels: ['Moins de 6 mois', '6 mois ou plus', 'Non spécifiée'],
+                    labels: durationStats.map(stat => stat.duree_groupe),
                     datasets: [
                         {
-                            data: (() => {
-                                const durationCounts = offres.reduce((acc, offre) => {
-                                    const months = calculateDurationInMonths(offre.date_debut, offre.date_fin);
-                                    if (months === null) {
-                                        acc['Non spécifiée'] += 1;
-                                    } else if (months < 6) {
-                                        acc['Moins de 6 mois'] += 1;
-                                    } else {
-                                        acc['6 mois ou plus'] += 1;
-                                    }
-                                    return acc;
-                                }, { 'Moins de 6 mois': 0, '6 mois ou plus': 0, 'Non spécifiée': 0 });
-
-                                return [
-                                    durationCounts['Moins de 6 mois'],
-                                    durationCounts['6 mois ou plus'],
-                                    durationCounts['Non spécifiée'],
-                                ];
-                            })(),
-                            backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
-                            hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+                            data: durationStats.map(stat => stat.nombre_offres),
+                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
                         },
                     ],
                 }}
