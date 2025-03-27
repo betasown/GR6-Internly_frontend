@@ -60,8 +60,19 @@ export default function Page() {
                 document.cookie = `user=${JSON.stringify(user)}; path=/;`;
     
                 // Rediriger l'utilisateur en fonction de son statut
-                window.location.href = '/dashboard';
-                
+                switch (user.status) {
+                    case 'admin':
+                        window.location.href = '/dashboardAdmin';
+                        break;
+                    case 'pilote':
+                        window.location.href = '/dashboardPilote';
+                        break;
+                    case 'etudiant':
+                        window.location.href = '/dashboardEtudiant';
+                        break;
+                    default:
+                        throw new Error('Statut utilisateur inconnu');
+                }
             } else {
                 throw new Error('Données utilisateur incomplètes');
             }
@@ -71,7 +82,6 @@ export default function Page() {
             setLoading(false);
         }
     };
-    
 
     return (
         <div>
