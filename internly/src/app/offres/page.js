@@ -182,8 +182,8 @@ export default function Page() {
                         }, {});
 
                         const sortedCompetences = Object.entries(competenceCounts).sort((a, b) => b[1] - a[1]);
-                        const topCompetences = sortedCompetences.slice(0, 5);
-                        const otherCount = sortedCompetences.slice(5).reduce((sum, [, count]) => sum + count, 0);
+                        const topCompetences = sortedCompetences.slice(0, 4); // Limiter à 4 compétences
+                        const otherCount = sortedCompetences.slice(4).reduce((sum, [, count]) => sum + count, 0);
 
                         return [...topCompetences.map(([competence]) => competence), 'Autres'];
                     })(),
@@ -198,13 +198,14 @@ export default function Page() {
                                 }, {});
 
                                 const sortedCompetences = Object.entries(competenceCounts).sort((a, b) => b[1] - a[1]);
-                                const topCounts = sortedCompetences.slice(0, 5).map(([, count]) => count);
-                                const otherCount = sortedCompetences.slice(5).reduce((sum, [, count]) => sum + count, 0);
+                                const topCounts = sortedCompetences.slice(0, 4).map(([, count]) => count); // Limiter à 4 compétences
+                                const otherCount = sortedCompetences.slice(4).reduce((sum, [, count]) => sum + count, 0);
 
                                 return [...topCounts, otherCount];
-                            })(),
-                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
-                            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
+                            })(),            
+                            backgroundColor: ['#F1F5C0', '#C6D602', '#E4EC8A', '#D0DD33', '#DBE561'], // Couleurs
+                            hoverBackgroundColor: ['#F1F5C0', '#C6D602', '#E4EC8A', '#D0DD33', '#DBE561'], // Couleurs au survol
+                            
                         },
                     ],
                 }}
@@ -213,20 +214,20 @@ export default function Page() {
 
         {/* Répartition par durée */}
         <div className="bento-item">
-            <h3>Répartition par Durée (API)</h3>
-            <Pie
-                data={{
-                    labels: durationStats.map(stat => stat.duree_groupe),
-                    datasets: [
-                        {
-                            data: durationStats.map(stat => stat.nombre_offres),
-                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-                            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-                        },
-                    ],
-                }}
-            />
-        </div>
+    <h3>Répartition par Durée</h3>
+    <Pie
+        data={{
+            labels: durationStats.map(stat => stat.duree_groupe),
+            datasets: [
+                {
+                    data: durationStats.map(stat => stat.nombre_offres),
+                    backgroundColor: ['#C6D602', '#DBE561', '#F1F5C0'], // Couleurs spécifiées
+                    hoverBackgroundColor: ['#C6D602', '#DBE561', '#F1F5C0'], // Couleurs au survol
+                },
+            ],
+        }}
+    />
+</div>
 
         {/* Top des wish lists */}
         <div className="bento-item">
