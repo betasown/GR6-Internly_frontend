@@ -27,35 +27,29 @@ export default function Page() {
         setShowLogoutConfirmPopup(false);
     };
 
-    if (!userInfo.isLoggedIn) {
-        return (
-            <div>
-                <div className="slide-entreprises-container">
-                    <div className="title-container">
-                    
-                        <center><img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2NtMHF1ZnBieHBic3M1cHpyZWlubDVxYjZ6bHd4NmtrMzYxM3I0ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/Ll22OhMLAlVDb8UQWe/giphy.gif" width="190" height="220"/></center>
-                        <h1 className="title">Erreur 403</h1>
-                        <p className='paragraphe'>Accès refusé</p>
-                        <p className='paragraphe'>Vous devez être connecté pour accéder à cette page</p>
-                    </div>
-                </div>
-                <img className="assets" src="/Assets/separateur-w2b.png"/>
-            </div>
-        );
-    }
-
     return (
         <div>
             <div className="slide-entreprises-container">
                 <div className="title-container">
+                    <p className="paragraphe">Bienvenue sur votre </p>
                     <h1 className="title">dashboard</h1>
-                    <p className='paragraphe'>Statut: {userInfo.status}</p>
+                    </div>
+                <button className="create-offer-button" onClick={handleLogout}>
+                    <span className="button-text">Déconnexion</span>
+                    <span className="button-icon">+</span>
+                </button>
+                <div className="container-dashboard">
+                    <div className="grid">
+                        <div className="item">
+                            
+                        </div>
+                        <div className="item"></div>
+                        <div className="item"></div>
+                        <div className="item"></div>
+                        <div className="item"></div>
+                    </div>
                 </div>
             </div>
-            <button className="create-offer-button" onClick={handleLogout}>
-                <span className="button-text">Déconnexion</span>
-                <span className="button-icon">+</span>
-            </button>
             {showLogoutConfirmPopup && (
                 <div className="popup">
                     <div className="popup-content">
@@ -65,15 +59,7 @@ export default function Page() {
                     </div>
                 </div>
             )}
-            <div className="container-dashboard">
-                <div className="grid">
-                    <div className="item"></div>
-                    <div className="item"></div>
-                    <div className="item"></div>
-                    <div className="item"></div>
-                    <div className="item"></div>
-                </div>
-            </div>
+            
             <img className="assets" src="/Assets/separateur-w2b.png"/>
         </div>
     );
