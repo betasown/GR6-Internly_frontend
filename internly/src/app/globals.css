@@ -964,6 +964,7 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
 
 .bento-item {
     flex: none; /* Désactiver le comportement de flex-grow */
+    background-color: #f9f9f9;
     width: 100%; /* Chaque élément prend toute la largeur */
     max-width: 100%; /* Supprimer la limite de largeur */
     margin: 0 auto; /* Centrer les éléments */
@@ -1146,7 +1147,7 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
 
 .bento-item {
   flex: 1 1 calc(33.333% - 24px); /* 3 items par ligne */
-  background-color: #ffffff;
+  background: #f9f9f9;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
