@@ -70,10 +70,33 @@ export default function Page() {
         setShowLogoutConfirmPopup(false);
     };
 
-    const handleRemoveFromWishlist = (index) => {
-        const updatedWishlist = [...wishlist];
-        updatedWishlist.splice(index, 1);
-        setWishlist(updatedWishlist);
+    const handleRemoveFromWishlist = async (index) => {
+        const offreId = wishlist[index].offre_id; // Récupérer l'ID de l'offre
+        const userId = userInfo.id; // Récupérer l'ID de l'utilisateur
+    
+        try {
+            const response = await fetch('http://localhost:8000/index.php?route=remove_from_wishlist', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    offre_id: offreId,
+                    utilisateur_id: userId,
+                }),
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP: ${response.status}`);
+            }
+    
+            // Supprimer l'élément de la wishlist localement après une requête réussie
+            const updatedWishlist = [...wishlist];
+            updatedWishlist.splice(index, 1);
+            setWishlist(updatedWishlist);
+        } catch (error) {
+            console.error('Erreur lors de la suppression de la wishlist :', error);
+        }
     };
 
     return (
