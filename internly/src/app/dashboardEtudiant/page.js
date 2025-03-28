@@ -138,7 +138,7 @@ export default function Page() {
                                             <td>{candidature.offre_titre}</td>
                                             <td>{candidature.entreprise_nom}</td>
                                             <td>{candidature.ville_nom}</td>
-                                            <td>{formatDate(candidature.candidature_date)}</td> {/* Utilisation de la fonction formatDate */}
+                                            <td>{formatDate(candidature.candidature_date)}</td>
                                             <td>
                                                 <span 
                                                     className={`status-pill ${
