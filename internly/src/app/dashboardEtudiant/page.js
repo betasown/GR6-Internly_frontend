@@ -166,7 +166,7 @@ export default function Page() {
                                     ))}
                                 </ul>
                             ) : (
-                                <p>Aucune wishlist trouvée.</p>
+                                <center><p>Aucune offres trouvée.</p></center>
                             )}
                             {/* Pagination */}
                             <div className="pagination">
