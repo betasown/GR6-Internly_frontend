@@ -2,6 +2,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation'; // Importer le hook useRouter pour la redirection
 
+const formatDate = (dateString) => {
+    return dateString.split(' ')[0]; // Séparer la date et l'heure, et retourner uniquement la date
+};
+
 export default function Page() {
     const [userInfo, setUserInfo] = useState({ isLoggedIn: false, status: '', id: null });
     const [candidatures, setCandidatures] = useState([]);
@@ -129,15 +133,27 @@ export default function Page() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {candidatures.map((candidature, index) => (
-                                            <tr key={index}>
-                                                <td>{candidature.offre_titre}</td>
-                                                <td>{candidature.entreprise_nom}</td>
-                                                <td>{candidature.ville_nom}</td>
-                                                <td>{candidature.candidature_date}</td>
-                                                <td>{candidature.candidature_status}</td>
-                                            </tr>
-                                        ))}
+                                    {candidatures.map((candidature, index) => (
+                                        <tr key={index}>
+                                            <td>{candidature.offre_titre}</td>
+                                            <td>{candidature.entreprise_nom}</td>
+                                            <td>{candidature.ville_nom}</td>
+                                            <td>{formatDate(candidature.candidature_date)}</td> {/* Utilisation de la fonction formatDate */}
+                                            <td>
+                                                <span 
+                                                    className={`status-pill ${
+                                                        candidature.candidature_status === "refusée" ? "refusee" :
+                                                        candidature.candidature_status === "en_attente" ? "en-attente" :
+                                                        "acceptee"
+                                                    }`}
+                                                >
+                                                    {candidature.candidature_status === "en_attente" 
+                                                        ? "en attente" 
+                                                        : candidature.candidature_status}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    ))}
                                     </tbody>
                                 </table>
                             ) : (
