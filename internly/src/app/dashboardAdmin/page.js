@@ -1,5 +1,6 @@
 "use client"
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation'; // Importez useRouter
 import Link from "next/link";
 
 export default function Page() {
@@ -9,19 +10,32 @@ export default function Page() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
 
+    const router = useRouter(); // Initialisez le routeur
+
     useEffect(() => {
         const userCookie = document.cookie.split("; ").find((row) => row.startsWith("user="));
         if (userCookie) {
             const userValue = decodeURIComponent(userCookie.split('=')[1]);
-            const user = JSON.parse(userValue);
+            const user = JSON.parse(userValue); // Parsez le cookie utilisateur
+
+            // Vérification du statut de l'utilisateur
+            if (user.status !== "admin") {
+                router.push('/403'); // Rediriger vers une page 403 si l'utilisateur n'est pas un administrateur
+                return;
+            }
+
             setUserInfo({ isLoggedIn: true, status: user.status });
+        } else {
+            router.push('/403'); // Rediriger vers une page 403 si aucun cookie utilisateur n'est trouvé
+            return;
         }
 
+        // Récupération des données des offres
         fetch('http://localhost:8000/index.php?route=candidatures_with_details')
             .then(response => response.json())
             .then(data => setOffers(data))
             .catch(error => console.error('Error fetching data:', error));
-    }, []);
+    }, [router]); // Ajoutez router comme dépendance
 
     const handleLogout = () => {
         setShowLogoutConfirmPopup(true);
