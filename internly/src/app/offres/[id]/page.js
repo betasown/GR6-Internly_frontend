@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { ChevronDown, ChevronUp, Trash2 } from "lucide-react"; // Import des icônes
+import { ChevronDown, ChevronUp, Trash2, Heart} from "lucide-react"; // Import des icônes
 
 function getCookie(name) {
   const value = `; ${document.cookie}`;
@@ -23,7 +23,8 @@ export default function OffreDetail() {
   const [error, setError] = useState(null);
   const [showMessageField, setShowMessageField] = useState(false); // État pour afficher/masquer le champ de message
   const [uploadedFile, setUploadedFile] = useState(null); // État pour gérer le fichier téléchargé
-  const [user, setUser] = useState({ nom: "", prenom: "", email: "" }); // État pour les informations utilisateur
+  const [isWishlisted, setIsWishlisted] = useState(false); // État pour gérer le statut de la wishlist
+  const [user, setUser] = useState({ nom: "", prenom: "", email: "", id: null }); // Ajout de l'ID utilisateur
 
   const toggleMessageField = () => {
     setShowMessageField(!showMessageField); // Inverse l'état
@@ -45,6 +46,42 @@ export default function OffreDetail() {
     const end = new Date(endDate);
     const durationInMonths = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
     return `${durationInMonths} mois`;
+  };
+
+  const handleWishlistToggle = async () => {
+    const userCookie = getCookie("user"); // Récupère directement le cookie
+    console.log("Cookie utilisateur dans handleWishlistToggle :", userCookie);
+  
+    if (!userCookie || !userCookie.id) {
+      console.warn("Utilisateur non connecté.");
+      return;
+    }
+  
+    try {
+      const url = isWishlisted
+        ? "http://localhost:8000/index.php?route=remove_from_wishlist" // URL pour retirer de la wishlist
+        : "http://localhost:8000/index.php?route=add_to_wishlist"; // URL pour ajouter à la wishlist
+  
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          offre_id: id,
+          utilisateur_id: userCookie.id,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP: ${response.status}`);
+      }
+  
+      // Inverse le statut de la wishlist après une requête réussie
+      setIsWishlisted(!isWishlisted);
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour de la wishlist :", error);
+    }
   };
 
   // Récupération des informations utilisateur
@@ -105,7 +142,21 @@ export default function OffreDetail() {
   return (
     <div>
       <div className="slide-offres-detail-container">
-        <h1 className="title">{offre.offre_titre} - {offre.entreprise_nom}</h1>
+      <h1 className="title">
+          {offre.offre_titre} - {offre.entreprise_nom}
+          <button
+            className="wishlist-button"
+            onClick={handleWishlistToggle}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              marginLeft: "10px",
+            }}
+          >
+            {isWishlisted ? <Heart color="red" size={24} /> : <Heart size={24} />}
+          </button>
+        </h1>
         <p>{offre.offre_description}</p>
         <article itemScope itemType="http://schema.org/JobPosting">
           <meta itemProp="datePosted" content={offre.offre_date_publication} />
