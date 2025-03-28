@@ -1,5 +1,6 @@
 "use client"
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation'; // Importez useRouter
 import Link from "next/link";
 
 export default function Page() {
@@ -8,6 +9,7 @@ export default function Page() {
     const [offers, setOffers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
+    const router = useRouter(); // Initialisez le routeur
 
     useEffect(() => {
         const userCookie = document.cookie.split("; ").find((row) => row.startsWith("user="));
@@ -15,6 +17,7 @@ export default function Page() {
             const userValue = decodeURIComponent(userCookie.split('=')[1]);
             const user = JSON.parse(userValue);
 
+            // Vérification du statut de l'utilisateur
             if (user.status !== "pilote") {
                 router.push('/403'); // Rediriger vers une page 403 si l'utilisateur n'est pas un étudiant
                 return;
@@ -27,10 +30,9 @@ export default function Page() {
             .then(data => setOffers(data))
             .catch(error => console.error('Error fetching data:', error));
 
-        }
-        else {
+        }else {
             router.push('/403'); // Rediriger vers une page 403 si aucun cookie utilisateur n'est trouvé
-        }
+        }        
     }, []);
 
     const handleLogout = () => {
