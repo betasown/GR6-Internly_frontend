@@ -111,7 +111,31 @@ export default function OffreDetail() {
       }
     };
 
+    const fetchWishlistStatus = async () => {
+      const userCookie = getCookie("user");
+  
+      if (!userCookie || !userCookie.id) {
+        console.warn("Utilisateur non connecté.");
+        return;
+      }
+  
+      try {
+        const response = await fetch(
+          `http://localhost:8000/index.php?route=wishlist_status&offre_id=${id}&utilisateur_id=${userCookie.id}`
+        );
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP: ${response.status}`);
+        }
+  
+        const data = await response.json();
+        setIsWishlisted(data.isWishlisted); // Met à jour l'état en fonction de la réponse du backend
+      } catch (error) {
+        console.error("Erreur lors de la récupération du statut de la wishlist :", error);
+      }
+    };
+
     fetchUser();
+    fetchWishlistStatus();
 
     if (id) {
       const fetchData = async () => {
@@ -145,17 +169,21 @@ export default function OffreDetail() {
       <h1 className="title">
           {offre.offre_titre} - {offre.entreprise_nom}
           <button
-            className="wishlist-button"
-            onClick={handleWishlistToggle}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              marginLeft: "10px",
-            }}
-          >
-            {isWishlisted ? <Heart color="red" size={24} /> : <Heart size={24} />}
-          </button>
+  className="wishlist-button"
+  onClick={handleWishlistToggle}
+>
+  {isWishlisted ? (
+    <>
+      <Heart color="red" size={20} />
+      Retirer de la wishlist
+    </>
+  ) : (
+    <>
+      <Heart size={20} />
+      Ajouter à la wishlist
+    </>
+  )}
+</button>
         </h1>
         <p>{offre.offre_description}</p>
         <article itemScope itemType="http://schema.org/JobPosting">

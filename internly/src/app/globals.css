@@ -390,6 +390,30 @@ footer {
   border: none;
 }
 
+.wishlist-button {
+  background-color: var(--black);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.wishlist-button:hover {
+  background-color: var(--green);
+  color: var(--black);
+}
+
+.wishlist-button .icon {
+  display: flex;
+  align-items: center;
+}
+
 .create-offer-button {
   position: relative;
   left: 86.5%;
