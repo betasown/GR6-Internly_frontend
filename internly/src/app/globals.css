@@ -1336,3 +1336,24 @@ canvas {
   color: white;
 }
 
+.status-pill {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+}
+
+.status-pill.refusee {
+  background-color: #e60000; /* Rouge */
+}
+
+.status-pill.en-attente {
+  background-color: #ff9900; /* Orange/Jaune */
+}
+
+.status-pill.acceptee {
+  background-color: #28a745; /* Vert */
+}
