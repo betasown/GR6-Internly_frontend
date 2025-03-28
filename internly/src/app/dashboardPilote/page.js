@@ -14,13 +14,23 @@ export default function Page() {
         if (userCookie) {
             const userValue = decodeURIComponent(userCookie.split('=')[1]);
             const user = JSON.parse(userValue);
-            setUserInfo({ isLoggedIn: true, status: user.status });
-        }
 
-        fetch('http://localhost:8000/index.php?route=candidatures_with_details')
+            if (user.status !== "pilote") {
+                router.push('/403'); // Rediriger vers une page 403 si l'utilisateur n'est pas un étudiant
+                return;
+            }
+
+            setUserInfo({ isLoggedIn: true, status: user.status });
+
+            fetch('http://localhost:8000/index.php?route=candidatures_with_details')
             .then(response => response.json())
             .then(data => setOffers(data))
             .catch(error => console.error('Error fetching data:', error));
+
+        }
+        else {
+            router.push('/403'); // Rediriger vers une page 403 si aucun cookie utilisateur n'est trouvé
+        }
     }, []);
 
     const handleLogout = () => {

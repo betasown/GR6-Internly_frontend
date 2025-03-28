@@ -13,6 +13,12 @@ export default function Page() {
         const userCookie = document.cookie.split("; ").find((row) => row.startsWith("user="));
         if (userCookie) {
             const userValue = decodeURIComponent(userCookie.split('=')[1]);
+
+            if (user.status !== "admin") {
+                router.push('/403'); // Rediriger vers une page 403 si l'utilisateur n'est pas un étudiant
+                return;
+            }
+
             const user = JSON.parse(userValue);
             setUserInfo({ isLoggedIn: true, status: user.status });
         }
