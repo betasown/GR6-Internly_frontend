@@ -21,11 +21,11 @@ Nous sommes web4all, une entreprise charger de réalisé un site web de recherch
 - HTML, CSS, JavaScript
 - Frameworks front-end (Next.js)
 - Back-end (PHP)
-- Bases de données (MySQL, MongoDB)
+- Bases de données (MongoDB)
 
 ## Prérequi
 
-- Node.js
+- Node.js & npm
 
 ## Installation et Configuration
 
