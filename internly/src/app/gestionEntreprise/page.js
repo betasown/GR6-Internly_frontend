@@ -1,11 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Trash, Pencil} from "lucide-react";
 
 export default function Page() {
     const [entreprises, setEntreprises] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 6;
+    const itemsPerPage = 5;
 
     useEffect(() => {
         // Fetch data from the API
@@ -51,7 +52,10 @@ export default function Page() {
                                 <tr>
                                     <th>Nom</th>
                                     <th>Email</th>
-                                    <th>Email</th>
+                                    <th>Tel :</th>
+                                    <th><center></center></th>
+                                    <th><center></center></th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,6 +64,9 @@ export default function Page() {
                                             <td>{entreprise.entreprise_nom}</td>
                                             <td>{entreprise.entreprise_email}</td>
                                             <td>{entreprise.entreprise_telephone}</td>
+                                            <td><center><button className="remove-button"><Trash size={24}/></button></center></td>
+                                            <td><center><button className="remove-button"><Pencil size={24}/></button></center></td>
+                                    
                                         </tr>
                                     ))}
                                 
@@ -91,6 +98,7 @@ export default function Page() {
                         <Link href={`/entreprise`} className="info-card">
                             <div className="title">Voir les statistiques</div>
                         </Link>
+                        <br></br>
                     </div>
                 </div>
             </div>
