@@ -36,11 +36,13 @@ export default function Page() {
                     }
                 );
     
-                if (response.ok) {
+                const responseData = await response.json(); // Récupérer la réponse JSON du backend
+    
+                if (responseData.success) {
                     alert("Entreprise supprimée avec succès !");
                     fetchEntreprises(); // Rafraîchir la liste des entreprises
                 } else {
-                    alert("Erreur lors de la suppression de l'entreprise.");
+                    alert(`Erreur : ${responseData.error || "Une erreur est survenue."}`);
                 }
             } catch (error) {
                 console.error("Erreur lors de la suppression :", error);
