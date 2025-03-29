@@ -13,7 +13,7 @@ export default function Page() {
     const [showLogoutConfirmPopup, setShowLogoutConfirmPopup] = useState(false);
     const [wishlist, setWishlist] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10; // Nombre d'éléments par page
+    const itemsPerPage = 5; // Nombre d'éléments par page
     const router = useRouter(); // Initialiser le hook useRouter
 
     // Calcul des éléments de la page actuelle
@@ -103,6 +103,17 @@ export default function Page() {
         }
     };
 
+    const [currentCandidaturePage, setCurrentCandidaturePage] = useState(1);
+    const candidaturesPerPage = 4; // Nombre d'éléments par page pour les candidatures
+
+    const indexOfLastCandidature = currentCandidaturePage * candidaturesPerPage;
+    const indexOfFirstCandidature = indexOfLastCandidature - candidaturesPerPage;
+    const currentCandidatures = candidatures.slice(indexOfFirstCandidature, indexOfLastCandidature);
+
+    const totalCandidaturePages = Math.ceil(candidatures.length / candidaturesPerPage);
+
+    const paginateCandidatures = (pageNumber) => setCurrentCandidaturePage(pageNumber);
+
     return (
         <div>
             <div className="slide-entreprises-container">
@@ -121,7 +132,7 @@ export default function Page() {
                             <div className="title-container">
                                 <h1 className="title">Candidatures</h1>
                             </div>
-                            {candidatures.length > 0 ? (
+                            {currentCandidatures.length > 0 ? (
                                 <table className="offer-table">
                                     <thead>
                                         <tr>
@@ -132,7 +143,7 @@ export default function Page() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {candidatures.map((candidature, index) => (
+                                    {currentCandidatures.map((candidature, index) => (
                                         <tr key={index}>
                                             <td>{candidature.offre_titre}</td>
                                             <td>{candidature.entreprise_nom}</td>
@@ -157,9 +168,23 @@ export default function Page() {
                             ) : (
                                 <p>Aucune candidature trouvée.</p>
                             )}
+                            {/* Pagination for candidatures */}
+                            <div className="pagination">
+                                <button onClick={() => paginateCandidatures(1)} disabled={currentCandidaturePage === 1}>&laquo;</button>
+                                {Array.from({ length: totalCandidaturePages }, (_, index) => (
+                                    <button
+                                        key={index + 1}
+                                        onClick={() => paginateCandidatures(index + 1)}
+                                        className={currentCandidaturePage === index + 1 ? 'active' : ''}
+                                    >
+                                        {index + 1}
+                                    </button>
+                                ))}
+                                <button onClick={() => paginateCandidatures(totalCandidaturePages)} disabled={currentCandidaturePage === totalCandidaturePages}>&raquo;</button>
+                            </div>
                         </div>
                         <div className="item">
-                            <br></br>
+                            
                             <div className="title-container">
                                 <h1 className="title">wishList</h1>
                             </div> 
