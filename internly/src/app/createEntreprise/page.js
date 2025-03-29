@@ -54,7 +54,7 @@ const CreateEntreprise = () => {
       {/* Bouton pour quitter la page */}
       <button
         className="close-button"
-        onClick={() => router.push("/")} // Redirection vers la page "/"
+        onClick={() => router.push("/gestionEntreprise")}
         aria-label="Fermer"
       >
         <X size={24} />
