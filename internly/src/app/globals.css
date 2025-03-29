@@ -858,6 +858,19 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   color: var(--white);
 }
 
+.close-button {
+  right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--black);
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.close-button:hover {
+  color: #e60000; /* Couleur au survol */
+  transform: scale(1.1); /* Légère mise en avant au survol */
+}
 
 /*_____________________________________________________________________________________________*/
 /*                                         RESPONSIVE                                          */
@@ -894,12 +907,9 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
     font-size: 3rem;
   }
 
-
-
   .Paragraphe {
     font-size: 0.875rem;
   }
-
 
   .header-expanded .navbar-desktop-only {
     width: 112%;

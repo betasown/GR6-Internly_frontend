@@ -1,7 +1,10 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation"; // Import pour la navigation
+import { X } from "lucide-react"; // Import de l'icône Lucide React
 
 const CreateEntreprise = () => {
+  const router = useRouter(); // Hook pour gérer la navigation
   const [formData, setFormData] = useState({
     nom: "",
     description: "",
@@ -48,6 +51,15 @@ const CreateEntreprise = () => {
 
   return (
     <div className="form-container">
+      {/* Bouton pour quitter la page */}
+      <button
+        className="close-button"
+        onClick={() => router.push("/")} // Redirection vers la page "/"
+        aria-label="Fermer"
+      >
+        <X size={24} />
+      </button>
+
       <h1 className="title">Créer une entreprise</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -64,6 +76,7 @@ const CreateEntreprise = () => {
               placeholder="Nom de l'entreprise"
               required
             />
+            <br />
           </label>
         </div>
         <div className="form-group">
