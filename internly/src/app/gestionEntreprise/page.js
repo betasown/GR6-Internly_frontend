@@ -8,15 +8,47 @@ export default function Page() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
 
-    useEffect(() => {
-        // Fetch data from the API
-        fetch("http://localhost:8000/index.php?route=entreprise")
-            .then((response) => response.json())
-            .then((data) => setEntreprises(data))
-            .catch((error) => console.error("Error fetching entreprises:", error));
+    const fetchEntreprises = async () => {
+        try {
+            const response = await fetch("http://localhost:8000/index.php?route=entreprise");
+            const data = await response.json();
+            setEntreprises(data);
+        } catch (error) {
+            console.error("Erreur lors de la récupération des entreprises :", error);
+        }
+    };
 
-            
+    useEffect(() => {
+        fetchEntreprises(); // Appel initial pour charger les entreprises
     }, []);
+
+    const handleDelete = async (id) => {
+        if (confirm("Êtes-vous sûr de vouloir supprimer cette entreprise ?")) {
+            try {
+                const response = await fetch(
+                    "http://localhost:8000/index.php?route=delete_entreprise",
+                    {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded", // Utilisation de x-www-form-urlencoded
+                        },
+                        body: `id=${id}`, // Encodage des données comme dans Postman
+                    }
+                );
+    
+                if (response.ok) {
+                    alert("Entreprise supprimée avec succès !");
+                    fetchEntreprises(); // Rafraîchir la liste des entreprises
+                } else {
+                    alert("Erreur lors de la suppression de l'entreprise.");
+                }
+            } catch (error) {
+                console.error("Erreur lors de la suppression :", error);
+                alert("Une erreur est survenue.");
+            }
+        }
+    };
+
     // Pagination logic
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -26,7 +58,6 @@ export default function Page() {
     const paginate = (pageNumber) => {
         if (pageNumber > 0 && pageNumber <= totalPages) {
             setCurrentPage(pageNumber);
-            // Scroll to top of the page
         }
     };
 
@@ -59,16 +90,34 @@ export default function Page() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {currentItems.map((entreprise, index) => (
-                                        <tr key={entreprise.entreprise_id}>
-                                            <td>{entreprise.entreprise_nom}</td>
-                                            <td>{entreprise.entreprise_email}</td>
-                                            <td>{entreprise.entreprise_telephone}</td>
-                                            <td><center><button className="remove-button"><Trash size={24}/></button></center></td>
-                                            <td><center><button className="remove-button"><Pencil size={24}/></button></center></td>
-                                    
-                                        </tr>
-                                    ))}
+                            {currentItems.map((entreprise) => (
+                                    <tr key={entreprise.entreprise_id}>
+                                        <td>{entreprise.entreprise_nom}</td>
+                                        <td>{entreprise.entreprise_email}</td>
+                                        <td>{entreprise.entreprise_telephone}</td>
+                                        <td>
+                                            <center>
+                                                <button className="edit-button">
+                                                    <Pencil size={24} />
+                                                </button>
+                                            </center>
+                                        </td>
+                                        <td>
+                                            <center>
+                                                <button
+                                                    className="remove-button"
+                                                    onClick={() =>
+                                                        handleDelete(
+                                                            entreprise.entreprise_id
+                                                        )
+                                                    }
+                                                >
+                                                    <Trash size={24} />
+                                                </button>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                ))}
                                 
                                 
                             </tbody>
