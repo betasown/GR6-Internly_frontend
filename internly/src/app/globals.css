@@ -834,10 +834,6 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   background-color: var(--greenLight);
 }
 
-.form-group textarea {
-  resize: vertical;
-}
-
 .button-group {
   display: flex;
   justify-content: space-between;
@@ -852,23 +848,16 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   font-size: 1rem;
 }
 
-.button-group .save-button {
-  background-color: var(--green);
-  color: var(--black);
-}
-
 .button-group .quit-button {
-  background-color: var(--grey);
+  background-color: var(--black);
   color: var(--white);
 }
 
-.button-group .save-button:hover {
-  background-color: var(--greenMedium);
+.button-group .quit-button:hover {
+  background-color: #e60000;
+  color: var(--white);
 }
 
-.button-group .quit-button:hover {
-  background-color: var(--blackMedium);
-}
 
 /*_____________________________________________________________________________________________*/
 /*                                         RESPONSIVE                                          */

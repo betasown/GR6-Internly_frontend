@@ -47,68 +47,123 @@ const CreateEntreprise = () => {
   };
 
   return (
-    <div>
-      <h1>Créer une entreprise</h1>
+    <div className="form-container">
+      <h1 className="title">Créer une entreprise</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Nom :</label>
-          <input
-            type="text"
-            name="nom"
-            value={formData.nom}
-            onChange={handleChange}
-            required
-          />
+        <div className="form-group">
+          <label htmlFor="nom" className="form-text">
+            Nom
+            <br />
+            <input
+              type="text"
+              id="nom"
+              name="nom"
+              value={formData.nom}
+              onChange={handleChange}
+              className="form-input"
+              placeholder="Nom de l'entreprise"
+              required
+            />
+          </label>
         </div>
-        <div>
-          <label>Description :</label>
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            required
-          />
+        <div className="form-group">
+          <label htmlFor="description" className="form-text">
+            Description
+            <br />
+            <textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              className="form-input"
+              placeholder="Description de l'entreprise"
+              rows="4"
+              required
+            />
+          </label>
         </div>
-        <div>
-          <label>Email :</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
+        <div className="form-group">
+          <label htmlFor="email" className="form-text">
+            Email
+            <br />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="form-input"
+              placeholder="Adresse email"
+              required
+            />
+          </label>
         </div>
-        <div>
-          <label>Téléphone :</label>
-          <input
-            type="tel"
-            name="telephone"
-            value={formData.telephone}
-            onChange={handleChange}
-            required
-          />
+        <div className="form-group">
+          <label htmlFor="telephone" className="form-text">
+            Téléphone
+            <br />
+            <input
+              type="tel"
+              id="telephone"
+              name="telephone"
+              value={formData.telephone}
+              onChange={handleChange}
+              className="form-input"
+              placeholder="Numéro de téléphone"
+              required
+            />
+          </label>
         </div>
-        <div>
-          <label>Domaine :</label>
-          <input
-            type="text"
-            name="domaine"
-            value={formData.domaine}
-            onChange={handleChange}
-            required
-          />
+        <div className="form-group">
+          <label htmlFor="domaine" className="form-text">
+            Domaine
+            <br />
+            <input
+              type="text"
+              id="domaine"
+              name="domaine"
+              value={formData.domaine}
+              onChange={handleChange}
+              className="form-input"
+              placeholder="Domaine d'activité"
+              required
+            />
+          </label>
         </div>
-        <div>
-          <label>Visibilité :</label>
-          <input
-            type="checkbox"
-            name="visibilite"
-            checked={formData.visibilite}
-            onChange={handleChange}
-          />
+        <div className="form-group">
+          <label htmlFor="visibilite" className="form-text">
+            Visibilité :
+            <input
+              type="checkbox"
+              id="visibilite"
+              name="visibilite"
+              checked={formData.visibilite}
+              onChange={handleChange}
+              className="form-checkbox"
+            />
+          </label>
         </div>
-        <button type="submit">Créer</button>
+        <div className="button-group">
+          <button type="submit" className="apply-button">
+            Créer
+          </button>
+          <button
+            type="button"
+            className="reinitialiser"
+            onClick={() =>
+              setFormData({
+                nom: "",
+                description: "",
+                email: "",
+                telephone: "",
+                domaine: "",
+                visibilite: true,
+              })
+            }
+          >
+            Réinitialiser
+          </button>
+        </div>
       </form>
     </div>
   );
