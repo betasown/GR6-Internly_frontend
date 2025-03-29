@@ -192,7 +192,6 @@ export default function OffreDetail() {
           <meta itemProp="employmentType" content={offre.employmentType} />
           <p className="subline">
             <span itemProp="hiringOrganization">{offre.entreprise_nom}</span>&nbsp;|&nbsp;
-            <span itemProp="jobLocation"> {offre.code_postal}, {offre.ville}</span>&nbsp;|&nbsp;
             <time dateTime={offre.offre_date_publication}>Publiée le {new Date(offre.offre_date_publication).toLocaleDateString()}</time>
           </p>
           <br/>

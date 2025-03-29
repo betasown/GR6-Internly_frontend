@@ -124,8 +124,8 @@ export default function Page() {
                         currentItems.length > 0 ? (
                             currentItems.map((offre, index) => (
                                 <div key={index} className="offer-card">
-                                    <div className="titre">{offre.entreprise} - {offre.titre_offre}</div>
-                                    <div className="entreprise">{offre.code_postal}, {offre.ville}</div>
+                                    <div className="titre">{offre.titre_offre}</div>
+                                    <div className="entreprise">{offre.entreprise}</div>
                                     <div className="competences">
                                         {offre.competences.length > 0 ? (
                                             offre.competences.map((competence, i) => (

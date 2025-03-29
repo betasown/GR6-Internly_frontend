@@ -124,8 +124,8 @@ export default function Home() {
                         offres.length > 0 ? (
                             offres.map((offre, index) => (
                                 <div key={index} className="offer-card">
-                                    <div className="titre">{offre.entreprise_nom} - {offre.offre_titre}</div>
-                                    <div className="entreprise">{offre.ville_code_postal}, {offre.ville_nom}</div>
+                                    <div className="titre">{offre.offre_titre}</div>
+                                    <div className="entreprise">{offre.entreprise_nom}</div>
                                     <div className="competences">
                                         {offre.competences.length > 0 ? (
                                             offre.competences.map((competence, i) => (
