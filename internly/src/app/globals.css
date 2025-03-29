@@ -1097,6 +1097,24 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
     "aside3 aside3 aside4 aside4 aside5 aside5 ";
 }
 
+.grid-inverse{
+  background: hsl(36, 100%, 99%);
+  width: 100%;
+  max-width: 1500px;
+  height: auto;
+  display: grid;
+  gap: 1.5vw;
+  padding: 1vw;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas:
+    "aside2 aside2 hero hero hero hero"
+    "aside2 aside2 hero hero hero hero"
+    "aside2 aside2 hero hero hero hero"
+    "aside2 aside2 hero hero hero hero"
+    "aside3 aside3 aside4 aside4 aside5 aside5 ";
+}
+
 .item {
   background-color: #f8f5f5;
   border-radius: 24px;
@@ -1123,12 +1141,29 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   grid-area: aside5;
 }
 
+.grid-inverse .item:nth-child(1) {
+  grid-area: hero;
+}
+.grid-inverse .item:nth-child(2) {
+  grid-area: aside2;
+}
+
+.grid-inverse .item:nth-child(3) {
+  grid-area: aside3;
+}
+.grid-inverse .item:nth-child(4) {
+  grid-area: aside4;
+}
+
+.grid-inverse .item:nth-child(5) {
+  grid-area: aside5;
+}
+
 .container-dashboard {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 5%;
 }
 
 
