@@ -99,9 +99,11 @@ export default function Page() {
                                         <td>{entreprise.entreprise_telephone}</td>
                                         <td>
                                             <center>
-                                                <button className="edit-button">
-                                                    <Pencil size={24} />
-                                                </button>
+                                                <Link href={`/editEntreprise/${entreprise.entreprise_id}`}>
+                                                    <button className="edit-button">
+                                                        <Pencil size={24} />
+                                                    </button>
+                                                </Link>
                                             </center>
                                         </td>
                                         <td>
