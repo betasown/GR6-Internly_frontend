@@ -65,8 +65,8 @@ export default function Page() {
         <div>
             <div className="slide-entreprises-container">
                 <div className="title-container">
-                    <p className="paragraphe">Bienvenue sur votre </p>
-                    <h1 className="title">dashboard</h1>
+                    <p className="paragraphe">Bienvenue sur votre dashboard</p>
+                    <h1 className="title">Pilote</h1>
                 </div>
                 <button className="create-offer-button" onClick={handleLogout}>
                     <span className="button-text">Déconnexion</span>
