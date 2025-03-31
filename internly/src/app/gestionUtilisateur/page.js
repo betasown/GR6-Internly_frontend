@@ -76,8 +76,22 @@ export default function Page() {
                                         <td>{pilote.utilisateur_nom}</td>
                                         <td>{pilote.utilisateur_prenom}</td>
                                         <td>{pilote.utilisateur_email}</td>
-                                        <td><center><button className="remove-button"><Trash size={24} /></button></center></td>
-                                        <td><center><button className="remove-button"><Pencil size={24} /></button></center></td>
+                                        <td>
+                                            <center>
+                                                <button className="remove-button">
+                                                    <Trash size={24} />
+                                                </button>
+                                            </center>
+                                        </td>
+                                        <td>
+                                            <center>
+                                                <Link href={`/editUtilisateur/${pilote.utilisateur_id}`}>
+                                                    <button className="remove-button">
+                                                        <Pencil size={24} />
+                                                    </button>
+                                                </Link>
+                                            </center>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -134,8 +148,22 @@ export default function Page() {
                                             <td>{etudiant.utilisateur_nom}</td>
                                             <td>{etudiant.utilisateur_prenom}</td>
                                             <td>{etudiant.utilisateur_email}</td>
-                                            <td><center><button className="remove-button"><Trash size={24} /></button></center></td>
-                                            <td><center><button className="remove-button"><Pencil size={24} /></button></center></td>
+                                            <td>
+                                                <center>
+                                                    <button className="remove-button">
+                                                        <Trash size={24} />
+                                                    </button>
+                                                </center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <Link href={`/editUtilisateur/${etudiant.utilisateur_id}`}>
+                                                        <button className="remove-button">
+                                                            <Pencil size={24} />
+                                                        </button>
+                                                    </Link>
+                                                </center>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
