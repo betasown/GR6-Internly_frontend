@@ -104,16 +104,6 @@ export default function Page() {
                         <h1 className="title">Offres</h1>
                     </div>
                 </div>
-                {/* Afficher le bouton "Créer une offre" uniquement si l'utilisateur est admin */}
-                {user && user.status === 'admin' && (
-                    <button 
-                        className="create-offer-button"
-                        onClick={() => router.push('/createOffre')}
-                    >
-                        <span className="button-text">Créer une offre</span>
-                        <span className="button-icon">+</span>
-                    </button>
-                )}
             </div>
 
             <div className="container-cards-container">
