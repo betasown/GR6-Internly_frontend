@@ -66,8 +66,8 @@ export default function Page() {
                                     <th>Nom</th>
                                     <th>Prénom</th>
                                     <th>Email</th>
-                                    <th><center></center></th>
-                                    <th><center></center></th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -100,7 +100,7 @@ export default function Page() {
                         <br></br>
                         <center><div className="title">Accessibilité :</div></center>
                         <br></br>
-                        <Link href={`/createEntreprise`} className="info-card">
+                        <Link href={`/createUtilisateur?statut=pilote`} className="info-card">
                             <div className="title">Créer un compte Pilote</div>
                         </Link>
                         <br></br>
@@ -158,8 +158,8 @@ export default function Page() {
                             <br></br>
                             <center><div className="title">Accessibilité :</div></center>
                             <br></br>
-                            <Link href={`/createEntreprise`} className="info-card">
-                                <div className="title">Créer un compte Etudiant</div>
+                            <Link href={`/createUtilisateur?statut=etudiant`} className="info-card">
+                                <div className="title">Créer un compte Étudiant</div>
                             </Link>
                             <br></br>
                             <Link href={`/entreprise`} className="info-card">
