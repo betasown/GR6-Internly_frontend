@@ -86,8 +86,6 @@ export default function Page() {
                                     <tr>
                                         <th>Nom de l'offre</th>
                                         <th>Entreprise</th>
-                                        <th>Ville, 
-                                        Code Postal</th>
                                         <th>Etudiant</th>
                                     </tr>
                                 </thead>
@@ -96,8 +94,6 @@ export default function Page() {
                                         <tr key={index}>
                                             <td>{offer.titre}</td>
                                             <td>{offer.entreprise_nom}</td>
-                                            <td>{offer.ville}, 
-                                            {offer.code_postal}</td>
                                             <td>{offer.utilisateur_prenom} {offer.utilisateur_nom}</td>
                                         </tr>
                                     ))}
