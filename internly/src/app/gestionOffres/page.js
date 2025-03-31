@@ -88,8 +88,9 @@ export default function Page() {
                                         <tr key={entreprise.offre_id}>
                                             <td>{entreprise.titre_offre}</td>
                                             <td>{entreprise.entreprise}</td>
+                                            <td><center><button className="edit-button"><Pencil size={20}/></button></center></td>
                                             <td><center><button className="remove-button"><Trash size={24}/></button></center></td>
-                                            <td><center><button className="remove-button"><Pencil size={24}/></button></center></td>
+                                            
                                     
                                         </tr>
                                     ))}

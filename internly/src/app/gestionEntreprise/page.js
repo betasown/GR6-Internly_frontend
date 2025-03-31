@@ -127,7 +127,7 @@ export default function Page() {
                                                 <center>
                                                     <Link href={`/editEntreprise/${entreprise.entreprise_id}`}>
                                                         <button className="edit-button">
-                                                            <Pencil size={24} />
+                                                            <Pencil size={20} />
                                                         </button>
                                                     </Link>
                                                 </center>

@@ -132,6 +132,15 @@ export default function Page() {
                                         <td>{pilote.utilisateur_prenom}</td>
                                         <td>{pilote.utilisateur_email}</td>
                                         <td>
+                                        <center>
+                                                <Link href={`/editUtilisateur/${pilote.utilisateur_id}`}>
+                                                    <button className="edit-button">
+                                                        <Pencil size={20} />
+                                                    </button>
+                                                </Link>
+                                            </center>
+                                        </td>
+                                        <td>
                                             <center>
                                                 <button
                                                     className="remove-button"
@@ -139,15 +148,6 @@ export default function Page() {
                                                 >
                                                     <Trash size={24} />
                                                 </button>
-                                            </center>
-                                        </td>
-                                        <td>
-                                            <center>
-                                                <Link href={`/editUtilisateur/${pilote.utilisateur_id}`}>
-                                                    <button className="remove-button">
-                                                        <Pencil size={24} />
-                                                    </button>
-                                                </Link>
                                             </center>
                                         </td>
                                     </tr>
@@ -207,22 +207,22 @@ export default function Page() {
                                             <td>{etudiant.utilisateur_prenom}</td>
                                             <td>{etudiant.utilisateur_email}</td>
                                             <td>
-                                                <center>
+                                               <center>
+                                                    <Link href={`/editUtilisateur/${etudiant.utilisateur_id}`}>
+                                                        <button className="edit-button">
+                                                            <Pencil size={20} />
+                                                        </button>
+                                                    </Link>
+                                                </center>
+                                            </td>
+                                            <td>
+                                            <center>
                                                     <button
                                                         className="remove-button"
                                                         onClick={() => handleDeleteUser(etudiant.utilisateur_id)}
                                                     >
                                                         <Trash size={24} />
                                                     </button>
-                                                </center>
-                                            </td>
-                                            <td>
-                                                <center>
-                                                    <Link href={`/editUtilisateur/${etudiant.utilisateur_id}`}>
-                                                        <button className="remove-button">
-                                                            <Pencil size={24} />
-                                                        </button>
-                                                    </Link>
                                                 </center>
                                             </td>
                                         </tr>

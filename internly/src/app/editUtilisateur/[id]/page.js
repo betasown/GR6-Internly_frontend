@@ -115,7 +115,7 @@ const EditUtilisateur = () => {
           />
         </div>
 
-        <button type="submit">Mettre à jour</button>
+        <button type="submit" className="apply-button" >Mettre à jour</button>
       </form>
     </div>
   );
