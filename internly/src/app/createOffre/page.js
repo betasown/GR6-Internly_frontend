@@ -1,104 +1,148 @@
 "use client";
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { X } from "lucide-react";
+import React, { useState, useEffect } from "react";
 
 const CreateOffre = () => {
-  const router = useRouter();
   const [formData, setFormData] = useState({
-    titre: '',
-    description: '',
-    entreprise: '',
-    competences: '',
-    remuneration: '',
-    dateDebut: '',
-    dateFin: ''
+    titre: "",
+    description: "",
+    remuneration: "",
+    dateDebut: "",
+    dateFin: "",
+    places: "",
+    entrepriseId: "",
+    experienceRequise: "",
+    niveauEtudeMinimal: "",
+    competences: [],
   });
 
-  const [showConfirmPopup, setShowConfirmPopup] = useState(false);
+  const [entreprises, setEntreprises] = useState([]);
+  const [competences] = useState(["HTML", "JavaScript", "MySQL", "React", "Node.js"]); // Liste statique pour l'instant
+
+  // Récupérer les entreprises depuis l'API
+  useEffect(() => {
+    const fetchEntreprises = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/index.php?route=entreprise");
+        const data = await response.json();
+        setEntreprises(data);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des entreprises:", error);
+      }
+    };
+
+    fetchEntreprises();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleCompetencesChange = (e) => {
+    const selectedOptions = Array.from(e.target.selectedOptions).map((option) => option.value);
+    setFormData({ ...formData, competences: selectedOptions });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const payload = {
       ...formData,
-      [name]: value
-    });
-  };
+      remuneration: parseFloat(formData.remuneration),
+      places: parseInt(formData.places),
+      experienceRequise: parseInt(formData.experienceRequise),
+    };
 
-  const handleSave = () => {
-    // Logic to save the form data
-    console.log('Form data saved:', formData);
-    router.push('/offres');
-  };
+    try {
+      const response = await fetch("http://localhost:8000/index.php?route=create_offer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-  const handleQuit = () => {
-    setShowConfirmPopup(true);
-  };
-
-  const handleConfirmQuit = () => {
-    // Logic to quit the creation
-    setShowConfirmPopup(false);
-    router.push('/offres');
-  };
-
-  const handleCancelQuit = () => {
-    setShowConfirmPopup(false);
+      if (response.ok) {
+        alert("Offre créée avec succès !");
+        setFormData({
+          titre: "",
+          description: "",
+          remuneration: "",
+          dateDebut: "",
+          dateFin: "",
+          places: "",
+          entrepriseId: "",
+          experienceRequise: "",
+          niveauEtudeMinimal: "",
+          competences: [],
+        });
+      } else {
+        alert("Erreur lors de la création de l'offre.");
+      }
+    } catch (error) {
+      console.error("Erreur:", error);
+      alert("Une erreur est survenue.");
+    }
   };
 
   return (
-    <div className="form-container">
-      <button
-        className="close-button"
-        onClick={() => router.push("/gestionOffres")}
-        aria-label="Fermer"
-      	>
-        <X size={24} />
-        </button>
-      <h1 className='title'>Créer une offre</h1>
-      <form>
-        <div className="form-group">
+    <div>
+      <h1>Créer une Offre</h1>
+      <form onSubmit={handleSubmit}>
+        <div>
           <label>Titre:</label>
-          <input type="text" name="titre" value={formData.titre} onChange={handleChange} />
+          <input type="text" name="titre" value={formData.titre} onChange={handleChange} required />
         </div>
-        <div className="form-group">
+        <div>
           <label>Description:</label>
-          <textarea name="description" value={formData.description} onChange={handleChange}></textarea>
+          <textarea name="description" value={formData.description} onChange={handleChange} required />
         </div>
-        <div className="form-group">
-          <label>Entreprise:</label>
-          <input type="text" name="entreprise" value={formData.entreprise} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label>Compétences:</label>
-          <input type="text" name="competences" value={formData.competences} onChange={handleChange} placeholder="Séparées par des virgules" />
-        </div>
-        <div className="form-group">
+        <div>
           <label>Rémunération:</label>
-          <input type="text" name="remuneration" value={formData.remuneration} onChange={handleChange} />
+          <input type="number" name="remuneration" value={formData.remuneration} onChange={handleChange} required />
         </div>
-        <div className="form-group">
+        <div>
           <label>Date de début:</label>
-          <input type="date" name="dateDebut" value={formData.dateDebut} onChange={handleChange} />
+          <input type="date" name="dateDebut" value={formData.dateDebut} onChange={handleChange} required />
         </div>
-        <div className="form-group">
+        <div>
           <label>Date de fin:</label>
-          <input type="date" name="dateFin" value={formData.dateFin} onChange={handleChange} />
+          <input type="date" name="dateFin" value={formData.dateFin} onChange={handleChange} required />
         </div>
-        <div className="button-group">
-          <button type="button" className="save-button" onClick={handleSave}>Sauvegarder</button>
-          <button type="button" className="quit-button" onClick={handleQuit}>Quitter</button>
+        <div>
+          <label>Places:</label>
+          <input type="number" name="places" value={formData.places} onChange={handleChange} required />
         </div>
+        <div>
+          <label>Nom de l'entreprise:</label>
+          <select name="entrepriseId" value={formData.entrepriseId} onChange={handleChange} required>
+            <option value="">Sélectionnez une entreprise</option>
+            {entreprises.map((entreprise) => (
+              <option key={entreprise.entreprise_id} value={entreprise.entreprise_id}>
+                {entreprise.entreprise_nom}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Expérience requise (en années):</label>
+          <input type="number" name="experienceRequise" value={formData.experienceRequise} onChange={handleChange} required />
+        </div>
+        <div>
+          <label>Niveau d'étude minimal:</label>
+          <input type="text" name="niveauEtudeMinimal" value={formData.niveauEtudeMinimal} onChange={handleChange} required />
+        </div>
+        <div>
+          <label>Compétences:</label>
+          <select name="competences" multiple value={formData.competences} onChange={handleCompetencesChange} required>
+            {competences.map((competence, index) => (
+              <option key={index} value={competence}>
+                {competence}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button type="submit">Créer l'offre</button>
       </form>
-
-      {showConfirmPopup && (
-        <div className="popup">
-          <div className="popup-content">
-            <p>Êtes-vous sûr de vouloir quitter la création ?</p>
-            <button onClick={handleConfirmQuit}>Oui</button>
-            <button onClick={handleCancelQuit}>Non</button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
