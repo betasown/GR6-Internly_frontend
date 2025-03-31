@@ -133,17 +133,17 @@ export default function Page() {
                         </div>
                         <div className="item"> 
                             <Link href={`/gestionOffres`} className="info-card">
-                                <div className="title" >Offres</div>
+                                <div className="title" >Gestion des Offres</div>
                             </Link>
                         </div>
                         <div className="item">
                             <Link href={`/gestionEntreprise`} className="info-card">
-                                <div className="title">entreprises</div>
+                                <div className="title">Gestion des entreprises</div>
                             </Link>
                         </div>
                         <div className="item">
                             <Link href={`/gestionUtilisateur`} className="info-card">
-                                <div className="title">Utilisateurs</div>
+                                <div className="title">Gestion des Utilisateurs</div>
                             </Link>
                         </div>
                     </div>

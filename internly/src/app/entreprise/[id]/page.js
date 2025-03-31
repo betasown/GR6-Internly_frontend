@@ -1,11 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { X } from "lucide-react"; 
 
 export default function EntrepriseDetail() {
   const { id } = useParams();
   const [entreprise, setEntreprise] = useState(null);
   const [error, setError] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     if (id) {
@@ -37,7 +39,8 @@ export default function EntrepriseDetail() {
   return (
     <div>
       <div className="slide-container">
-        <div className="slide-company-container">
+        <div className="slide-company-container">      
+        <button className="close-button" onClick={() => router.push("/entreprise")} aria-label="Fermer"><X size={24} /></button>
           <h1 className="title">{entreprise.entreprise_nom}</h1>
           <p>{entreprise.entreprise_description}</p>
           <p>

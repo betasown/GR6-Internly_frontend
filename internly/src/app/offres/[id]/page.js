@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { ChevronDown, ChevronUp, Trash2, Heart} from "lucide-react"; // Import des icônes
+import { useParams, useRouter } from "next/navigation";
+import { ChevronDown, ChevronUp, Trash2, Heart, X} from "lucide-react"; // Import des icônes
 
 function getCookie(name) {
   const value = `; ${document.cookie}`;
@@ -25,6 +25,7 @@ export default function OffreDetail() {
   const [uploadedFile, setUploadedFile] = useState(null); // État pour gérer le fichier téléchargé
   const [isWishlisted, setIsWishlisted] = useState(false); // État pour gérer le statut de la wishlist
   const [user, setUser] = useState({ nom: "", prenom: "", email: "", id: null }); // Ajout de l'ID utilisateur
+  const router = useRouter();
 
   const toggleMessageField = () => {
     setShowMessageField(!showMessageField); // Inverse l'état
@@ -166,24 +167,13 @@ export default function OffreDetail() {
   return (
     <div>
       <div className="slide-offres-detail-container">
+      <button className="close-button" onClick={() => router.push("/offres")} aria-label="Fermer"><X size={24} /></button>
+      <br></br>
       <h1 className="title">
           {offre.offre_titre} - {offre.entreprise_nom}
-          <button
-  className="wishlist-button"
-  onClick={handleWishlistToggle}
->
-  {isWishlisted ? (
-    <>
-      <Heart color="red" size={20} />
-      Retirer de la wishlist
-    </>
-  ) : (
-    <>
-      <Heart size={20} />
-      Ajouter à la wishlist
-    </>
-  )}
-</button>
+          <button className="wishlist-button" onClick={handleWishlistToggle}>
+            {isWishlisted ? (<><Heart color="red" size={20} />Retirer de la wishlist</>) : (<><Heart size={20} />Ajouter à la wishlist</>)}
+          </button>
         </h1>
         <p>{offre.offre_description}</p>
         <article itemScope itemType="http://schema.org/JobPosting">
