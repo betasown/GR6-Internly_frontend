@@ -119,7 +119,10 @@ export default function Page() {
                                             <td>{entreprise.entreprise}</td>
                                             <td>
                                                 <center>
-                                                    <button className="edit-button">
+                                                    <button
+                                                        className="edit-button"
+                                                        onClick={() => router.push(`/editOffre/${entreprise.offre_id}`)}
+                                                    >
                                                         <Pencil size={20} />
                                                     </button>
                                                 </center>
