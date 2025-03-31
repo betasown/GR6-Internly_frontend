@@ -39,7 +39,9 @@ export default function Page() {
     const [etudiants, setEtudiants] = useState([]);
     const [currentPagePilotes, setCurrentPagePilotes] = useState(1);
     const [currentPageEtudiants, setCurrentPageEtudiants] = useState(1);
-    const itemsPerPage = 5;
+    const [searchPilotes, setSearchPilotes] = useState(""); // Barre de recherche pour pilotes
+    const [searchEtudiants, setSearchEtudiants] = useState(""); // Barre de recherche pour étudiants
+    const itemsPerPage = 4;
     const router = useRouter(); // Initialisez le routeur
 
     useEffect(() => {
@@ -67,12 +69,20 @@ export default function Page() {
         setCurrentPageEtudiants(pageNumber);
     };
 
-    const currentPilotes = pilotes.slice(
+    const filteredPilotes = pilotes.filter((pilote) =>
+        pilote.utilisateur_nom.toLowerCase().includes(searchPilotes.toLowerCase())
+    );
+
+    const filteredEtudiants = etudiants.filter((etudiant) =>
+        etudiant.utilisateur_nom.toLowerCase().includes(searchEtudiants.toLowerCase())
+    );
+
+    const currentPilotes = filteredPilotes.slice(
         (currentPagePilotes - 1) * itemsPerPage,
         currentPagePilotes * itemsPerPage
     );
 
-    const currentEtudiants = etudiants.slice(
+    const currentEtudiants = filteredEtudiants.slice(
         (currentPageEtudiants - 1) * itemsPerPage,
         currentPageEtudiants * itemsPerPage
     );
@@ -86,109 +96,124 @@ export default function Page() {
                 </div>
            
                 <button
-    className="return-button"
-    onClick={() => {
-        const userCookie = document.cookie.split("; ").find((row) => row.startsWith("user="));
-        if (userCookie) {
-            const user = JSON.parse(decodeURIComponent(userCookie.split("=")[1]));
-            switch (user.status) {
-                case "admin":
-                    router.push("/dashboardAdmin");
-                    break;
-                case "pilote":
-                    router.push("/dashboardPilote");
-                    break;
-                default:
-                    alert("Statut utilisateur inconnu. Veuillez contacter l'administrateur.");
-            }
-        } else {
-            alert("Utilisateur non connecté.");
-        }
-    }}
->
-    <span className="button-text"><ArrowLeft size={24} /></span>
-</button>
-            <div className="container-dashboard">
-                <div className="grid">
-                    <div className="item">
-                        <br></br>
-                        <center><div className="title">Pilotes :</div></center>
-                        <br></br>
-                        {/* Display the pilotes in a table */}
-                        <table className="offer-table">
-                            <thead>
-                                <tr>
-                                    <th>Nom</th>
-                                    <th>Prénom</th>
-                                    <th>Email</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {currentPilotes.map((pilote) => (
-                                    <tr key={pilote.utilisateur_id}>
-                                        <td>{pilote.utilisateur_nom}</td>
-                                        <td>{pilote.utilisateur_prenom}</td>
-                                        <td>{pilote.utilisateur_email}</td>
-                                        <td>
-                                        <center>
-                                                <Link href={`/editUtilisateur/${pilote.utilisateur_id}`}>
-                                                    <button className="edit-button">
-                                                        <Pencil size={20} />
-                                                    </button>
-                                                </Link>
-                                            </center>
-                                        </td>
-                                        <td>
-                                            <center>
-                                                <button
-                                                    className="remove-button"
-                                                    onClick={() => handleDeleteUser(pilote.utilisateur_id)}
-                                                >
-                                                    <Trash size={24} />
-                                                </button>
-                                            </center>
-                                        </td>
+                    className="return-button"
+                    onClick={() => {
+                        const userCookie = document.cookie.split("; ").find((row) => row.startsWith("user="));
+                        if (userCookie) {
+                            const user = JSON.parse(decodeURIComponent(userCookie.split("=")[1]));
+                            switch (user.status) {
+                                case "admin":
+                                    router.push("/dashboardAdmin");
+                                    break;
+                                case "pilote":
+                                    router.push("/dashboardPilote");
+                                    break;
+                                default:
+                                    alert("Statut utilisateur inconnu. Veuillez contacter l'administrateur.");
+                            }
+                        } else {
+                            alert("Utilisateur non connecté.");
+                        }
+                    }}
+                >
+                    <span className="button-text"><ArrowLeft size={24} /></span>
+                </button>
+                <div className="container-dashboard">
+                    <div className="grid">
+                        <div className="item">
+                            <br></br>
+                            <center><div className="title">Pilotes :</div></center>
+                            
+                            <center><input
+                                type="text"
+                                placeholder="Entrer le nom d'un pilote..."
+                                value={searchPilotes}
+                                onChange={(e) => setSearchPilotes(e.target.value)}
+                                className="search-bar"
+                            /></center>
+                            
+                            {/* Display the pilotes in a table */}
+                            <table className="offer-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Prénom</th>
+                                        <th>Email</th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
+                                </thead>
+                                <tbody>
+                                    {currentPilotes.map((pilote) => (
+                                        <tr key={pilote.utilisateur_id}>
+                                            <td>{pilote.utilisateur_nom}</td>
+                                            <td>{pilote.utilisateur_prenom}</td>
+                                            <td>{pilote.utilisateur_email}</td>
+                                            <td>
+                                                <center>
+                                                    <Link href={`/editUtilisateur/${pilote.utilisateur_id}`}>
+                                                        <button className="edit-button">
+                                                            <Pencil size={20} />
+                                                        </button>
+                                                    </Link>
+                                                </center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <button
+                                                        className="remove-button"
+                                                        onClick={() => handleDeleteUser(pilote.utilisateur_id)}
+                                                    >
+                                                        <Trash size={24} />
+                                                    </button>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <div className="pagination">
+                                <button onClick={() => paginatePilotes(1)} disabled={currentPagePilotes === 1}>&laquo;</button>
+                                {Array.from({ length: totalPagesPilotes }, (_, index) => (
+                                    <button
+                                        key={index + 1}
+                                        onClick={() => paginatePilotes(index + 1)}
+                                        className={currentPagePilotes === index + 1 ? 'active' : ''}
+                                    >
+                                        {index + 1}
+                                    </button>
                                 ))}
-                            </tbody>
-                        </table>
-                        <div className="pagination">
-                            <button onClick={() => paginatePilotes(1)} disabled={currentPagePilotes === 1}>&laquo;</button>
-                            {Array.from({ length: totalPagesPilotes }, (_, index) => (
-                                <button
-                                    key={index + 1}
-                                    onClick={() => paginatePilotes(index + 1)}
-                                    className={currentPagePilotes === index + 1 ? 'active' : ''}
-                                >
-                                    {index + 1}
-                                </button>
-                            ))}
-                            <button onClick={() => paginatePilotes(totalPagesPilotes)} disabled={currentPagePilotes === totalPagesPilotes}>&raquo;</button>
+                                <button onClick={() => paginatePilotes(totalPagesPilotes)} disabled={currentPagePilotes === totalPagesPilotes}>&raquo;</button>
+                            </div>
+                        </div>
+                        <div className="item">
+                            <br></br>
+                            <center><div className="title">Accessibilité :</div></center>
+                            <br></br>
+                            <Link href={`/createUtilisateur?statut=pilote`} className="info-card">
+                                <div className="title">Créer un compte Pilote</div>
+                            </Link>
+                            <br></br>
+                            <Link href={`/entreprise`} className="info-card">
+                                <div className="title">Voir les statistiques</div>
+                            </Link>
+                            <br></br>
                         </div>
                     </div>
-                    <div className="item">
-                        <br></br>
-                        <center><div className="title">Accessibilité :</div></center>
-                        <br></br>
-                        <Link href={`/createUtilisateur?statut=pilote`} className="info-card">
-                            <div className="title">Créer un compte Pilote</div>
-                        </Link>
-                        <br></br>
-                        <Link href={`/entreprise`} className="info-card">
-                            <div className="title">Voir les statistiques</div>
-                        </Link>
-                        <br></br>
-                    </div>
-                </div>
                 </div>
                 <div className="container-dashboard">
                     <div className="grid-inverse">
                         <div className="item">
                             <br></br>
                             <center><div className="title">Etudiants :</div></center>
-                            <br></br>
+                            
+                            <center><input
+                                type="text"
+                                placeholder="Entrer le nom d'un étudiant..."
+                                value={searchEtudiants}
+                                onChange={(e) => setSearchEtudiants(e.target.value)}
+                                className="search-bar"
+                            /></center>
                             {/* Display the etudiants in a table */}
                             <table className="offer-table">
                                 <thead>
@@ -207,7 +232,7 @@ export default function Page() {
                                             <td>{etudiant.utilisateur_prenom}</td>
                                             <td>{etudiant.utilisateur_email}</td>
                                             <td>
-                                               <center>
+                                                <center>
                                                     <Link href={`/editUtilisateur/${etudiant.utilisateur_id}`}>
                                                         <button className="edit-button">
                                                             <Pencil size={20} />
@@ -216,7 +241,7 @@ export default function Page() {
                                                 </center>
                                             </td>
                                             <td>
-                                            <center>
+                                                <center>
                                                     <button
                                                         className="remove-button"
                                                         onClick={() => handleDeleteUser(etudiant.utilisateur_id)}
