@@ -86,6 +86,7 @@ export default function Page() {
                                     <tr>
                                         <th>Nom de l'offre</th>
                                         <th>Entreprise</th>
+                                        <th>Date de candidature</th>
                                         <th>Etudiant</th>
                                     </tr>
                                 </thead>
@@ -94,6 +95,7 @@ export default function Page() {
                                         <tr key={index}>
                                             <td>{offer.titre}</td>
                                             <td>{offer.entreprise_nom}</td>
+                                            <td>{new Date(offer.date).toISOString().split('T')[0]}</td>s
                                             <td>{offer.utilisateur_prenom} {offer.utilisateur_nom}</td>
                                         </tr>
                                     ))}
