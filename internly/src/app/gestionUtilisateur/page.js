@@ -85,9 +85,29 @@ export default function Page() {
                     <h1 className="title">utilisateurs</h1>
                 </div>
            
-            <button className="return-button" onClick={() => router.back()}>
-                    <span className="button-text"><ArrowLeft size={24}/></span>
-            </button>
+                <button
+    className="return-button"
+    onClick={() => {
+        const userCookie = document.cookie.split("; ").find((row) => row.startsWith("user="));
+        if (userCookie) {
+            const user = JSON.parse(decodeURIComponent(userCookie.split("=")[1]));
+            switch (user.status) {
+                case "admin":
+                    router.push("/dashboardAdmin");
+                    break;
+                case "pilote":
+                    router.push("/dashboardPilote");
+                    break;
+                default:
+                    alert("Statut utilisateur inconnu. Veuillez contacter l'administrateur.");
+            }
+        } else {
+            alert("Utilisateur non connecté.");
+        }
+    }}
+>
+    <span className="button-text"><ArrowLeft size={24} /></span>
+</button>
             <div className="container-dashboard">
                 <div className="grid">
                     <div className="item">

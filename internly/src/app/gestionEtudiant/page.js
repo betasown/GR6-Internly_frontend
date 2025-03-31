@@ -37,7 +37,7 @@ export default function Page() {
                     <h1 className="title">Etudiants</h1>
                 </div>
             
-            <button className="return-button" onClick={() => router.back()}>
+            <button className="return-button" onClick={() => router.push("/dashboardPilote")}>
                     <span className="button-text"><ArrowLeft size={24}/></span>
             </button>
             <div className="container-dashboard">
