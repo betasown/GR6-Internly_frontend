@@ -17,6 +17,8 @@ function calculateDurationInMonths(startDate, endDate) {
 
 export default function Page() {
     const [offres, setOffres] = useState([]);
+    const [filteredOffres, setFilteredOffres] = useState([]); // État pour les offres filtrées
+    const [searchQuery, setSearchQuery] = useState(""); // État pour la barre de recherche
     const [wishListStats, setWishListStats] = useState([]);
     const [durationStats, setDurationStats] = useState([]);
     const [error, setError] = useState(null);
@@ -43,6 +45,7 @@ export default function Page() {
                     competences: typeof offre.competences === 'string' ? offre.competences.split(', ') : []
                 }));
                 setOffres(offresWithCompetencesArray);
+                setFilteredOffres(offresWithCompetencesArray); // Initialiser les offres filtrées
             } catch (error) {
                 setError(error.message);
             }
@@ -81,12 +84,22 @@ export default function Page() {
         fetchDurationStats();
     }, []);
 
+    // Fonction pour gérer la recherche
+    const handleSearch = (e) => {
+        const query = e.target.value.toLowerCase();
+        setSearchQuery(query);
+        const filtered = offres.filter((offre) =>
+            offre.titre_offre.toLowerCase().includes(query)
+        );
+        setFilteredOffres(filtered);
+    };
+
     // Pagination logic
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = offres.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = filteredOffres.slice(indexOfFirstItem, indexOfLastItem);
 
-    const totalPages = Math.ceil(offres.length / itemsPerPage);
+    const totalPages = Math.ceil(filteredOffres.length / itemsPerPage);
 
     const paginate = (pageNumber) => {
         if (pageNumber > 0 && pageNumber <= totalPages) {
@@ -104,6 +117,17 @@ export default function Page() {
                         <h1 className="title">Offres</h1>
                     </div>
                 </div>
+            </div>
+
+            {/* Barre de recherche */}
+            <div className="search-container">
+                <input
+                    type="text"
+                    placeholder="Rechercher une offre par titre..."
+                    value={searchQuery}
+                    onChange={handleSearch}
+                    className="search-input"
+                />
             </div>
 
             <div className="container-cards-container">
@@ -134,7 +158,7 @@ export default function Page() {
                                 </div>
                             ))
                         ) : (
-                            <p>Aucune offre trouvée</p>
+                            <p className="no-results-message">Aucune offre trouvée</p>
                         )
                     )}
                 </div>
