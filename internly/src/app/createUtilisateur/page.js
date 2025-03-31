@@ -42,6 +42,15 @@ const CreateUtilisateur = () => {
         const data = await response.json();
         alert("Utilisateur créé avec succès !");
         console.log(data);
+
+        // Réinitialiser les champs du formulaire sauf le statut
+        setFormData({
+          nom: "",
+          prenom: "",
+          statut: statutParam, // Conserver le statut initial
+          email: "",
+          password: "",
+        });
       } else {
         alert("Erreur lors de la création de l'utilisateur.");
       }
