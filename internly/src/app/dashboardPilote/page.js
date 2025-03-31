@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'; // Importez useRouter
 import Link from "next/link";
 
 export default function Page() {
-    const [userInfo, setUserInfo] = useState({ isLoggedIn: false, status: '' });
+    const [userInfo, setUserInfo] = useState({ isLoggedIn: false, status: '', prenom: '' });
     const [showLogoutConfirmPopup, setShowLogoutConfirmPopup] = useState(false);
     const [offers, setOffers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -19,21 +19,32 @@ export default function Page() {
 
             // Vérification du statut de l'utilisateur
             if (user.status !== "pilote") {
-                router.push('/403'); // Rediriger vers une page 403 si l'utilisateur n'est pas un étudiant
+                router.push('/403'); // Rediriger vers une page 403 si l'utilisateur n'est pas un pilote
                 return;
             }
 
             setUserInfo({ isLoggedIn: true, status: user.status });
 
-            fetch('http://localhost:8000/index.php?route=candidatures_with_details')
-            .then(response => response.json())
-            .then(data => setOffers(data))
-            .catch(error => console.error('Error fetching data:', error));
+            // Récupération du prénom de l'utilisateur
+            fetch(`http://localhost:8000/index.php?route=user_firstname&id=${user.id}&field=prenom`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.utilisateur_prenom) {
+                        setUserInfo((prev) => ({ ...prev, prenom: data.utilisateur_prenom }));
+                    }
+                })
+                .catch(error => console.error('Error fetching user first name:', error));
 
-        }else {
+            // Récupération des candidatures
+            fetch('http://localhost:8000/index.php?route=candidatures_with_details')
+                .then(response => response.json())
+                .then(data => setOffers(data))
+                .catch(error => console.error('Error fetching data:', error));
+
+        } else {
             router.push('/403'); // Rediriger vers une page 403 si aucun cookie utilisateur n'est trouvé
         }        
-    }, []);
+    }, [router]);
 
     const handleLogout = () => {
         setShowLogoutConfirmPopup(true);
@@ -65,8 +76,7 @@ export default function Page() {
         <div>
             <div className="slide-entreprises-container">
                 <div className="title-container">
-                    <p className="paragraphe">Bienvenue sur votre dashboard</p>
-                    <h1 className="title">Pilote</h1>
+                    <h1 className="title">Bienvenue {userInfo.prenom} !</h1>
                 </div>
                 <button className="create-offer-button" onClick={handleLogout}>
                     <span className="button-text">Déconnexion</span>
@@ -84,6 +94,7 @@ export default function Page() {
                                     <tr>
                                         <th>Nom de l'offre</th>
                                         <th>Entreprise</th>
+                                        <th>Date de candidature</th>
                                         <th>Etudiant</th>
                                     </tr>
                                 </thead>
@@ -92,6 +103,7 @@ export default function Page() {
                                         <tr key={index}>
                                             <td>{offer.titre}</td>
                                             <td>{offer.entreprise_nom}</td>
+                                            <td>{new Date(offer.date).toISOString().split('T')[0]}</td>
                                             <td>{offer.utilisateur_prenom} {offer.utilisateur_nom}</td>
                                         </tr>
                                     ))}

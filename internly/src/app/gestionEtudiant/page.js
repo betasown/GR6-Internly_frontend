@@ -1,12 +1,14 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Trash, Pencil } from "lucide-react";
+import { Trash, Pencil, ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation"; // Importez useRouter
 
 export default function Page() {
     const [etudiants, setEtudiants] = useState([]);
     const [currentPageEtudiants, setCurrentPageEtudiants] = useState(1);
     const itemsPerPage = 5;
+    const router = useRouter(); // Initialisez le routeur
 
     useEffect(() => {
         // Fetch data for etudiants
@@ -34,7 +36,10 @@ export default function Page() {
                     <p className="paragraphe">Gestion des</p>
                     <h1 className="title">Etudiants</h1>
                 </div>
-            </div>
+            
+            <button className="return-button" onClick={() => router.back()}>
+                    <span className="button-text"><ArrowLeft size={24}/></span>
+            </button>
             <div className="container-dashboard">
                 <div className="container-dashboard">
                     <div className="grid">
@@ -95,7 +100,8 @@ export default function Page() {
                     </div>
                 </div>
             </div>
-            <img className="assets" src="/Assets/separateur-w2b.png" />
         </div>
+        <img className="assets" src="/Assets/separateur-w2b.png" />
+    </div>
     );
 }

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { X } from "lucide-react";
 
 const CreateOffre = () => {
   const router = useRouter();
@@ -46,6 +47,13 @@ const CreateOffre = () => {
 
   return (
     <div className="form-container">
+      <button
+        className="close-button"
+        onClick={() => router.push("/gestionOffres")}
+        aria-label="Fermer"
+      	>
+        <X size={24} />
+        </button>
       <h1 className='title'>Créer une offre</h1>
       <form>
         <div className="form-group">

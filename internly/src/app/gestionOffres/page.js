@@ -1,12 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Trash, Pencil} from "lucide-react";
+import { Trash, Pencil, ArrowLeft} from "lucide-react";
+import { useRouter } from "next/navigation"; // Importez useRouter
+
 
 export default function Page() {
     const [entreprises, setEntreprises] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
+    const router = useRouter(); // Initialisez le routeur
 
     useEffect(() => {
         // Fetch data from the API
@@ -31,14 +34,17 @@ export default function Page() {
     };
 
     return (
-        <>
+        <div>
             <div className="slide-entreprises-container">
                 <div className="title-container">
                     <p className="paragraphe">Gestion des</p>
                     <h1 className="title">Offres</h1>
                 </div>
-            </div>
-            <div className="container-dashboard">
+            
+                <button className="return-button" onClick={() => router.back()}>
+                    <span className="button-text"><ArrowLeft size={24}/></span>
+                </button>
+                <div className="container-dashboard">
                 <div className="grid">
                     <div className="item">
                         <br></br>
@@ -100,7 +106,8 @@ export default function Page() {
                     </div>
                 </div>
             </div>
-            <img className="assets" src="/Assets/separateur-w2b.png" />
-        </>
+        </div>
+        <img className="assets" src="/Assets/separateur-w2b.png" />
+    </div>
     );
 }

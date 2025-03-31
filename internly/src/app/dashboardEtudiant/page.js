@@ -7,7 +7,7 @@ const formatDate = (dateString) => {
 };
 
 export default function Page() {
-    const [userInfo, setUserInfo] = useState({ isLoggedIn: false, status: '', id: null });
+    const [userInfo, setUserInfo] = useState({ isLoggedIn: false, status: '', id: null, prenom: '' });
     const [candidatures, setCandidatures] = useState([]);
     const [candidatureStats, setCandidatureStats] = useState([]);
     const [showLogoutConfirmPopup, setShowLogoutConfirmPopup] = useState(false);
@@ -36,6 +36,16 @@ export default function Page() {
             }
 
             setUserInfo({ isLoggedIn: true, status: user.status, id: user.id });
+
+            // Récupération du prénom de l'utilisateur
+            fetch(`http://localhost:8000/index.php?route=user_firstname&id=${user.id}&field=prenom`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.utilisateur_prenom) {
+                        setUserInfo((prev) => ({ ...prev, prenom: data.utilisateur_prenom }));
+                    }
+                })
+                .catch(error => console.error('Error fetching user first name:', error));
 
             // Fetch wishlist based on user ID
             fetch(`http://localhost:8000/index.php?route=wishlist&user_id=${user.id}`)
@@ -118,8 +128,7 @@ export default function Page() {
         <div>
             <div className="slide-entreprises-container">
                 <div className="title-container">
-                    <p className="paragraphe">Bienvenue sur votre dashboard </p>
-                    <h1 className="title">Etudiant</h1>
+                    <h1 className="title">Bienvenue {userInfo.prenom} !</h1>
                 </div>
                 <button className="create-offer-button" onClick={handleLogout}>
                     <span className="button-text">Déconnexion</span>

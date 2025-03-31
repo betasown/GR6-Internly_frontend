@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Trash, Pencil } from "lucide-react";
+import { Trash, Pencil, ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation"; // Importez useRouter
 
 export default function Page() {
     const [pilotes, setPilotes] = useState([]);
@@ -9,6 +10,7 @@ export default function Page() {
     const [currentPagePilotes, setCurrentPagePilotes] = useState(1);
     const [currentPageEtudiants, setCurrentPageEtudiants] = useState(1);
     const itemsPerPage = 5;
+    const router = useRouter(); // Initialisez le routeur
 
     useEffect(() => {
         // Fetch data for pilotes
@@ -52,7 +54,10 @@ export default function Page() {
                     <p className="paragraphe">Gestion des</p>
                     <h1 className="title">utilisateurs</h1>
                 </div>
-            </div>
+           
+            <button className="return-button" onClick={() => router.back()}>
+                    <span className="button-text"><ArrowLeft size={24}/></span>
+            </button>
             <div className="container-dashboard">
                 <div className="grid">
                     <div className="item">
@@ -124,7 +129,7 @@ export default function Page() {
                         <br></br>
                     </div>
                 </div>
-
+                </div>
                 <div className="container-dashboard">
                     <div className="grid-inverse">
                         <div className="item">
@@ -197,8 +202,9 @@ export default function Page() {
                         </div>
                     </div>
                 </div>
-            </div>
-            <img className="assets" src="/Assets/separateur-w2b.png" />
+            
         </div>
+        <img className="assets" src="/Assets/separateur-w2b.png" />
+    </div>
     );
 }
