@@ -1,10 +1,11 @@
-// filepath: /home/robin/Documents/GR6-ProjetWeb/GR6-Internly/internly/src/app/editOffre/[id]/page.js
 "use client";
 import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { X } from "lucide-react";
 
 const EditOffre = () => {
-    const { id: offreId } = useParams(); // Récupère l'ID depuis l'URL
+    const { id: offreId } = useParams();
+    const router = useRouter();
 
     const [formData, setFormData] = useState({
         titre: "",
@@ -18,11 +19,10 @@ const EditOffre = () => {
         competences: [],
     });
 
-    const [competences, setCompetences] = useState([]); // Liste des compétences disponibles
-    const [selectedCompetence, setSelectedCompetence] = useState(""); // Compétence sélectionnée
+    const [competences, setCompetences] = useState([]);
+    const [selectedCompetence, setSelectedCompetence] = useState("");
 
     useEffect(() => {
-        // Fetch the existing offer data to prefill the form
         if (offreId) {
             fetch(`http://localhost:8000/index.php?route=offers&id=${offreId}`)
                 .then((response) => response.json())
@@ -42,7 +42,6 @@ const EditOffre = () => {
                 .catch((error) => console.error("Erreur lors du chargement de l'offre :", error));
         }
 
-        // Fetch the list of available competences
         fetch("http://localhost:8000/index.php?route=competencies")
             .then((response) => response.json())
             .then((data) => setCompetences(data))
@@ -63,7 +62,7 @@ const EditOffre = () => {
                 ...formData,
                 competences: [...formData.competences, selectedCompetence],
             });
-            setSelectedCompetence(""); // Réinitialiser la sélection
+            setSelectedCompetence("");
         }
     };
 
@@ -75,153 +74,217 @@ const EditOffre = () => {
     };
 
     const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-          const payload = {
-              ...formData,
-              remuneration: parseFloat(formData.remuneration),
-              places: parseInt(formData.places),
-              experienceRequise: parseInt(formData.experienceRequise),
-              competences:
-                  formData.competences.length === 1
-                      ? formData.competences[0] // Une seule compétence : chaîne
-                      : formData.competences, // Plusieurs compétences : tableau
-          };
-  
-          const response = await fetch(
-              `http://localhost:8000/index.php?route=update_offer&id=${offreId}`,
-              {
-                  method: "PUT",
-                  headers: {
-                      "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(payload),
-              }
-          );
-  
-          if (response.ok) {
-              alert("Offre mise à jour avec succès !");
-          } else {
-              alert("Erreur lors de la mise à jour de l'offre.");
-          }
-      } catch (error) {
-          console.error("Erreur :", error);
-          alert("Une erreur est survenue.");
-      }
-  };
+        e.preventDefault();
+        const payload = {
+            ...formData,
+            remuneration: parseFloat(formData.remuneration),
+            places: parseInt(formData.places),
+            experienceRequise: parseInt(formData.experienceRequise),
+            competences:
+                formData.competences.length === 1
+                    ? formData.competences[0] // Une seule compétence : chaîne
+                    : formData.competences, // Plusieurs compétences : tableau
+        };
+
+        try {
+            const response = await fetch(
+                `http://localhost:8000/index.php?route=update_offer&id=${offreId}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(payload),
+                }
+            );
+
+            if (response.ok) {
+                alert("Offre mise à jour avec succès !");
+                router.push("/gestionOffres");
+            } else {
+                alert("Erreur lors de la mise à jour de l'offre.");
+            }
+        } catch (error) {
+            console.error("Erreur :", error);
+            alert("Une erreur est survenue.");
+        }
+    };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Titre:</label>
-                <input
-                    type="text"
-                    name="titre"
-                    value={formData.titre}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Description:</label>
-                <textarea
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Rémunération:</label>
-                <input
-                    type="number"
-                    name="remuneration"
-                    value={formData.remuneration}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Date de début:</label>
-                <input
-                    type="date"
-                    name="dateDebut"
-                    value={formData.dateDebut}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Date de fin:</label>
-                <input
-                    type="date"
-                    name="dateFin"
-                    value={formData.dateFin}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Places:</label>
-                <input
-                    type="number"
-                    name="places"
-                    value={formData.places}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Expérience requise (en années):</label>
-                <input
-                    type="number"
-                    name="experienceRequise"
-                    value={formData.experienceRequise}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Niveau d'étude minimal:</label>
-                <input
-                    type="text"
-                    name="niveauEtudeMinimal"
-                    value={formData.niveauEtudeMinimal}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Compétences:</label>
-                <div>
-                    <select
-                        value={selectedCompetence}
-                        onChange={(e) => setSelectedCompetence(e.target.value)}
-                    >
-                        <option value="">Sélectionnez une compétence</option>
-                        {competences.map((competence) => (
-                            <option key={competence.competence_id} value={competence.competence_nom}>
-                                {competence.competence_nom}
-                            </option>
-                        ))}
-                    </select>
-                    <button type="button" onClick={handleAddCompetence}>
-                        Ajouter
+        <div className="form-container">
+            {/* Bouton pour quitter la page */}
+            <button
+                className="close-button"
+                onClick={() => router.push("/gestionOffres")}
+                aria-label="Fermer"
+            >
+                <X size={24} />
+            </button>
+
+            <h1 className="title">Modifier une Offre</h1>
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="titre" className="form-text">
+                        Titre
+                        <input
+                            type="text"
+                            id="titre"
+                            name="titre"
+                            value={formData.titre}
+                            onChange={handleChange}
+                            className="form-input"
+                            placeholder="Titre de l'offre"
+                            required
+                        />
+                    </label>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="description" className="form-text">
+                        Description
+                        <textarea
+                            id="description"
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            className="form-input"
+                            placeholder="Description de l'offre"
+                            rows="4"
+                            required
+                        />
+                    </label>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="remuneration" className="form-text">
+                        Rémunération
+                        <input
+                            type="number"
+                            id="remuneration"
+                            name="remuneration"
+                            value={formData.remuneration}
+                            onChange={handleChange}
+                            className="form-input"
+                            placeholder="Rémunération"
+                            required
+                        />
+                    </label>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="dateDebut" className="form-text">
+                        Date de début
+                        <input
+                            type="date"
+                            id="dateDebut"
+                            name="dateDebut"
+                            value={formData.dateDebut}
+                            onChange={handleChange}
+                            className="form-input"
+                            required
+                        />
+                    </label>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="dateFin" className="form-text">
+                        Date de fin
+                        <input
+                            type="date"
+                            id="dateFin"
+                            name="dateFin"
+                            value={formData.dateFin}
+                            onChange={handleChange}
+                            className="form-input"
+                            required
+                        />
+                    </label>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="places" className="form-text">
+                        Places
+                        <input
+                            type="number"
+                            id="places"
+                            name="places"
+                            value={formData.places}
+                            onChange={handleChange}
+                            className="form-input"
+                            placeholder="Nombre de places"
+                            required
+                        />
+                    </label>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="experienceRequise" className="form-text">
+                        Expérience requise (en années)
+                        <input
+                            type="number"
+                            id="experienceRequise"
+                            name="experienceRequise"
+                            value={formData.experienceRequise}
+                            onChange={handleChange}
+                            className="form-input"
+                            placeholder="Expérience requise"
+                            required
+                        />
+                    </label>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="niveauEtudeMinimal" className="form-text">
+                        Niveau d'étude minimal
+                        <input
+                            type="text"
+                            id="niveauEtudeMinimal"
+                            name="niveauEtudeMinimal"
+                            value={formData.niveauEtudeMinimal}
+                            onChange={handleChange}
+                            className="form-input"
+                            placeholder="Niveau d'étude minimal"
+                            required
+                        />
+                    </label>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="competences" className="form-text">
+                        Compétences
+                        <div className="competences-container" style={{ marginBottom: "10px" }}>
+                            <select
+                                id="competences"
+                                value={selectedCompetence}
+                                onChange={(e) => setSelectedCompetence(e.target.value)}
+                                className="form-input"
+                            >
+                                <option value="">Sélectionnez une compétence</option>
+                                {competences.map((competence) => (
+                                    <option key={competence.competence_id} value={competence.competence_nom}>
+                                        {competence.competence_nom}
+                                    </option>
+                                ))}
+                            </select>
+                            <button type="button" className="add-button" onClick={handleAddCompetence}>
+                                Ajouter
+                            </button>
+                        </div>
+                        <div className="competences-pills">
+                            {formData.competences.map((competence, index) => (
+                                <span key={index} className="competence-pill">
+                                    {competence}
+                                    <button
+                                        type="button"
+                                        className="remove-pill"
+                                        onClick={() => handleRemoveCompetence(competence)}
+                                    >
+                                        x
+                                    </button>
+                                </span>
+                            ))}
+                        </div>
+                    </label>
+                </div>
+                <div className="button-group">
+                    <button type="submit" className="apply-button">
+                        Mettre à jour
                     </button>
                 </div>
-                <div>
-                    {formData.competences.map((competence, index) => (
-                        <span key={index}>
-                            {competence}
-                            <button type="button" onClick={() => handleRemoveCompetence(competence)}>
-                                x
-                            </button>
-                        </span>
-                    ))}
-                </div>
-            </div>
-            <button type="submit">Mettre à jour l'offre</button>
-        </form>
+            </form>
+        </div>
     );
 };
 
