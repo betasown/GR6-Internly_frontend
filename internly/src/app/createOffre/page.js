@@ -1,7 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation"; // Import pour la navigation
+import { X } from "lucide-react"; // Import de l'icône Lucide React
 
 const CreateOffre = () => {
+  const router = useRouter(); // Hook pour gérer la navigation
   const [formData, setFormData] = useState({
     titre: "",
     description: "",
@@ -99,6 +102,7 @@ const CreateOffre = () => {
           niveauEtudeMinimal: "",
           competences: [],
         });
+        router.push("/gestionOffres"); // Redirection après création
       } else {
         alert("Erreur lors de la création de l'offre.");
       }
@@ -109,79 +113,198 @@ const CreateOffre = () => {
   };
 
   return (
-    <div>
-      <h1>Créer une Offre</h1>
+    <div className="form-container">
+      {/* Bouton pour quitter la page */}
+      <button
+        className="close-button"
+        onClick={() => router.push("/gestionOffres")}
+        aria-label="Fermer"
+      >
+        <X size={24} />
+      </button>
+
+      <h1 className="title">Créer une Offre</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Titre:</label>
-          <input type="text" name="titre" value={formData.titre} onChange={handleChange} required />
+        <div className="form-group">
+          <label htmlFor="titre" className="form-text">
+            Titre
+            <input
+              type="text"
+              id="titre"
+              name="titre"
+              value={formData.titre}
+              onChange={handleChange}
+              className="form-input"
+              placeholder="Titre de l'offre"
+              required
+            />
+          </label>
         </div>
-        <div>
-          <label>Description:</label>
-          <textarea name="description" value={formData.description} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Rémunération:</label>
-          <input type="number" name="remuneration" value={formData.remuneration} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Date de début:</label>
-          <input type="date" name="dateDebut" value={formData.dateDebut} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Date de fin:</label>
-          <input type="date" name="dateFin" value={formData.dateFin} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Places:</label>
-          <input type="number" name="places" value={formData.places} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Nom de l'entreprise:</label>
-          <select name="entrepriseId" value={formData.entrepriseId} onChange={handleChange} required>
-            <option value="">Sélectionnez une entreprise</option>
-            {entreprises.map((entreprise) => (
-              <option key={entreprise.entreprise_id} value={entreprise.entreprise_id}>
-                {entreprise.entreprise_nom}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Expérience requise (en années):</label>
-          <input type="number" name="experienceRequise" value={formData.experienceRequise} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Niveau d'étude minimal:</label>
-          <input type="text" name="niveauEtudeMinimal" value={formData.niveauEtudeMinimal} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Compétences:</label>
-          <div>
-            <select value={selectedCompetence} onChange={(e) => setSelectedCompetence(e.target.value)}>
-              <option value="">Sélectionnez une compétence</option>
-              {competences.map((competence) => (
-                <option key={competence.competence_id} value={competence.competence_nom}>
-                  {competence.competence_nom}
+        <div className="form-group">
+          <label htmlFor="entrepriseId" className="form-text">
+            Nom de l'entreprise
+            <select
+              id="entrepriseId"
+              name="entrepriseId"
+              value={formData.entrepriseId}
+              onChange={handleChange}
+              className="form-input"
+              required
+            >
+              <option value="">Sélectionnez une entreprise</option>
+              {entreprises.map((entreprise) => (
+                <option key={entreprise.entreprise_id} value={entreprise.entreprise_id}>
+                  {entreprise.entreprise_nom}
                 </option>
               ))}
             </select>
-            <button type="button" onClick={handleAddCompetence}>
-              Ajouter
-            </button>
-          </div>
-          <div>
-            {formData.competences.map((competence, index) => (
-              <span key={index} style={{ display: "inline-block", margin: "5px", padding: "5px", border: "1px solid #ccc", borderRadius: "5px" }}>
-                {competence}
-                <button type="button" onClick={() => handleRemoveCompetence(competence)} style={{ marginLeft: "5px" }}>
-                  x
-                </button>
-              </span>
-            ))}
-          </div>
+          </label>
         </div>
-        <button type="submit">Créer l'offre</button>
+        <div className="form-group">
+          <label htmlFor="description" className="form-text">
+            Description
+            <textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              className="form-input"
+              placeholder="Description de l'offre"
+              rows="4"
+              required
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label htmlFor="remuneration" className="form-text">
+            Rémunération
+            <input
+              type="number"
+              id="remuneration"
+              name="remuneration"
+              value={formData.remuneration}
+              onChange={handleChange}
+              className="form-input"
+              placeholder="Rémunération"
+              required
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label htmlFor="dateDebut" className="form-text">
+            Date de début
+            <input
+              type="date"
+              id="dateDebut"
+              name="dateDebut"
+              value={formData.dateDebut}
+              onChange={handleChange}
+              className="form-input"
+              required
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label htmlFor="dateFin" className="form-text">
+            Date de fin
+            <input
+              type="date"
+              id="dateFin"
+              name="dateFin"
+              value={formData.dateFin}
+              onChange={handleChange}
+              className="form-input"
+              required
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label htmlFor="places" className="form-text">
+            Places
+            <input
+              type="number"
+              id="places"
+              name="places"
+              value={formData.places}
+              onChange={handleChange}
+              className="form-input"
+              placeholder="Nombre de places"
+              required
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label htmlFor="experienceRequise" className="form-text">
+            Expérience requise (en années)
+            <input
+              type="number"
+              id="experienceRequise"
+              name="experienceRequise"
+              value={formData.experienceRequise}
+              onChange={handleChange}
+              className="form-input"
+              placeholder="Expérience requise"
+              required
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label htmlFor="niveauEtudeMinimal" className="form-text">
+            Niveau d'étude minimal
+            <input
+              type="text"
+              id="niveauEtudeMinimal"
+              name="niveauEtudeMinimal"
+              value={formData.niveauEtudeMinimal}
+              onChange={handleChange}
+              className="form-input"
+              placeholder="Niveau d'étude minimal"
+              required
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label htmlFor="competences" className="form-text">
+            Compétences
+            <div className="competences-container" style={{ marginBottom: "10px" }}>
+              <select
+                id="competences"
+                value={selectedCompetence}
+                onChange={(e) => setSelectedCompetence(e.target.value)}
+                className="form-input"
+              >
+                <option value="">Sélectionnez une compétence</option>
+                {competences.map((competence) => (
+                  <option key={competence.competence_id} value={competence.competence_nom}>
+                    {competence.competence_nom}
+                  </option>
+                ))}
+              </select>
+              <button type="button" className="add-button" onClick={handleAddCompetence}>
+                Ajouter
+              </button>
+            </div>
+            <div className="competences-pills">
+              {formData.competences.map((competence, index) => (
+                <span key={index} className="competence-pill">
+                  {competence}
+                  <button
+                    type="button"
+                    className="remove-pill"
+                    onClick={() => handleRemoveCompetence(competence)}
+                  >
+                    x
+                  </button>
+                </span>
+              ))}
+            </div>
+          </label>
+        </div>
+        <div className="button-group">
+          <button type="submit" className="apply-button">
+            Créer
+          </button>
+        </div>
       </form>
     </div>
   );
