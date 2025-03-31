@@ -3,6 +3,36 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Trash, Pencil } from "lucide-react";
 
+const handleDeleteUser = async (id) => {
+    if (confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?")) {
+        try {
+            const response = await fetch(
+                "http://localhost:8000/index.php?route=delete_user",
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ id }),
+                }
+            );
+
+            const responseData = await response.json();
+
+            if (responseData.success) {
+                alert("Utilisateur supprimé avec succès !");
+                // Rafraîchir la page après suppression
+                window.location.reload();
+            } else {
+                alert(`Erreur : ${responseData.error || "Une erreur est survenue."}`);
+            }
+        } catch (error) {
+            console.error("Erreur lors de la suppression :", error);
+            alert("Une erreur est survenue.");
+        }
+    }
+};
+
 export default function Page() {
     const [pilotes, setPilotes] = useState([]);
     const [etudiants, setEtudiants] = useState([]);
@@ -78,7 +108,10 @@ export default function Page() {
                                         <td>{pilote.utilisateur_email}</td>
                                         <td>
                                             <center>
-                                                <button className="remove-button">
+                                                <button
+                                                    className="remove-button"
+                                                    onClick={() => handleDeleteUser(pilote.utilisateur_id)}
+                                                >
                                                     <Trash size={24} />
                                                 </button>
                                             </center>
@@ -150,7 +183,10 @@ export default function Page() {
                                             <td>{etudiant.utilisateur_email}</td>
                                             <td>
                                                 <center>
-                                                    <button className="remove-button">
+                                                    <button
+                                                        className="remove-button"
+                                                        onClick={() => handleDeleteUser(etudiant.utilisateur_id)}
+                                                    >
                                                         <Trash size={24} />
                                                     </button>
                                                 </center>
