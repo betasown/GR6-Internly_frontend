@@ -16,9 +16,10 @@ const CreateOffre = () => {
   });
 
   const [entreprises, setEntreprises] = useState([]);
-  const [competences] = useState(["HTML", "JavaScript", "MySQL", "React", "Node.js"]); // Liste statique pour l'instant
+  const [competences, setCompetences] = useState([]);
+  const [selectedCompetence, setSelectedCompetence] = useState("");
 
-  // Récupérer les entreprises depuis l'API
+  // Récupérer les entreprises et compétences depuis l'API
   useEffect(() => {
     const fetchEntreprises = async () => {
       try {
@@ -30,7 +31,18 @@ const CreateOffre = () => {
       }
     };
 
+    const fetchCompetences = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/index.php?route=competencies");
+        const data = await response.json();
+        setCompetences(data);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des compétences:", error);
+      }
+    };
+
     fetchEntreprises();
+    fetchCompetences();
   }, []);
 
   const handleChange = (e) => {
@@ -38,9 +50,21 @@ const CreateOffre = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleCompetencesChange = (e) => {
-    const selectedOptions = Array.from(e.target.selectedOptions).map((option) => option.value);
-    setFormData({ ...formData, competences: selectedOptions });
+  const handleAddCompetence = () => {
+    if (selectedCompetence && !formData.competences.includes(selectedCompetence)) {
+      setFormData({
+        ...formData,
+        competences: [...formData.competences, selectedCompetence],
+      });
+      setSelectedCompetence(""); // Réinitialiser la sélection
+    }
+  };
+
+  const handleRemoveCompetence = (competenceToRemove) => {
+    setFormData({
+      ...formData,
+      competences: formData.competences.filter((competence) => competence !== competenceToRemove),
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -133,13 +157,29 @@ const CreateOffre = () => {
         </div>
         <div>
           <label>Compétences:</label>
-          <select name="competences" multiple value={formData.competences} onChange={handleCompetencesChange} required>
-            {competences.map((competence, index) => (
-              <option key={index} value={competence}>
+          <div>
+            <select value={selectedCompetence} onChange={(e) => setSelectedCompetence(e.target.value)}>
+              <option value="">Sélectionnez une compétence</option>
+              {competences.map((competence) => (
+                <option key={competence.competence_id} value={competence.competence_nom}>
+                  {competence.competence_nom}
+                </option>
+              ))}
+            </select>
+            <button type="button" onClick={handleAddCompetence}>
+              Ajouter
+            </button>
+          </div>
+          <div>
+            {formData.competences.map((competence, index) => (
+              <span key={index} style={{ display: "inline-block", margin: "5px", padding: "5px", border: "1px solid #ccc", borderRadius: "5px" }}>
                 {competence}
-              </option>
+                <button type="button" onClick={() => handleRemoveCompetence(competence)} style={{ marginLeft: "5px" }}>
+                  x
+                </button>
+              </span>
             ))}
-          </select>
+          </div>
         </div>
         <button type="submit">Créer l'offre</button>
       </form>
