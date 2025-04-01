@@ -93,9 +93,9 @@ export default function EntrepriseDetail() {
             <div className="titre">{offer.offre_titre}</div>
             <div className="entreprise">{offer.entreprise_nom}</div>
             <div className="competences">
-              {Array.isArray(offer.competences) && offer.competences.length > 0 ? (
-                offer.competences.map((competence, i) => (
-                  <span key={i} className="competence-pill">{offer.competences}</span>
+              {offer.competences ? (
+                offer.competences.split(", ").map((competence, i) => (
+                  <span key={i} className="competence-pill">{competence}</span>
                 ))
               ) : (
                 <span className="competence-pill">Aucune compétence spécifiée</span>
