@@ -1537,3 +1537,39 @@ canvas {
 .star:hover {
   background-color: #ffca2c; /* Couleur des étoiles au survol */
 }
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.popup-content {
+  text-align: center;
+}
+
+.popup-content button {
+  margin-top: 10px;
+}
+
+.view-button {
+  background-color: var(--green); /* Couleur principale */
+  color: var(--black); /* Texte noir */
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.view-button:hover {
+  background-color: var(--black); /* Couleur au survol */
+  color: var(--white); /* Texte blanc au survol */
+}

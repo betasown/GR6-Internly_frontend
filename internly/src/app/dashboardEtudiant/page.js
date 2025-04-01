@@ -15,6 +15,10 @@ export default function Page() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5; // Nombre d'éléments par page
     const router = useRouter(); // Initialiser le hook useRouter
+    const [selectedMotivationLetter, setSelectedMotivationLetter] = useState(null); // État pour stocker la lettre de motivation sélectionnée
+    const handleViewMotivationLetter = (letter) => {
+        setSelectedMotivationLetter(letter);
+    };
 
     // Calcul des éléments de la page actuelle
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -142,38 +146,48 @@ export default function Page() {
                                 <h1 className="title">Candidatures</h1>
                             </div>
                             {currentCandidatures.length > 0 ? (
-                                <table className="offer-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Offre</th>
-                                            <th>Entreprise</th>
-                                            <th>Date</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    {currentCandidatures.map((candidature, index) => (
-                                        <tr key={index}>
-                                            <td>{candidature.offre_titre}</td>
-                                            <td>{candidature.entreprise_nom}</td>
-                                            <td>{formatDate(candidature.candidature_date)}</td>
-                                            <td>
-                                                <span 
-                                                    className={`status-pill ${
-                                                        candidature.candidature_status === "refusée" ? "refusee" :
-                                                        candidature.candidature_status === "en_attente" ? "en-attente" :
-                                                        "acceptee"
-                                                    }`}
-                                                >
-                                                    {candidature.candidature_status === "en_attente" 
-                                                        ? "en attente" 
-                                                        : candidature.candidature_status}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </table>
+                            <table className="offer-table">
+                                <thead>
+                                    <tr>
+                                        <th>Offre</th>
+                                        <th>Entreprise</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Action</th> {/* Nouvelle colonne pour le bouton */}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {currentCandidatures.map((candidature, index) => (
+                                    <tr key={index}>
+                                        <td>{candidature.offre_titre}</td>
+                                        <td>{candidature.entreprise_nom}</td>
+                                        <td>{formatDate(candidature.candidature_date)}</td>
+                                        <td>
+                                            <button 
+                                                className="view-button" 
+                                                onClick={() => handleViewMotivationLetter(candidature.candidature_lm)}
+                                            >
+                                                Lettre de motivation
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <span 
+                                                className={`status-pill ${
+                                                    candidature.candidature_status === "refusée" ? "refusee" :
+                                                    candidature.candidature_status === "en_attente" ? "en-attente" :
+                                                    "acceptee"
+                                                }`}
+                                            >
+                                                {candidature.candidature_status === "en_attente" 
+                                                    ? "en attente" 
+                                                    : candidature.candidature_status}
+                                            </span>
+                                        </td>
+                                        
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
                             ) : (
                                 <p>Aucune candidature trouvée.</p>
                             )}
@@ -260,6 +274,17 @@ export default function Page() {
                         <p>Êtes-vous sûr de vouloir vous déconnecter ?</p>
                         <button onClick={handleConfirmLogout}>Oui</button>
                         <button onClick={handleCancelLogout}>Non</button>
+                    </div>
+                </div>
+            )}
+
+            {selectedMotivationLetter && (
+                <div className="popup">
+                    <div className="popup-content">
+                        <h2 className='title'>Lettre de Motivation</h2>
+                        <p>{selectedMotivationLetter}</p>
+                        <br></br>
+                        <button onClick={() => setSelectedMotivationLetter(null)}>Fermer</button>
                     </div>
                 </div>
             )}
