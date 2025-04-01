@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation"; // Import pour la navigation et les paramètres d'URL
 import { X } from "lucide-react"; // Import de l'icône Lucide React
 
@@ -51,6 +51,30 @@ const CreateUtilisateur = () => {
           email: "",
           password: "",
         });
+
+        // Lire le cookie et parser le JSON pour récupérer le statut
+        const userCookie = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("user")) // Remplacez "user=" par le nom exact du cookie
+          ?.split("=")[1];
+
+        if (userCookie) {
+          const user = JSON.parse(decodeURIComponent(userCookie)); // Décoder et parser le JSON
+          const userStatut = user.status;
+
+          // Redirection conditionnelle en fonction du statut
+          if (userStatut === "admin") {
+            router.push("/gestionUtilisateur");
+          } else if (userStatut === "pilote") {
+            router.push("/gestionEtudiant");
+          } else {
+            alert("Rôle inconnu, redirection par défaut.");
+            router.push("/"); // Redirection par défaut si le rôle est inconnu
+          }
+        } else {
+          alert("Impossible de déterminer le rôle de l'utilisateur.");
+          router.push("/"); // Redirection par défaut
+        }
       } else {
         alert("Erreur lors de la création de l'utilisateur.");
       }
@@ -65,7 +89,31 @@ const CreateUtilisateur = () => {
       {/* Bouton pour quitter la page */}
       <button
         className="close-button"
-        onClick={() => router.push("/gestionUtilisateur")}
+        onClick={() => {
+          // Lire le cookie et parser le JSON pour récupérer le statut
+          const userCookie = document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("user")) // Remplacez "user=" par le nom exact du cookie
+            ?.split("=")[1];
+
+          if (userCookie) {
+            const user = JSON.parse(decodeURIComponent(userCookie)); // Décoder et parser le JSON
+            const userStatut = user.status;
+
+            // Redirection conditionnelle en fonction du statut
+            if (userStatut === "admin") {
+              router.push("/gestionUtilisateur");
+            } else if (userStatut === "pilote") {
+              router.push("/gestionEtudiant");
+            } else {
+              alert("Rôle inconnu, redirection par défaut.");
+              router.push("/"); // Redirection par défaut si le rôle est inconnu
+            }
+          } else {
+            alert("Impossible de déterminer le rôle de l'utilisateur.");
+            router.push("/"); // Redirection par défaut
+          }
+        }}
         aria-label="Fermer"
       >
         <X size={24} />

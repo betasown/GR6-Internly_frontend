@@ -4,6 +4,36 @@ import { useState, useEffect } from "react";
 import { Trash, Pencil, ArrowLeft, FileChartColumn } from "lucide-react";
 import { useRouter } from "next/navigation";
 
+const handleDeleteUser = async (id) => {
+    if (confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?")) {
+        try {
+            const response = await fetch(
+                "http://localhost:8000/index.php?route=delete_user",
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ id }),
+                }
+            );
+
+            const responseData = await response.json();
+
+            if (responseData.success) {
+                alert("Utilisateur supprimé avec succès !");
+                // Rafraîchir la page après suppression
+                window.location.reload();
+            } else {
+                alert(`Erreur : ${responseData.error || "Une erreur est survenue."}`);
+            }
+        } catch (error) {
+            console.error("Erreur lors de la suppression :", error);
+            alert("Une erreur est survenue.");
+        }
+    }
+};
+
 export default function Page() {
     const [etudiants, setEtudiants] = useState([]);
     const [currentPageEtudiants, setCurrentPageEtudiants] = useState(1);
@@ -65,10 +95,35 @@ export default function Page() {
                                             <td>{etudiant.utilisateur_nom}</td>
                                             <td>{etudiant.utilisateur_prenom}</td>
                                             <td>{etudiant.utilisateur_email}</td>
-                                            <td><center><button className="view-button"><FileChartColumn size={24} /></button></center></td>
-                                            <td><center><button className="modif-button"><Pencil size={24} /></button></center></td>
-                                            <td><center><button className="remove-button"><Trash size={24} /></button></center></td>
-                                         </tr>
+                                            <td>
+                                                <center>
+                                                    <Link href={`/statistiquesEtudiant/${etudiant.utilisateur_id}`}>
+                                                        <button className="view-button">
+                                                            <FileChartColumn size={24} />
+                                                        </button>
+                                                    </Link>
+                                                </center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <Link href={`/editUtilisateur/${etudiant.utilisateur_id}`}>
+                                                        <button className="modif-button">
+                                                            <Pencil size={24} />
+                                                        </button>
+                                                    </Link>
+                                                </center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <button
+                                                        className="remove-button"
+                                                        onClick={() => handleDeleteUser(etudiant.utilisateur_id)}
+                                                    >
+                                                        <Trash size={24} />
+                                                    </button>
+                                                </center>
+                                            </td>
+                                        </tr>
                                     ))}
                                 </tbody>
                             </table>
@@ -90,7 +145,7 @@ export default function Page() {
                             <br></br>
                             <center><div className="title">Accessibilité :</div></center>
                             <br></br>
-                            <Link href={`/createEntreprise`} className="info-card">
+                            <Link href={`/createUtilisateur`} className="info-card">
                                 <div className="title">Créer un compte Etudiant</div>
                             </Link>
                             <br></br>
