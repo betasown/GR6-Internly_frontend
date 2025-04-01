@@ -1538,10 +1538,13 @@ canvas {
   background-color: #ffca2c; /* Couleur des étoiles au survol */
 }
 
-.popup {
+.popup-lm {
   position: fixed;
   top: 50%;
   left: 50%;
+  width: 80%;
+  height: 80%;
+  border-radius: 8px;
   transform: translate(-50%, -50%);
   background: white;
   padding: 20px;
@@ -1549,12 +1552,35 @@ canvas {
   z-index: 1000;
 }
 
-.popup-content {
+.popup-content-lm {
   text-align: center;
 }
 
-.popup-content button {
-  margin-top: 10px;
+.popup-content-lm p {
+  text-align: left; /* Aligner le texte à gauche */
+  line-height: 1.6; /* Améliorer l'espacement entre les lignes */
+  font-size: 1rem; /* Taille de police lisible */
+  color: var(--black); /* Couleur du texte */
+  margin-top: 5%;
+  margin-right: 20%;
+  margin-left: 20%;
+  margin-bottom: 5%;
+}
+
+.close-button-popup {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--black);
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.close-button-popup:hover {
+  color: #e60000; /* Couleur au survol */
+  transform: scale(1.1); /* Légère mise en avant au survol */
 }
 
 .view-button {

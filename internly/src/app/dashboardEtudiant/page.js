@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation'; // Importer le hook useRouter pour la redirection
+import { X } from "lucide-react";
 
 const formatDate = (dateString) => {
     return dateString.split(' ')[0]; // Séparer la date et l'heure, et retourner uniquement la date
@@ -279,12 +280,17 @@ export default function Page() {
             )}
 
             {selectedMotivationLetter && (
-                <div className="popup">
-                    <div className="popup-content">
-                        <h2 className='title'>Lettre de Motivation</h2>
+                <div className="popup-lm">
+                    <div className="popup-content-lm">
+                        <button 
+                            className="close-button-popup" 
+                            onClick={() => setSelectedMotivationLetter(null)} 
+                            aria-label="Fermer"
+                        >
+                            <X size={24} />
+                        </button>
+                        <h2 className="title">Lettre de Motivation</h2>
                         <p>{selectedMotivationLetter}</p>
-                        <br></br>
-                        <button onClick={() => setSelectedMotivationLetter(null)}>Fermer</button>
                     </div>
                 </div>
             )}
