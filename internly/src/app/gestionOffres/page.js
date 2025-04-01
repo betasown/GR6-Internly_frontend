@@ -120,10 +120,10 @@ export default function Page() {
                                             <td>
                                                 <center>
                                                     <button
-                                                        className="edit-button"
+                                                        className="modif-button"
                                                         onClick={() => router.push(`/editOffre/${entreprise.offre_id}`)}
                                                     >
-                                                        <Pencil size={20} />
+                                                        <Pencil size={24} />
                                                     </button>
                                                 </center>
                                             </td>

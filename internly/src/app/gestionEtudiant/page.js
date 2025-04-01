@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Trash, Pencil, ArrowLeft } from "lucide-react";
-import { useRouter } from "next/navigation"; // Importez useRouter
+import { Trash, Pencil, ArrowLeft, FileChartColumn } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
     const [etudiants, setEtudiants] = useState([]);
@@ -56,6 +56,7 @@ export default function Page() {
                                         <th>Email</th>
                                         <th><center></center></th>
                                         <th><center></center></th>
+                                        <th><center></center></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -64,9 +65,10 @@ export default function Page() {
                                             <td>{etudiant.utilisateur_nom}</td>
                                             <td>{etudiant.utilisateur_prenom}</td>
                                             <td>{etudiant.utilisateur_email}</td>
+                                            <td><center><button className="view-button"><FileChartColumn size={24} /></button></center></td>
+                                            <td><center><button className="modif-button"><Pencil size={24} /></button></center></td>
                                             <td><center><button className="remove-button"><Trash size={24} /></button></center></td>
-                                            <td><center><button className="remove-button"><Pencil size={24} /></button></center></td>
-                                        </tr>
+                                         </tr>
                                     ))}
                                 </tbody>
                             </table>

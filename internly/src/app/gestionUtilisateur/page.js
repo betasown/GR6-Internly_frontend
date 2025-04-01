@@ -152,8 +152,8 @@ export default function Page() {
                                             <td>
                                                 <center>
                                                     <Link href={`/editUtilisateur/${pilote.utilisateur_id}`}>
-                                                        <button className="edit-button">
-                                                            <Pencil size={20} />
+                                                        <button className="modif-button">
+                                                            <Pencil size={24} />
                                                         </button>
                                                     </Link>
                                                 </center>
@@ -234,8 +234,8 @@ export default function Page() {
                                             <td>
                                                 <center>
                                                     <Link href={`/editUtilisateur/${etudiant.utilisateur_id}`}>
-                                                        <button className="edit-button">
-                                                            <Pencil size={20} />
+                                                        <button className="modif-button">
+                                                            <Pencil size={24} />
                                                         </button>
                                                     </Link>
                                                 </center>
