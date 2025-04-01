@@ -742,35 +742,6 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   margin-top: 1rem;
 }
 
-.edit-button, .delete-button {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.edit-button {
-  background-color: var(--green);
-  color: var(--black);
-}
-
-.delete-button {
-  background-color: var(--grey);
-  color: #fff;
-}
-
-.edit-button:hover {
-  background-color: #ff9900;
-  color : var(--white)
-}
-
-.delete-button:hover {
-  background-color: #ee162c;
-}
-
 /*_____________________________________________________________________________________________*/
 /*                                      Popup de suppression                                   */
 /*_____________________________________________________________________________________________*/
@@ -1373,6 +1344,33 @@ canvas {
   color: white;
 }
 
+.modif-button {
+  background-color: var(--green);
+  color: black;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modif-button:hover {
+  background-color: #ff9900;
+  color: white;
+}
+
+.view-button {
+  background-color: var(--green);
+  color: black;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+
 .status-pill {
   display: inline-block;
   padding: 0.25rem 0.5rem;
@@ -1590,6 +1588,6 @@ canvas {
 }
 
 .view-button:hover {
-  background-color: var(--black); /* Couleur au survol */
+  background-color: var(--blackMedium); /* Couleur au survol */
   color: var(--white); /* Texte blanc au survol */
 }

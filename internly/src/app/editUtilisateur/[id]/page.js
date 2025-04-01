@@ -60,7 +60,30 @@ const EditUtilisateur = () => {
 
       if (response.ok) {
         alert("Utilisateur mis à jour avec succès !");
-        router.push("/gestionUtilisateur");
+        
+        // Lire le cookie et parser le JSON pour récupérer le statut
+        const userCookie = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("user")) // Remplacez "user=" par le nom exact du cookie
+          ?.split("=")[1];
+
+        if (userCookie) {
+          const user = JSON.parse(decodeURIComponent(userCookie)); // Décoder et parser le JSON
+          const userStatut = user.status;
+
+          // Redirection conditionnelle en fonction du statut
+          if (userStatut === "admin") {
+            router.push("/gestionUtilisateur");
+          } else if (userStatut === "pilote") {
+            router.push("/gestionEtudiant");
+          } else {
+            alert("Rôle inconnu, redirection par défaut.");
+            router.push("/"); // Redirection par défaut si le rôle est inconnu
+          }
+        } else {
+          alert("Impossible de déterminer le rôle de l'utilisateur.");
+          router.push("/"); // Redirection par défaut
+        }
       } else {
         alert("Erreur lors de la mise à jour de l'utilisateur.");
       }
@@ -74,7 +97,31 @@ const EditUtilisateur = () => {
     <div className="form-container">
       <button
         className="close-button"
-        onClick={() => router.push("/gestionUtilisateur")}
+        onClick={() => {
+          // Lire le cookie et parser le JSON pour récupérer le statut
+          const userCookie = document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("user")) // Remplacez "user=" par le nom exact du cookie
+            ?.split("=")[1];
+
+          if (userCookie) {
+            const user = JSON.parse(decodeURIComponent(userCookie)); // Décoder et parser le JSON
+            const userStatut = user.status;
+
+            // Redirection conditionnelle en fonction du statut
+            if (userStatut === "admin") {
+              router.push("/gestionUtilisateur");
+            } else if (userStatut === "pilote") {
+              router.push("/gestionEtudiant");
+            } else {
+              alert("Rôle inconnu, redirection par défaut.");
+              router.push("/"); // Redirection par défaut si le rôle est inconnu
+            }
+          } else {
+            alert("Impossible de déterminer le rôle de l'utilisateur.");
+            router.push("/"); // Redirection par défaut
+          }
+        }}
         aria-label="Fermer"
       >
         <X size={24} />
@@ -115,7 +162,7 @@ const EditUtilisateur = () => {
           />
         </div>
 
-        <button type="submit" className="apply-button" >Mettre à jour</button>
+        <button type="submit" className="apply-button">Mettre à jour</button>
       </form>
     </div>
   );

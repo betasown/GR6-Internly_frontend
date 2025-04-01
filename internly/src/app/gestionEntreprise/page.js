@@ -126,8 +126,8 @@ export default function Page() {
                                             <td>
                                                 <center>
                                                     <Link href={`/editEntreprise/${entreprise.entreprise_id}`}>
-                                                        <button className="edit-button">
-                                                            <Pencil size={20} />
+                                                        <button className="modif-button">
+                                                            <Pencil size={24} />
                                                         </button>
                                                     </Link>
                                                 </center>
