@@ -240,6 +240,96 @@ export default function Page() {
                 ))}
                 <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>&raquo;</button>
             </div>
+
+            <div className="statistics-section">
+     <h1 className='title'>Statistiques sur les Offres</h1>
+ 
+     <div className="bento-container">
+         {/* Répartition par compétences */}
+         <div className="bento-item">
+             <h3>Répartition par Compétences</h3>
+             <Pie
+                 data={{
+                     labels: (() => {
+                         const competenceCounts = offres.reduce((acc, offre) => {
+                             offre.competences.forEach(competence => {
+                                 acc[competence] = (acc[competence] || 0) + 1;
+                             });
+                             return acc;
+                         }, {});
+ 
+                         const sortedCompetences = Object.entries(competenceCounts).sort((a, b) => b[1] - a[1]);
+                         const topCompetences = sortedCompetences.slice(0, 4); // Limiter à 4 compétences
+                         const otherCount = sortedCompetences.slice(4).reduce((sum, [, count]) => sum + count, 0);
+ 
+                         return [...topCompetences.map(([competence]) => competence), 'Autres'];
+                     })(),
+                     datasets: [
+                         {
+                             data: (() => {
+                                 const competenceCounts = offres.reduce((acc, offre) => {
+                                     offre.competences.forEach(competence => {
+                                         acc[competence] = (acc[competence] || 0) + 1;
+                                     });
+                                     return acc;
+                                 }, {});
+ 
+                                 const sortedCompetences = Object.entries(competenceCounts).sort((a, b) => b[1] - a[1]);
+                                 const topCounts = sortedCompetences.slice(0, 4).map(([, count]) => count); // Limiter à 4 compétences
+                                 const otherCount = sortedCompetences.slice(4).reduce((sum, [, count]) => sum + count, 0);
+ 
+                                 return [...topCounts, otherCount];
+                             })(),            
+                             backgroundColor: ['#F1F5C0', '#C6D602', '#E4EC8A', '#D0DD33', '#DBE561'], // Couleurs
+                             hoverBackgroundColor: ['#F1F5C0', '#C6D602', '#E4EC8A', '#D0DD33', '#DBE561'], // Couleurs au survol
+                             
+                         },
+                     ],
+                 }}
+             />
+         </div>
+ 
+         {/* Répartition par durée */}
+         <div className="bento-item">
+     <h3>Répartition par Durée</h3>
+     <Pie
+         data={{
+             labels: durationStats.map(stat => stat.duree_groupe),
+             datasets: [
+                 {
+                     data: durationStats.map(stat => stat.nombre_offres),
+                     backgroundColor: ['#C6D602', '#DBE561', '#F1F5C0'], // Couleurs spécifiées
+                     hoverBackgroundColor: ['#C6D602', '#DBE561', '#F1F5C0'], // Couleurs au survol
+                 },
+             ],
+         }}
+     />
+ </div>
+ 
+         {/* Top des wish lists */}
+         <div className="bento-item">
+             <h3>Top 10 des Wish Lists</h3>
+             <ul className="wishlist-list">
+                 {wishListStats
+                     .sort((a, b) => b.wishListCount - a.wishListCount) // Trier par wishListCount décroissant
+                     .slice(0, 10) // Prendre les 10 premiers
+                     .map((offre, index) => (
+                         <li
+                             key={offre.offre_id}
+                             className="wishlist-item"
+                             onClick={() => router.push(`/offres/${offre.offre_id}`)}
+                             style={{ cursor: 'pointer' }}
+                         >
+                             <span className="wishlist-rank">{index + 1}.</span>
+                             <span className="wishlist-title">{offre.offre_titre}</span>
+                             <span className="wishlist-count">{offre.wishListCount} wish lists</span>
+                         </li>
+                     ))}
+             </ul>
+         </div>
+     </div>
+ </div>
+            <img className="assets" src="/Assets/separateur-w2b.png" />
         </div>
     );
 }
