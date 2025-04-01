@@ -1400,22 +1400,97 @@ canvas {
 
 .search-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  gap: 15px;
+  width: 50%;
+  margin: 0 auto;
   margin-bottom: 20px;
-}
-
-.search-input {
   padding: 10px;
-  width: 300px;
-  border: 1px solid var(--greyLight);
-  border-radius: 4px;
-  font-size: 1rem;
+  background-color: var(--greenLight);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.search-input:focus {
+.search-input,
+.filter-select,
+.filter-date {
+  padding: 10px;
+  border: 1px solid var(--black);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: var(--white);
+  color: var(--black);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input:focus,
+.filter-select:focus,
+.filter-date:focus {
   outline: none;
   border-color: var(--green);
   box-shadow: 0 0 5px var(--green);
+}
+
+.filter-select {
+  min-width: 200px;
+}
+
+.filter-date {
+  min-width: 150px;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 300px;
+}
+
+.search-container button {
+  background-color: var(--black);
+  color: var(--white);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.search-container button:hover {
+  background-color: var(--green);
+  color: var(--black);
+}
+
+.competences-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.competence-pill {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--greenMedium);
+  color: var(--black);
+  border-radius: 16px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.competence-pill button {
+  background: none;
+  border: none;
+  color: var(--black);
+  font-size: 1rem;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.competence-pill button:hover {
+  color: var(--red);
 }
 
 /* Styles pour les étoiles */
@@ -1456,6 +1531,7 @@ canvas {
 
 .star.empty-star {
   background-color: #ccc; /* Couleur des étoiles non sélectionnées (gris) */
+
 }
 
 .star:hover {
