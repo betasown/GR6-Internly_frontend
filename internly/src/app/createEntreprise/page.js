@@ -13,6 +13,8 @@ const CreateEntreprise = () => {
     domaine: "",
     visibilite: true,
   });
+  const [showResetPopup, setShowResetPopup] = useState(false);
+  const [showCreationPopup, setShowCreationPopup] = useState(false); // État pour la popup de confirmation
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -38,7 +40,7 @@ const CreateEntreprise = () => {
 
       if (response.ok) {
         const data = await response.json();
-        alert("Entreprise créée avec succès !");
+        setShowCreationPopup(true); // Afficher la popup de confirmation
         console.log(data);
       } else {
         alert("Erreur lors de la création de l'entreprise.");
@@ -163,21 +165,56 @@ const CreateEntreprise = () => {
           <button
             type="button"
             className="reinitialiser"
-            onClick={() =>
-              setFormData({
-                nom: "",
-                description: "",
-                email: "",
-                telephone: "",
-                domaine: "",
-                visibilite: true,
-              })
-            }
+            onClick={() => setShowResetPopup(true)}
           >
             Réinitialiser
           </button>
         </div>
       </form>
+      {showResetPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Êtes-vous sûr de vouloir réinitialiser le formulaire ?</p>
+            <div className="popup-buttons">
+              <button
+                onClick={() => {
+                  setFormData({
+                    nom: "",
+                    description: "",
+                    email: "",
+                    telephone: "",
+                    domaine: "",
+                    visibilite: true,
+                  });
+                  setShowResetPopup(false);
+                }}
+                className="popup-confirm-button"
+              >
+                Oui
+              </button>
+              <button
+                onClick={() => setShowResetPopup(false)}
+                className="popup-cancel-button"
+              >
+                Non
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {showCreationPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Entreprise créée avec succès !</p>
+            <button
+              onClick={() => setShowCreationPopup(false)}
+              className="popup-close-button"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
