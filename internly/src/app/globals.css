@@ -325,7 +325,6 @@ footer {
   margin-bottom: 5%;
 }
 
-/* Styles pour les cartes des offres */
 .offer-card {
   background-color: #f8f5f5;
   width: calc(33.333% - 24px);
@@ -333,12 +332,12 @@ footer {
   padding: 2%;
   text-align: left;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Ajout de la transition */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .offer-card:hover {
-  transform: translateY(-5px); /* Lève légèrement la carte */
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée */
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
 .offer-card .entreprise {
@@ -619,7 +618,7 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   justify-content: center;
   align-items: center;
   height: 65vh;
-  margin-bottom: 0; /* Réduire la marge inférieure */
+  margin-bottom: 0;
 }
 
 .slide-login-container {
@@ -627,7 +626,7 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   padding: 2rem;
   background-color: #f9f9f9;
   border-radius: 24px;
-  margin-bottom: 0; /* Réduire la marge inférieure */
+  margin-bottom: 0;
 }
 
 .slide-login-container h1 {
@@ -823,7 +822,7 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 600px;
-  margin: 10% auto 5%; /* Ajoutez une marge supérieure pour positionner le formulaire en dessous de la barre de navigation */
+  margin: 10% auto 5%;
 }
 
 .form-container h1 {
@@ -885,8 +884,8 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
 }
 
 .close-button:hover {
-  color: #e60000; /* Couleur au survol */
-  transform: scale(1.1); /* Légère mise en avant au survol */
+  color: #e60000;
+  transform: scale(1.1);
 }
 
 /*_____________________________________________________________________________________________*/
@@ -965,7 +964,7 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   .info-card .title {
     font-size: 32px;
     font-weight: bold;
-    margin-bottom: 10px; /* Ajout d'un espace entre le titre et le paragraphe */
+    margin-bottom: 10px;
   }
 
   .info-card .Paragraphe {
@@ -977,7 +976,7 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   }
 
   .offer-card {
-    width: 100%; /* Pour 1 colonne sur les écrans encore plus petits */
+    width: 100%;
     padding: 6%;
   }
 
@@ -998,16 +997,16 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   }
 
   .bento-container {
-    flex-direction: column; /* Passer les éléments en colonne */
-    align-items: center; /* Centrer les éléments */
+    flex-direction: column;
+    align-items: center;
 }
 
 .bento-item {
-    flex: none; /* Désactiver le comportement de flex-grow */
+    flex: none;
     background-color: #f9f9f9;
-    width: 100%; /* Chaque élément prend toute la largeur */
-    max-width: 100%; /* Supprimer la limite de largeur */
-    margin: 0 auto; /* Centrer les éléments */
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
 }
 }
 
@@ -1040,7 +1039,6 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
   color : var(--black);
 }
 
-/* Affiche le bouton lorsque showScrollButton est true */
 .scroll-to-top {
   display: block;
 }
@@ -1260,7 +1258,7 @@ input[type="radio"]:checked, input[type="checkbox"]:checked {
 }
 
 .bento-item {
-  flex: 1 1 calc(33.333% - 24px); /* 3 items par ligne */
+  flex: 1 1 calc(33.333% - 24px);
   background: #f9f9f9;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -1292,12 +1290,11 @@ canvas {
   height: auto;
 }
 
-/* Styles pour la liste des wish lists */
 .wishlist-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  text-align: left; /* Aligner les éléments à gauche */
+  text-align: left;
 }
 
 .wishlist-item {
@@ -1387,15 +1384,15 @@ canvas {
 }
 
 .status-pill.refusee {
-  background-color: #e60000; /* Rouge */
+  background-color: #e60000;
 }
 
 .status-pill.en-attente {
-  background-color: #ff9900; /* Orange/Jaune */
+  background-color: #ff9900;
 }
 
 .status-pill.acceptee {
-  background-color: #28a745; /* Vert */
+  background-color: #28a745;
 }
 
 .search-container {
@@ -1493,23 +1490,22 @@ canvas {
   color: var(--red);
 }
 
-/* Styles pour les étoiles */
 .rating-stars {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px; /* Espacement entre les étoiles */
+  gap: 8px;
   margin: 10px 0;
 }
 
 .star {
-  font-size: 2rem; /* Taille des étoiles */
+  font-size: 2rem;
   cursor: pointer;
   color: transparent;
   transition: color 0.3s ease;
   display: inline-block;
-  width: 1.5em; /* Largeur des étoiles */
-  height: 1.5em; /* Hauteur des étoiles */
+  width: 1.5em;
+  height: 1.5em;
   background-color: transparent;
   clip-path: polygon(
     50% 0%,
@@ -1526,16 +1522,14 @@ canvas {
 }
 
 .star.full-star {
-  background-color: #ffc107; /* Couleur des étoiles sélectionnées (jaune) */
+  background-color: #ffc107;
 }
-
 .star.empty-star {
-  background-color: #ccc; /* Couleur des étoiles non sélectionnées (gris) */
+  background-color: #ccc;
 
 }
-
 .star:hover {
-  background-color: #ffca2c; /* Couleur des étoiles au survol */
+  background-color: #ffca2c;
 }
 
 .popup-lm {
@@ -1557,10 +1551,10 @@ canvas {
 }
 
 .popup-content-lm p {
-  text-align: left; /* Aligner le texte à gauche */
-  line-height: 1.6; /* Améliorer l'espacement entre les lignes */
-  font-size: 1rem; /* Taille de police lisible */
-  color: var(--black); /* Couleur du texte */
+  text-align: left;
+  line-height: 1.6;
+  font-size: 1rem;
+  color: var(--black);
   margin-top: 5%;
   margin-right: 20%;
   margin-left: 20%;
