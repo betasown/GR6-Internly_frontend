@@ -17,14 +17,18 @@ function calculateDurationInMonths(startDate, endDate) {
 
 export default function Page() {
     const [offres, setOffres] = useState([]);
-    const [filteredOffres, setFilteredOffres] = useState([]); // État pour les offres filtrées
-    const [searchQuery, setSearchQuery] = useState(""); // État pour la barre de recherche
+    const [filteredOffres, setFilteredOffres] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [selectedEntreprise, setSelectedEntreprise] = useState("");
+    const [selectedCompetence, setSelectedCompetence] = useState("");
+    const [selectedRemuneration, setSelectedRemuneration] = useState("");
+    const [selectedDate, setSelectedDate] = useState("");
     const [wishListStats, setWishListStats] = useState([]);
     const [durationStats, setDurationStats] = useState([]);
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const [user, setUser] = useState(null); // État pour stocker les informations utilisateur
-    const itemsPerPage = 12; // Nombre d'éléments par page
+    const [user, setUser] = useState(null);
+    const itemsPerPage = 12;
     const router = useRouter();
 
     useEffect(() => {
@@ -45,7 +49,7 @@ export default function Page() {
                     competences: typeof offre.competences === 'string' ? offre.competences.split(', ') : []
                 }));
                 setOffres(offresWithCompetencesArray);
-                setFilteredOffres(offresWithCompetencesArray); // Initialiser les offres filtrées
+                setFilteredOffres(offresWithCompetencesArray);
             } catch (error) {
                 setError(error.message);
             }
@@ -60,12 +64,12 @@ export default function Page() {
                     throw new Error(`HTTP error! status: ${res.status}`);
                 }
                 const data = await res.json();
-                setWishListStats(data); // Met à jour les statistiques des wish lists
+                setWishListStats(data);
             } catch (error) {
                 setError(error.message);
             }
         };
-    
+
         fetchWishListStats();
 
         const fetchDurationStats = async () => {
@@ -75,24 +79,57 @@ export default function Page() {
                     throw new Error(`HTTP error! status: ${res.status}`);
                 }
                 const data = await res.json();
-                setDurationStats(data); // Met à jour les statistiques de durée
+                setDurationStats(data);
             } catch (error) {
                 setError(error.message);
             }
         };
-    
+
         fetchDurationStats();
     }, []);
 
-    // Fonction pour gérer la recherche
-    const handleSearch = (e) => {
-        const query = e.target.value.toLowerCase();
-        setSearchQuery(query);
-        const filtered = offres.filter((offre) =>
-            offre.titre_offre.toLowerCase().includes(query)
-        );
+    // Fonction pour gérer la recherche et les filtres
+    const handleSearchAndFilters = () => {
+        let filtered = offres;
+
+        if (searchQuery) {
+            filtered = filtered.filter((offre) =>
+                offre.titre_offre.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+        }
+
+        if (selectedEntreprise) {
+            filtered = filtered.filter((offre) =>
+                offre.entreprise.toLowerCase() === selectedEntreprise.toLowerCase()
+            );
+        }
+
+        if (selectedCompetence) {
+            filtered = filtered.filter((offre) =>
+                offre.competences.includes(selectedCompetence)
+            );
+        }
+
+        if (selectedRemuneration) {
+            filtered = filtered.filter((offre) =>
+                offre.base_remuneration === selectedRemuneration
+            );
+        }
+
+        if (selectedDate) {
+            filtered = filtered.filter((offre) => {
+                if (!offre.date_offre) return false; // Vérifier si la date est valide
+                const offreDate = new Date(offre.date_offre);
+                return !isNaN(offreDate) && offreDate.toISOString().split('T')[0] === selectedDate;
+            });
+        }
+
         setFilteredOffres(filtered);
     };
+
+    useEffect(() => {
+        handleSearchAndFilters();
+    }, [searchQuery, selectedEntreprise, selectedCompetence, selectedRemuneration, selectedDate]);
 
     // Pagination logic
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -104,7 +141,7 @@ export default function Page() {
     const paginate = (pageNumber) => {
         if (pageNumber > 0 && pageNumber <= totalPages) {
             setCurrentPage(pageNumber);
-            window.scrollTo(0, 0); // Remettre la position de défilement en haut de la page
+            window.scrollTo(0, 0);
         }
     };
 
@@ -119,15 +156,41 @@ export default function Page() {
                 </div>
             </div>
 
-            {/* Barre de recherche */}
+            {/* Barre de recherche et filtres */}
             <div className="search-container">
                 <input
                     type="text"
                     placeholder="Rechercher une offre par titre..."
                     value={searchQuery}
-                    onChange={handleSearch}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     className="search-input"
                 />
+
+                <select
+                    value={selectedEntreprise}
+                    onChange={(e) => setSelectedEntreprise(e.target.value)}
+                    className="filter-select"
+                >
+                    <option value="">Toutes les entreprises</option>
+                    {[...new Set(offres.map((offre) => offre.entreprise))].map((entreprise, index) => (
+                        <option key={index} value={entreprise}>
+                            {entreprise}
+                        </option>
+                    ))}
+                </select>
+
+                <select
+                    value={selectedCompetence}
+                    onChange={(e) => setSelectedCompetence(e.target.value)}
+                    className="filter-select"
+                >
+                    <option value="">Toutes les compétences</option>
+                    {[...new Set(offres.flatMap((offre) => offre.competences))].map((competence, index) => (
+                        <option key={index} value={competence}>
+                            {competence}
+                        </option>
+                    ))}
+                </select>
             </div>
 
             <div className="container-cards-container">
@@ -177,97 +240,6 @@ export default function Page() {
                 ))}
                 <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>&raquo;</button>
             </div>
-
-    <div className="statistics-section">
-    <h1 className='title'>Statistiques sur les Offres</h1>
-
-    <div className="bento-container">
-        {/* Répartition par compétences */}
-        <div className="bento-item">
-            <h3>Répartition par Compétences</h3>
-            <Pie
-                data={{
-                    labels: (() => {
-                        const competenceCounts = offres.reduce((acc, offre) => {
-                            offre.competences.forEach(competence => {
-                                acc[competence] = (acc[competence] || 0) + 1;
-                            });
-                            return acc;
-                        }, {});
-
-                        const sortedCompetences = Object.entries(competenceCounts).sort((a, b) => b[1] - a[1]);
-                        const topCompetences = sortedCompetences.slice(0, 4); // Limiter à 4 compétences
-                        const otherCount = sortedCompetences.slice(4).reduce((sum, [, count]) => sum + count, 0);
-
-                        return [...topCompetences.map(([competence]) => competence), 'Autres'];
-                    })(),
-                    datasets: [
-                        {
-                            data: (() => {
-                                const competenceCounts = offres.reduce((acc, offre) => {
-                                    offre.competences.forEach(competence => {
-                                        acc[competence] = (acc[competence] || 0) + 1;
-                                    });
-                                    return acc;
-                                }, {});
-
-                                const sortedCompetences = Object.entries(competenceCounts).sort((a, b) => b[1] - a[1]);
-                                const topCounts = sortedCompetences.slice(0, 4).map(([, count]) => count); // Limiter à 4 compétences
-                                const otherCount = sortedCompetences.slice(4).reduce((sum, [, count]) => sum + count, 0);
-
-                                return [...topCounts, otherCount];
-                            })(),            
-                            backgroundColor: ['#F1F5C0', '#C6D602', '#E4EC8A', '#D0DD33', '#DBE561'], // Couleurs
-                            hoverBackgroundColor: ['#F1F5C0', '#C6D602', '#E4EC8A', '#D0DD33', '#DBE561'], // Couleurs au survol
-                            
-                        },
-                    ],
-                }}
-            />
-        </div>
-
-        {/* Répartition par durée */}
-        <div className="bento-item">
-    <h3>Répartition par Durée</h3>
-    <Pie
-        data={{
-            labels: durationStats.map(stat => stat.duree_groupe),
-            datasets: [
-                {
-                    data: durationStats.map(stat => stat.nombre_offres),
-                    backgroundColor: ['#C6D602', '#DBE561', '#F1F5C0'], // Couleurs spécifiées
-                    hoverBackgroundColor: ['#C6D602', '#DBE561', '#F1F5C0'], // Couleurs au survol
-                },
-            ],
-        }}
-    />
-</div>
-
-        {/* Top des wish lists */}
-        <div className="bento-item">
-            <h3>Top 10 des Wish Lists</h3>
-            <ul className="wishlist-list">
-                {wishListStats
-                    .sort((a, b) => b.wishListCount - a.wishListCount) // Trier par wishListCount décroissant
-                    .slice(0, 10) // Prendre les 10 premiers
-                    .map((offre, index) => (
-                        <li
-                            key={offre.offre_id}
-                            className="wishlist-item"
-                            onClick={() => router.push(`/offres/${offre.offre_id}`)}
-                            style={{ cursor: 'pointer' }}
-                        >
-                            <span className="wishlist-rank">{index + 1}.</span>
-                            <span className="wishlist-title">{offre.offre_titre}</span>
-                            <span className="wishlist-count">{offre.wishListCount} wish lists</span>
-                        </li>
-                    ))}
-            </ul>
-        </div>
-    </div>
-</div>
-
-            <img className="assets" src="/Assets/separateur-w2b.png"/>
         </div>
     );
 }
