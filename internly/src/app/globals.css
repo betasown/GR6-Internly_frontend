@@ -1417,3 +1417,47 @@ canvas {
   border-color: var(--green);
   box-shadow: 0 0 5px var(--green);
 }
+
+/* Styles pour les étoiles */
+.rating-stars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px; /* Espacement entre les étoiles */
+  margin: 10px 0;
+}
+
+.star {
+  font-size: 2rem; /* Taille des étoiles */
+  cursor: pointer;
+  color: transparent;
+  transition: color 0.3s ease;
+  display: inline-block;
+  width: 1.5em; /* Largeur des étoiles */
+  height: 1.5em; /* Hauteur des étoiles */
+  background-color: transparent;
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+}
+
+.star.full-star {
+  background-color: #ffc107; /* Couleur des étoiles sélectionnées (jaune) */
+}
+
+.star.empty-star {
+  background-color: #ccc; /* Couleur des étoiles non sélectionnées (gris) */
+}
+
+.star:hover {
+  background-color: #ffca2c; /* Couleur des étoiles au survol */
+}
