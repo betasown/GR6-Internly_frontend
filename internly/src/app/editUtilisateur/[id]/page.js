@@ -14,6 +14,10 @@ const EditUtilisateur = () => {
     statut: "",
   });
 
+  const [errors, setErrors] = useState({
+    email: "",
+  });
+
   const [showUpdatePopup, setShowUpdatePopup] = useState(false); // Popup de succès
   const [showErrorPopup, setShowErrorPopup] = useState(false); // Popup d'erreur
 
@@ -44,10 +48,29 @@ const EditUtilisateur = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Mettre à jour les données du formulaire
     setFormData({
       ...formData,
       [name]: value,
     });
+
+    // Validation dynamique pour l'email
+    if (name === "email") {
+      let emailRegex;
+      if (formData.statut === "pilote") {
+        emailRegex = /^[a-zA-Z]+\.[a-zA-Z]+@cesi\.fr$/; // RegEx pour pilote
+      } else if (formData.statut === "etudiant") {
+        emailRegex = /^[a-zA-Z]+\.[a-zA-Z]+@viacesi\.fr$/; // RegEx pour étudiant
+      }
+
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: emailRegex && emailRegex.test(value)
+          ? ""
+          : `Veuillez entrer une adresse email valide`,
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -142,6 +165,7 @@ const EditUtilisateur = () => {
             onChange={handleChange}
             required
           />
+          {errors.email && <p className="error-message">{errors.email}</p>}
         </div>
 
         <button type="submit" className="apply-button">Mettre à jour</button>
