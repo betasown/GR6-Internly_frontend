@@ -207,7 +207,10 @@ const CreateEntreprise = () => {
           <div className="popup-content">
             <p>Entreprise créée avec succès !</p>
             <button
-              onClick={() => setShowCreationPopup(false)}
+              onClick={() => {
+                setShowCreationPopup(false);
+                router.push("/gestionEntreprise"); // Rediriger vers la page gestionEntreprise
+              }}
               className="popup-close-button"
             >
               Fermer
