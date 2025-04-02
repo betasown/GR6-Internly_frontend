@@ -16,6 +16,19 @@ export default function Page() {
     const [selectedOffreId, setSelectedOffreId] = useState(null); // ID de l'offre à supprimer
 
     useEffect(() => {
+        // Vérifiez si l'utilisateur est connecté et a le statut "admin" ou "pilote"
+        const userCookie = document.cookie.split("; ").find((row) => row.startsWith("user="));
+        if (userCookie) {
+            const user = JSON.parse(decodeURIComponent(userCookie.split("=")[1]));
+            if (user.status !== "admin" && user.status !== "pilote") {
+                router.push("/403/"); // Redirige si l'utilisateur n'est ni admin ni pilote
+            }
+        } else {
+            router.push("/403/"); // Redirige si l'utilisateur n'est pas connecté
+        }
+    }, [router]);
+
+    useEffect(() => {
         // Fetch data from the API
         fetch("http://localhost:8000/index.php?route=offers_display")
             .then((response) => response.json())

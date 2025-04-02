@@ -24,7 +24,7 @@ export default function OffreDetail() {
   const [showMessageField, setShowMessageField] = useState(false); // État pour afficher/masquer le champ de message
   const [uploadedFile, setUploadedFile] = useState(null); // État pour gérer le fichier téléchargé
   const [isWishlisted, setIsWishlisted] = useState(false); // État pour gérer le statut de la wishlist
-  const [user, setUser] = useState({ nom: "", prenom: "", email: "", id: null }); // Ajout de l'ID utilisateur
+  const [user, setUser] = useState({ nom: "", prenom: "", email: "", id: null, status: "" }); // Ajout du statut utilisateur
   const router = useRouter();
 
   const toggleMessageField = () => {
@@ -149,6 +149,7 @@ export default function OffreDetail() {
             nom: data.utilisateur_nom,
             prenom: data.utilisateur_prenom,
             email: data.utilisateur_email,
+            status: userCookie.status, // Récupère le statut depuis le cookie
           }); // Stocke les informations utilisateur
         } catch (error) {
           console.error("Erreur lors de la récupération des informations utilisateur :", error);
@@ -202,6 +203,9 @@ export default function OffreDetail() {
     }
   }, [id]);
 
+  // Vérifie si l'utilisateur est un étudiant
+  const isEtudiant = user.status === "etudiant";
+
   if (error) {
     return <p>Erreur: {error}</p>;
   }
@@ -223,19 +227,21 @@ export default function OffreDetail() {
         <br></br>
         <h1 className="title">
           {offre.offre_titre} - {offre.entreprise_nom}
-          <button className="wishlist-button" onClick={handleWishlistToggle}>
-            {isWishlisted ? (
-              <>
-                <Heart color="red" size={20} />
-                Retirer de la wishlist
-              </>
-            ) : (
-              <>
-                <Heart size={20} />
-                Ajouter à la wishlist
-              </>
-            )}
-          </button>
+          {isEtudiant && ( // Affiche le bouton wishlist uniquement si l'utilisateur est un étudiant
+            <button className="wishlist-button" onClick={handleWishlistToggle}>
+              {isWishlisted ? (
+                <>
+                  <Heart color="red" size={20} />
+                  Retirer de la wishlist
+                </>
+              ) : (
+                <>
+                  <Heart size={20} />
+                  Ajouter à la wishlist
+                </>
+              )}
+            </button>
+          )}
         </h1>
         <p>{offre.offre_description}</p>
         <article itemScope itemType="http://schema.org/JobPosting">
@@ -259,121 +265,130 @@ export default function OffreDetail() {
           <br />
           <br />
         </article>
-        <form onSubmit={handleSubmit}>
-          <label className="form-text">
-            Nom<br />
-            <input
-              className="form-input"
-              name="nom"
-              type="text"
-              placeholder="Votre nom"
-              value={user.nom} // Prérempli avec le nom de l'utilisateur
-              readOnly
-            />
-          </label>
-          <br />
-          <br />
-          <label className="form-text">
-            Prénom<br />
-            <input
-              className="form-input"
-              name="prenom"
-              type="text"
-              placeholder="Votre prénom"
-              value={user.prenom} // Prérempli avec le prénom de l'utilisateur
-              readOnly
-            />
-          </label>
-          <br />
-          <br />
-          <label className="form-text">
-            Courriel<br />
-            <input
-              className="form-input"
-              name="courriel"
-              type="email"
-              placeholder="Votre adresse e-mail"
-              value={user.email} // Prérempli avec l'email de l'utilisateur
-              readOnly
-            />
-          </label>
-          <br />
-          <br />
+        {isEtudiant && ( // Affiche le formulaire uniquement si l'utilisateur est un étudiant
+          <form onSubmit={handleSubmit}>
+            <label className="form-text">
+              Nom<br />
+              <input
+                className="form-input"
+                name="nom"
+                type="text"
+                placeholder="Votre nom"
+                value={user.nom} // Prérempli avec le nom de l'utilisateur
+                readOnly
+              />
+            </label>
+            <br />
+            <br />
+            <label className="form-text">
+              Prénom<br />
+              <input
+                className="form-input"
+                name="prenom"
+                type="text"
+                placeholder="Votre prénom"
+                value={user.prenom} // Prérempli avec le prénom de l'utilisateur
+                readOnly
+              />
+            </label>
+            <br />
+            <br />
+            <label className="form-text">
+              Courriel<br />
+              <input
+                className="form-input"
+                name="courriel"
+                type="email"
+                placeholder="Votre adresse e-mail"
+                value={user.email} // Prérempli avec l'email de l'utilisateur
+                readOnly
+              />
+            </label>
+            <br />
+            <br />
 
-          <label className="form-text">CV</label>
-          <div className="cv-container">
-            <div className="cv-upload">
-              {!uploadedFile ? (
-                <label className="apply-button">
-                  Télécharger votre CV
-                  <input
-                    type="file"
-                    accept=".pdf,.doc,.docx,.odt,.rtf,.jpg,.png"
-                    hidden
-                    onChange={handleFileUpload}
-                    required
-                  />
-                </label>
-              ) : (
-                <div className="uploaded-file">
-                  <p>{uploadedFile.name}</p>
-                  <button
-                    type="button"
-                    className="remove-file-button"
-                    onClick={handleFileRemove}
-                    style={{ display: "flex", alignItems: "center", gap: "8px" }}
-                  >
-                    <Trash2 size={16} /> Supprimer
-                  </button>
-                </div>
+            <label className="form-text">CV</label>
+            <div className="cv-container">
+              <div className="cv-upload">
+                {!uploadedFile ? (
+                  <label className="apply-button">
+                    Télécharger votre CV
+                    <input
+                      type="file"
+                      accept=".pdf,.doc,.docx,.odt,.rtf,.jpg,.png"
+                      hidden
+                      onChange={handleFileUpload}
+                      required
+                    />
+                  </label>
+                ) : (
+                  <div className="uploaded-file">
+                    <p>{uploadedFile.name}</p>
+                    <button
+                      type="button"
+                      className="remove-file-button"
+                      onClick={handleFileRemove}
+                      style={{ display: "flex", alignItems: "center", gap: "8px" }}
+                    >
+                      <Trash2 size={16} /> Supprimer
+                    </button>
+                  </div>
+                )}
+              </div>
+              {!uploadedFile && (
+                <p className="subline">
+                  Poids max 2Mo <br /> Formats .pdf, .doc, .docx, .odt, .rtf, .jpg ou .png
+                </p>
               )}
             </div>
-            {!uploadedFile && (
-              <p className="subline">
-                Poids max 2Mo <br /> Formats .pdf, .doc, .docx, .odt, .rtf, .jpg ou .png
-              </p>
-            )}
-          </div>
 
-          <div style={{ marginTop: "20px" }}>
-            <button
-              type="button"
-              className="toggle-message-button"
-              onClick={toggleMessageField}
-              style={{ display: "flex", alignItems: "center", gap: "8px" }}
-            >
-              {showMessageField ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-              {showMessageField
-                ? "Masquer le message au recruteur"
-                : "Ajouter un message au recruteur"}
-            </button>
-          </div>
-
-          {showMessageField && (
-            <div className="message-field">
-              <label className="form-text">
-                Message au recruteur<br />
-                <textarea
-                  className="form-input"
-                  name="message"
-                  placeholder="Votre message au recruteur (facultatif)"
-                  rows="4"
-                />
-              </label>
+            <div style={{ marginTop: "20px" }}>
+              <button
+                type="button"
+                className="toggle-message-button"
+                onClick={toggleMessageField}
+                style={{ display: "flex", alignItems: "center", gap: "8px" }}
+              >
+                {showMessageField ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                {showMessageField
+                  ? "Masquer le message au recruteur"
+                  : "Ajouter un message au recruteur"}
+              </button>
             </div>
-          )}
 
-          <br />
-          <br />
-          <button className="apply-button" type="submit">
-            Postuler maintenant
-          </button>
-        </form>
+            {showMessageField && (
+              <div className="message-field">
+                <label className="form-text">
+                  Message au recruteur<br />
+                  <textarea
+                    className="form-input"
+                    name="message"
+                    placeholder="Votre message au recruteur (facultatif)"
+                    rows="4"
+                  />
+                </label>
+              </div>
+            )}
+
+            <br />
+            <br />
+            <button className="apply-button" type="submit">
+              Postuler maintenant
+            </button>
+          </form>
+        )}
+        {!isEtudiant && ( // Message pour les utilisateurs non étudiants
+          <p className="subline">
+            Seuls les étudiants peuvent postuler à cette offre ou l'ajouter à leur wishlist.
+          </p>
+        )}
+        {isEtudiant &&(
         <p className="subline">
           En cliquant sur "Postuler", vous acceptez les <a href="/CGU">CGU</a> et déclarez avoir
           pris connaissance de la <a href="/MentionsLegales">politique de la protection des données</a>{" "}
           de notre site.
         </p>
+        )}
       </div>
       <br />
       <img className="assets" src="/Assets/separateur-w2b.png" />

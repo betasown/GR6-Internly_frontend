@@ -147,7 +147,7 @@ export default function Page() {
                                 <h1 className="title">Candidatures</h1>
                             </div>
                             {currentCandidatures.length > 0 ? (
-                            <table className="offer-table">
+                                <table className="offer-table">
                                 <thead>
                                     <tr>
                                         <th>Offre</th>
