@@ -25,6 +25,9 @@ export default function EntrepriseDetail() {
   const [userRating, setUserRating] = useState(0); // État pour la note de l'utilisateur
   const router = useRouter();
 
+  const userCookie = getCookie("user"); // Récupère le cookie utilisateur
+  const userRole = userCookie?.status; // Récupère le rôle de l'utilisateur (admin, pilote, etc.)
+
   useEffect(() => {
     if (id) {
       const fetchEntrepriseData = async () => {
@@ -59,12 +62,11 @@ export default function EntrepriseDetail() {
   }, [id]);
 
   const handleRatingSubmit = async () => {
-    const userCookie = getCookie("user"); // Récupère le cookie utilisateur
     if (!userCookie || !userCookie.id) {
       alert("Vous devez être connecté pour soumettre une évaluation.");
       return;
     }
-  
+
     try {
       const response = await fetch("http://localhost:8000/index.php?route=add_evaluation", {
         method: "POST",
@@ -72,16 +74,15 @@ export default function EntrepriseDetail() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          entreprise_id: id, // ID de l'entreprise
-          utilisateur_id: userCookie.id, // ID de l'utilisateur récupéré depuis le cookie
-          evaluation_note: userRating, // Note donnée par l'utilisateur
+          entreprise_id: id,
+          utilisateur_id: userCookie.id,
+          evaluation_note: userRating,
         }),
       });
-  
+
       const data = await response.json();
-  
+
       if (!response.ok || !data.success) {
-        // Vérifie si l'API retourne une erreur spécifique
         if (data.error === "Vous avez déjà noté cette entreprise.") {
           alert("Vous avez déjà noté cette entreprise.");
         } else {
@@ -89,7 +90,7 @@ export default function EntrepriseDetail() {
         }
         return;
       }
-  
+
       alert(`Votre note de ${userRating} étoile(s) a été soumise avec succès !`);
       console.log("Réponse du serveur :", data);
     } catch (error) {
@@ -184,7 +185,7 @@ export default function EntrepriseDetail() {
                   className="apply-button"
                   onClick={() => router.push(`/offres/${offer.offre_id}`)}
                 >
-                  Candidater
+                  {(!userCookie || userRole === "admin" || userRole === "pilote") ? "Voir l'offre" : "Candidater"}
                 </button>
               </div>
             ))
