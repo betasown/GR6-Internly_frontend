@@ -16,6 +16,9 @@ const CreateUtilisateur = () => {
     password: "",
   });
 
+  const [showCreationPopup, setShowCreationPopup] = useState(false); // Popup de succès
+  const [showErrorPopup, setShowErrorPopup] = useState(false); // Popup d'erreur
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -40,7 +43,7 @@ const CreateUtilisateur = () => {
 
       if (response.ok) {
         const data = await response.json();
-        alert("Utilisateur créé avec succès !");
+        setShowCreationPopup(true); // Afficher la popup de succès
         console.log(data);
 
         // Réinitialiser les champs du formulaire sauf le statut
@@ -51,36 +54,12 @@ const CreateUtilisateur = () => {
           email: "",
           password: "",
         });
-
-        // Lire le cookie et parser le JSON pour récupérer le statut
-        const userCookie = document.cookie
-          .split("; ")
-          .find((row) => row.startsWith("user")) // Remplacez "user=" par le nom exact du cookie
-          ?.split("=")[1];
-
-        if (userCookie) {
-          const user = JSON.parse(decodeURIComponent(userCookie)); // Décoder et parser le JSON
-          const userStatut = user.status;
-
-          // Redirection conditionnelle en fonction du statut
-          if (userStatut === "admin") {
-            router.push("/gestionUtilisateur");
-          } else if (userStatut === "pilote") {
-            router.push("/gestionEtudiant");
-          } else {
-            alert("Rôle inconnu, redirection par défaut.");
-            router.push("/"); // Redirection par défaut si le rôle est inconnu
-          }
-        } else {
-          alert("Impossible de déterminer le rôle de l'utilisateur.");
-          router.push("/"); // Redirection par défaut
-        }
       } else {
-        alert("Erreur lors de la création de l'utilisateur.");
+        setShowErrorPopup(true); // Afficher la popup d'erreur
       }
     } catch (error) {
       console.error("Erreur:", error);
-      alert("Une erreur est survenue.");
+      setShowErrorPopup(true); // Afficher la popup d'erreur
     }
   };
 
@@ -207,6 +186,58 @@ const CreateUtilisateur = () => {
           </button>
         </div>
       </form>
+
+      {showCreationPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Utilisateur créé avec succès !</p>
+            <button
+              onClick={() => {
+                setShowCreationPopup(false);
+
+                // Lire le cookie et parser le JSON pour récupérer le statut
+                const userCookie = document.cookie
+                  .split("; ")
+                  .find((row) => row.startsWith("user"))
+                  ?.split("=")[1];
+
+                if (userCookie) {
+                  const user = JSON.parse(decodeURIComponent(userCookie));
+                  const userStatut = user.status;
+
+                  // Redirection conditionnelle en fonction du statut
+                  if (userStatut === "admin") {
+                    router.push("/gestionUtilisateur");
+                  } else if (userStatut === "pilote") {
+                    router.push("/gestionEtudiant");
+                  } else {
+                    router.push("/"); // Redirection par défaut
+                  }
+                } else {
+                  router.push("/"); // Redirection par défaut
+                }
+              }}
+              className="popup-confirm-button"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showErrorPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Une erreur est survenue lors de la création de l'utilisateur.</p>
+            <button
+              onClick={() => setShowErrorPopup(false)}
+              className="popup-close-button"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
