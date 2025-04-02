@@ -4,6 +4,24 @@ import React, { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
+const getCookie = (name) => {
+  if (typeof document === "undefined") {
+    return null; // Retourne null si le code s'exécute côté serveur
+  }
+
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) {
+    try {
+      return JSON.parse(parts.pop().split(";").shift()); // Parse le JSON du cookie
+    } catch (error) {
+      console.error("Erreur lors du parsing du cookie :", error);
+      return null;
+    }
+  }
+  return null;
+};
+
 export default function Home() {
   const [stats, setStats] = useState({
     students: 0,
@@ -14,7 +32,9 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12; // Nombre d'éléments par page
-      const router = useRouter();
+  const router = useRouter();
+
+  const userCookie = getCookie("user"); // Récupère le cookie utilisateur
 
   useEffect(() => {
     async function fetchStats() {
@@ -139,7 +159,7 @@ export default function Home() {
                                         className="apply-button" 
                                         onClick={() => router.push(`/offres/${offre.offre_id}`)}
                                     >
-                                        Candidater
+                                        {userCookie?.status === "etudiant" ? "Candidater" : "Voir l'offre"}
                                     </button>
                                     
                                 </div>
