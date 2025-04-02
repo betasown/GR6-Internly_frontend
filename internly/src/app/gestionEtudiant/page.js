@@ -59,7 +59,6 @@ export default function Page() {
     }
 };
 
-export default function Page() {
     const [etudiants, setEtudiants] = useState([]);
     const [currentPageEtudiants, setCurrentPageEtudiants] = useState(1);
     const itemsPerPage = 5;
@@ -249,4 +248,3 @@ export default function Page() {
         )}
     </div>
     );
-}
