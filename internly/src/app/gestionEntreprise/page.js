@@ -10,6 +10,11 @@ export default function Page() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
 
+    const [showDeletePopup, setShowDeletePopup] = useState(false); // Popup de confirmation de suppression
+    const [showDeleteSuccessPopup, setShowDeleteSuccessPopup] = useState(false); // Popup de succès
+    const [showDeleteErrorPopup, setShowDeleteErrorPopup] = useState(false); // Popup d'erreur
+    const [selectedEntrepriseId, setSelectedEntrepriseId] = useState(null); // ID de l'entreprise à supprimer
+
     const fetchEntreprises = async () => {
         try {
             const response = await fetch("http://localhost:8000/index.php?route=entreprise");
@@ -25,31 +30,36 @@ export default function Page() {
     }, []);
 
     const handleDelete = async (id) => {
-        if (confirm("Êtes-vous sûr de vouloir supprimer cette entreprise ?")) {
-            try {
-                const response = await fetch(
-                    "http://localhost:8000/index.php?route=delete_entreprise",
-                    {
-                        method: "DELETE",
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded", // Utilisation de x-www-form-urlencoded
-                        },
-                        body: `id=${id}`, // Encodage des données comme dans Postman
-                    }
-                );
-    
-                const responseData = await response.json(); // Récupérer la réponse JSON du backend
-    
-                if (responseData.success) {
-                    alert("Entreprise supprimée avec succès !");
-                    fetchEntreprises(); // Rafraîchir la liste des entreprises
-                } else {
-                    alert(`Erreur : ${responseData.error || "Une erreur est survenue."}`);
+        setSelectedEntrepriseId(id); // Stocker l'ID de l'entreprise sélectionnée
+        setShowDeletePopup(true); // Afficher la popup de confirmation
+    };
+
+    const confirmDelete = async () => {
+        try {
+            const response = await fetch(
+                "http://localhost:8000/index.php?route=delete_entreprise",
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `id=${selectedEntrepriseId}`,
                 }
-            } catch (error) {
-                console.error("Erreur lors de la suppression :", error);
-                alert("Une erreur est survenue.");
+            );
+
+            const responseData = await response.json();
+
+            if (responseData.success) {
+                setShowDeleteSuccessPopup(true); // Afficher la popup de succès
+                fetchEntreprises(); // Rafraîchir la liste des entreprises
+            } else {
+                setShowDeleteErrorPopup(true); // Afficher la popup d'erreur
             }
+        } catch (error) {
+            console.error("Erreur lors de la suppression :", error);
+            setShowDeleteErrorPopup(true); // Afficher la popup d'erreur
+        } finally {
+            setShowDeletePopup(false); // Fermer la popup de confirmation
         }
     };
 
@@ -136,11 +146,7 @@ export default function Page() {
                                                 <center>
                                                     <button
                                                         className="remove-button"
-                                                        onClick={() =>
-                                                            handleDelete(
-                                                                entreprise.entreprise_id
-                                                            )
-                                                        }
+                                                        onClick={() => handleDelete(entreprise.entreprise_id)}
                                                     >
                                                         <Trash size={24} />
                                                     </button>
@@ -183,6 +189,56 @@ export default function Page() {
                 </div>
             </div>
             <img className="assets" src="/Assets/separateur-w2b.png" />
+
+            {showDeletePopup && (
+                <div className="popup">
+                    <div className="popup-content">
+                        <p>Êtes-vous sûr de vouloir supprimer cette entreprise ?</p>
+                        <div className="popup-buttons">
+                            <button
+                                onClick={confirmDelete}
+                                className="popup-confirm-button"
+                            >
+                                Oui
+                            </button>
+                            <button
+                                onClick={() => setShowDeletePopup(false)}
+                                className="popup-cancel-button"
+                            >
+                                Non
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {showDeleteSuccessPopup && (
+                <div className="popup">
+                    <div className="popup-content">
+                        <p>Entreprise supprimée avec succès !</p>
+                        <button
+                            onClick={() => setShowDeleteSuccessPopup(false)}
+                            className="popup-close-button"
+                        >
+                            Fermer
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {showDeleteErrorPopup && (
+                <div className="popup">
+                    <div className="popup-content">
+                        <p>Une erreur est survenue lors de la suppression de l'entreprise.</p>
+                        <button
+                            onClick={() => setShowDeleteErrorPopup(false)}
+                            className="popup-close-button"
+                        >
+                            Fermer
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
