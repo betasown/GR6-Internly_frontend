@@ -21,6 +21,8 @@ const EditOffre = () => {
 
     const [competences, setCompetences] = useState([]);
     const [selectedCompetence, setSelectedCompetence] = useState("");
+    const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+    const [showErrorPopup, setShowErrorPopup] = useState(false);
 
     useEffect(() => {
         if (offreId) {
@@ -82,8 +84,8 @@ const EditOffre = () => {
             experienceRequise: parseInt(formData.experienceRequise),
             competences:
                 formData.competences.length === 1
-                    ? formData.competences[0] // Une seule compétence : chaîne
-                    : formData.competences, // Plusieurs compétences : tableau
+                    ? formData.competences[0]
+                    : formData.competences,
         };
 
         try {
@@ -99,14 +101,13 @@ const EditOffre = () => {
             );
 
             if (response.ok) {
-                alert("Offre mise à jour avec succès !");
-                router.push("/gestionOffres");
+                setShowUpdatePopup(true); // Afficher la popup de succès
             } else {
-                alert("Erreur lors de la mise à jour de l'offre.");
+                setShowErrorPopup(true); // Afficher la popup d'erreur
             }
         } catch (error) {
             console.error("Erreur :", error);
-            alert("Une erreur est survenue.");
+            setShowErrorPopup(true); // Afficher la popup d'erreur
         }
     };
 
@@ -284,6 +285,35 @@ const EditOffre = () => {
                     </button>
                 </div>
             </form>
+            {showUpdatePopup && (
+                <div className="popup">
+                    <div className="popup-content">
+                        <p>Offre mise à jour avec succès !</p>
+                        <button
+                            onClick={() => {
+                                setShowUpdatePopup(false);
+                                router.push("/gestionOffres"); // Rediriger après la mise à jour
+                            }}
+                            className="popup-confirm-button"
+                        >
+                            OK
+                        </button>
+                    </div>
+                </div>
+            )}
+            {showErrorPopup && (
+                <div className="popup">
+                    <div className="popup-content">
+                        <p>Une erreur est survenue lors de la mise à jour de l'offre.</p>
+                        <button
+                            onClick={() => setShowErrorPopup(false)}
+                            className="popup-close-button"
+                        >
+                            Fermer
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

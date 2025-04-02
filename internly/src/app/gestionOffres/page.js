@@ -10,6 +10,11 @@ export default function Page() {
     const itemsPerPage = 5;
     const router = useRouter();
 
+    const [showDeletePopup, setShowDeletePopup] = useState(false); // Popup de confirmation de suppression
+    const [showDeleteSuccessPopup, setShowDeleteSuccessPopup] = useState(false); // Popup de succès
+    const [showDeleteErrorPopup, setShowDeleteErrorPopup] = useState(false); // Popup d'erreur
+    const [selectedOffreId, setSelectedOffreId] = useState(null); // ID de l'offre à supprimer
+
     useEffect(() => {
         // Fetch data from the API
         fetch("http://localhost:8000/index.php?route=offers_display")
@@ -30,30 +35,36 @@ export default function Page() {
         }
     };
 
-    const handleDelete = async (offreId) => {
-        if (confirm("Êtes-vous sûr de vouloir supprimer cette offre ?")) {
-            try {
-                const response = await fetch("http://localhost:8000/index.php?route=delete_offer", {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ offre_id: offreId }),
-                });
+    const handleDelete = (offreId) => {
+        setSelectedOffreId(offreId); // Stocker l'ID de l'offre sélectionnée
+        setShowDeletePopup(true); // Afficher la popup de confirmation
+    };
 
-                if (response.ok) {
-                    alert("Offre supprimée avec succès !");
-                    // Mettre à jour la liste des offres après suppression
-                    setEntreprises((prevEntreprises) =>
-                        prevEntreprises.filter((entreprise) => entreprise.offre_id !== offreId)
-                    );
-                } else {
-                    alert("Erreur lors de la suppression de l'offre.");
-                }
-            } catch (error) {
-                console.error("Erreur lors de la suppression de l'offre :", error);
-                alert("Une erreur est survenue.");
+    const confirmDelete = async () => {
+        try {
+            const response = await fetch("http://localhost:8000/index.php?route=delete_offer", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ offre_id: selectedOffreId }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                setShowDeleteSuccessPopup(true); // Afficher la popup de succès
+                setEntreprises((prevEntreprises) =>
+                    prevEntreprises.filter((entreprise) => entreprise.offre_id !== selectedOffreId)
+                );
+            } else {
+                setShowDeleteErrorPopup(true); // Afficher la popup d'erreur
             }
+        } catch (error) {
+            console.error("Erreur lors de la suppression de l'offre :", error);
+            setShowDeleteErrorPopup(true); // Afficher la popup d'erreur
+        } finally {
+            setShowDeletePopup(false); // Fermer la popup de confirmation
         }
     };
 
@@ -178,6 +189,56 @@ export default function Page() {
                 </div>
             </div>
             <img className="assets" src="/Assets/separateur-w2b.png" />
+
+            {showDeletePopup && (
+                <div className="popup">
+                    <div className="popup-content">
+                        <p>Êtes-vous sûr de vouloir supprimer cette offre ?</p>
+                        <div className="popup-buttons">
+                            <button
+                                onClick={confirmDelete}
+                                className="popup-confirm-button"
+                            >
+                                Oui
+                            </button>
+                            <button
+                                onClick={() => setShowDeletePopup(false)}
+                                className="popup-cancel-button"
+                            >
+                                Non
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {showDeleteSuccessPopup && (
+                <div className="popup">
+                    <div className="popup-content">
+                        <p>Offre supprimée avec succès !</p>
+                        <button
+                            onClick={() => setShowDeleteSuccessPopup(false)}
+                            className="popup-close-button"
+                        >
+                            Fermer
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {showDeleteErrorPopup && (
+                <div className="popup">
+                    <div className="popup-content">
+                        <p>Une erreur est survenue lors de la suppression de l'offre.</p>
+                        <button
+                            onClick={() => setShowDeleteErrorPopup(false)}
+                            className="popup-close-button"
+                        >
+                            Fermer
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
