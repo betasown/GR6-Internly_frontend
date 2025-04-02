@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Import pour la navigation
 import { X } from "lucide-react"; // Import de l'icône Lucide React
 
@@ -13,6 +13,19 @@ const CreateEntreprise = () => {
     domaine: "",
     visibilite: true,
   });
+
+  // Vérification des droits d'accès
+  useEffect(() => {
+    const userCookie = document.cookie.split("; ").find((row) => row.startsWith("user="));
+    if (userCookie) {
+      const user = JSON.parse(decodeURIComponent(userCookie.split("=")[1]));
+      if (user.status !== "admin" && user.status !== "pilote") {
+        router.push("/403/"); // Redirige si l'utilisateur n'est ni admin ni pilote
+      }
+    } else {
+      router.push("/403/"); // Redirige si l'utilisateur n'est pas connecté
+    }
+  }, [router]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -40,6 +53,18 @@ const CreateEntreprise = () => {
         const data = await response.json();
         alert("Entreprise créée avec succès !");
         console.log(data);
+
+        // Réinitialiser les champs du formulaire
+        setFormData({
+          nom: "",
+          description: "",
+          email: "",
+          telephone: "",
+          domaine: "",
+          visibilite: true,
+        });
+
+        router.push("/gestionEntreprise"); // Redirection après création
       } else {
         alert("Erreur lors de la création de l'entreprise.");
       }

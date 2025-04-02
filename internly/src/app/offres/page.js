@@ -194,38 +194,38 @@ export default function Page() {
             </div>
 
             <div className="container-cards-container">
-                <div className="offer-container">
-                    {error ? (
-                        <p>Erreur: {error}</p>
-                    ) : (
-                        currentItems.length > 0 ? (
-                            currentItems.map((offre, index) => (
-                                <div key={index} className="offer-card">
-                                    <div className="titre">{offre.titre_offre}</div>
-                                    <div className="entreprise">{offre.entreprise}</div>
-                                    <div className="competences">
-                                        {offre.competences.length > 0 ? (
-                                            offre.competences.map((competence, i) => (
-                                                <span key={i} className="competence-pill">{competence}</span>
-                                            ))
-                                        ) : (
-                                            <span className="competence-pill">Aucune compétence spécifiée</span>
-                                        )}
-                                    </div>
-                                    <button 
-                                        className="apply-button" 
-                                        onClick={() => router.push(`/offres/${offre.offre_id}`)}
-                                    >
-                                        Candidater
-                                    </button>
-                                </div>
-                            ))
-                        ) : (
-                            <p className="no-results-message">Aucune offre trouvée</p>
-                        )
-                    )}
-                </div>
-            </div>
+    <div className="offer-container">
+        {error ? (
+            <p>Erreur: {error}</p>
+        ) : (
+            currentItems.length > 0 ? (
+                currentItems.map((offre, index) => (
+                    <div key={index} className="offer-card">
+                        <div className="titre">{offre.titre_offre}</div>
+                        <div className="entreprise">{offre.entreprise}</div>
+                        <div className="competences">
+                            {offre.competences.length > 0 ? (
+                                offre.competences.map((competence, i) => (
+                                    <span key={i} className="competence-pill">{competence}</span>
+                                ))
+                            ) : (
+                                <span className="competence-pill">Aucune compétence spécifiée</span>
+                            )}
+                        </div>
+                        <button 
+                            className="apply-button" 
+                            onClick={() => router.push(`/offres/${offre.offre_id}`)}
+                        >
+                            {user && user.status === "etudiant" ? "Candidater" : "Voir l'offre"}
+                        </button>
+                    </div>
+                ))
+            ) : (
+                <p className="no-results-message">Aucune offre trouvée</p>
+            )
+        )}
+    </div>
+</div>
 
             <div className="pagination">
                 <button onClick={() => paginate(1)} disabled={currentPage === 1}>&laquo;</button>

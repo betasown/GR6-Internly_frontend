@@ -22,6 +22,19 @@ const CreateOffre = () => {
   const [competences, setCompetences] = useState([]);
   const [selectedCompetence, setSelectedCompetence] = useState("");
 
+  // Vérification des droits d'accès
+  useEffect(() => {
+    const userCookie = document.cookie.split("; ").find((row) => row.startsWith("user="));
+    if (userCookie) {
+      const user = JSON.parse(decodeURIComponent(userCookie.split("=")[1]));
+      if (user.status !== "admin" && user.status !== "pilote") {
+        router.push("/403/"); // Redirige si l'utilisateur n'est ni admin ni pilote
+      }
+    } else {
+      router.push("/403/"); // Redirige si l'utilisateur n'est pas connecté
+    }
+  }, [router]);
+
   // Récupérer les entreprises et compétences depuis l'API
   useEffect(() => {
     const fetchEntreprises = async () => {

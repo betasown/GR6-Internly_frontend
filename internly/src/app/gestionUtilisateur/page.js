@@ -45,6 +45,19 @@ export default function Page() {
     const router = useRouter(); // Initialisez le routeur
 
     useEffect(() => {
+        // Vérifiez si l'utilisateur est connecté et admin
+        const userCookie = document.cookie.split("; ").find((row) => row.startsWith("user="));
+        if (userCookie) {
+            const user = JSON.parse(decodeURIComponent(userCookie.split("=")[1]));
+            if (user.status !== "admin") {
+                router.push("/403/"); // Redirige si l'utilisateur n'est pas admin
+            }
+        } else {
+            router.push("/403/"); // Redirige si l'utilisateur n'est pas connecté
+        }
+    }, [router]);
+
+    useEffect(() => {
         // Fetch data for pilotes
         fetch("http://localhost:8000/index.php?route=users&status=pilote")
             .then((response) => response.json())

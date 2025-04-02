@@ -41,6 +41,19 @@ export default function Page() {
     const router = useRouter(); // Initialisez le routeur
 
     useEffect(() => {
+        // Vérifiez si l'utilisateur est connecté et a le statut "admin" ou "pilote"
+        const userCookie = document.cookie.split("; ").find((row) => row.startsWith("user="));
+        if (userCookie) {
+            const user = JSON.parse(decodeURIComponent(userCookie.split("=")[1]));
+            if (user.status !== "admin" && user.status !== "pilote") {
+                router.push("/403/"); // Redirige si l'utilisateur n'est ni admin ni pilote
+            }
+        } else {
+            router.push("/403/"); // Redirige si l'utilisateur n'est pas connecté
+        }
+    }, [router]);
+
+    useEffect(() => {
         // Fetch data for etudiants
         fetch("http://localhost:8000/index.php?route=users&status=etudiant")
             .then((response) => response.json())
