@@ -17,6 +17,8 @@ const EditEntreprise = () => {
   });
 
   const [initialData, setInitialData] = useState(null); // Stocke les données initiales
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false); // Popup pour la mise à jour réussie
+  const [showErrorPopup, setShowErrorPopup] = useState(false); // Popup pour les erreurs
 
   useEffect(() => {
     const fetchEntreprise = async () => {
@@ -70,14 +72,13 @@ const EditEntreprise = () => {
       });
 
       if (response.ok) {
-        alert("Entreprise mise à jour avec succès !");
-        router.push("/gestionEntreprise"); // Rediriger après la mise à jour
+        setShowUpdatePopup(true); // Afficher la popup de mise à jour réussie
       } else {
-        alert("Erreur lors de la mise à jour de l'entreprise.");
+        setShowErrorPopup(true); // Afficher la popup d'erreur
       }
     } catch (error) {
       console.error("Erreur :", error);
-      alert("Une erreur est survenue.");
+      setShowErrorPopup(true); // Afficher la popup d'erreur
     }
   };
 
@@ -207,6 +208,37 @@ const EditEntreprise = () => {
           </button>
         </div>
       </form>
+
+      {showUpdatePopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Entreprise mise à jour avec succès !</p>
+            <button
+              onClick={() => {
+                setShowUpdatePopup(false);
+                router.push("/gestionEntreprise"); // Rediriger après la mise à jour
+              }}
+              className="popup-confirm-button"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showErrorPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Une erreur est survenue lors de la mise à jour de l'entreprise.</p>
+            <button
+              onClick={() => setShowErrorPopup(false)}
+              className="popup-close-button"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
