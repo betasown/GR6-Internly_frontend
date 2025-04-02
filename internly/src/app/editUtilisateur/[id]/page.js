@@ -14,6 +14,9 @@ const EditUtilisateur = () => {
     statut: "",
   });
 
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false); // Popup de succès
+  const [showErrorPopup, setShowErrorPopup] = useState(false); // Popup d'erreur
+
   useEffect(() => {
     const fetchUtilisateur = async () => {
       try {
@@ -50,46 +53,25 @@ const EditUtilisateur = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:8000/index.php?route=update_user&id=${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `http://localhost:8000/index.php?route=update_user&id=${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
-        alert("Utilisateur mis à jour avec succès !");
-        
-        // Lire le cookie et parser le JSON pour récupérer le statut
-        const userCookie = document.cookie
-          .split("; ")
-          .find((row) => row.startsWith("user")) // Remplacez "user=" par le nom exact du cookie
-          ?.split("=")[1];
-
-        if (userCookie) {
-          const user = JSON.parse(decodeURIComponent(userCookie)); // Décoder et parser le JSON
-          const userStatut = user.status;
-
-          // Redirection conditionnelle en fonction du statut
-          if (userStatut === "admin") {
-            router.push("/gestionUtilisateur");
-          } else if (userStatut === "pilote") {
-            router.push("/gestionEtudiant");
-          } else {
-            alert("Rôle inconnu, redirection par défaut.");
-            router.push("/"); // Redirection par défaut si le rôle est inconnu
-          }
-        } else {
-          alert("Impossible de déterminer le rôle de l'utilisateur.");
-          router.push("/"); // Redirection par défaut
-        }
+        setShowUpdatePopup(true); // Afficher la popup de succès
       } else {
-        alert("Erreur lors de la mise à jour de l'utilisateur.");
+        setShowErrorPopup(true); // Afficher la popup d'erreur
       }
     } catch (error) {
       console.error("Erreur :", error);
-      alert("Une erreur est survenue.");
+      setShowErrorPopup(true); // Afficher la popup d'erreur
     }
   };
 
@@ -164,6 +146,58 @@ const EditUtilisateur = () => {
 
         <button type="submit" className="apply-button">Mettre à jour</button>
       </form>
+
+      {showUpdatePopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Utilisateur mis à jour avec succès !</p>
+            <button
+              onClick={() => {
+                setShowUpdatePopup(false);
+
+                // Lire le cookie et parser le JSON pour récupérer le statut
+                const userCookie = document.cookie
+                  .split("; ")
+                  .find((row) => row.startsWith("user"))
+                  ?.split("=")[1];
+
+                if (userCookie) {
+                  const user = JSON.parse(decodeURIComponent(userCookie));
+                  const userStatut = user.status;
+
+                  // Redirection conditionnelle en fonction du statut
+                  if (userStatut === "admin") {
+                    router.push("/gestionUtilisateur");
+                  } else if (userStatut === "pilote") {
+                    router.push("/gestionEtudiant");
+                  } else {
+                    router.push("/"); // Redirection par défaut
+                  }
+                } else {
+                  router.push("/"); // Redirection par défaut
+                }
+              }}
+              className="popup-confirm-button"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showErrorPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Une erreur est survenue lors de la mise à jour de l'utilisateur.</p>
+            <button
+              onClick={() => setShowErrorPopup(false)}
+              className="popup-close-button"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
