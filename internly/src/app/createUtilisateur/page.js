@@ -16,15 +16,37 @@ const CreateUtilisateur = () => {
     password: "",
   });
 
+  const [errors, setErrors] = useState({
+    email: "",
+  }); // État pour les erreurs de validation
   const [showCreationPopup, setShowCreationPopup] = useState(false); // Popup de succès
   const [showErrorPopup, setShowErrorPopup] = useState(false); // Popup d'erreur
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Mettre à jour les données du formulaire
     setFormData({
       ...formData,
       [name]: value,
     });
+
+    // Validation dynamique pour l'email
+    if (name === "email") {
+      let emailRegex;
+      if (formData.statut === "pilote") {
+        emailRegex = /^[a-zA-Z]\.[a-zA-Z]+@cesi\.fr$/; // RegEx pour pilote
+      } else if (formData.statut === "etudiant") {
+        emailRegex = /^[a-zA-Z]+\.[a-zA-Z]+@viacesi\.fr$/; // RegEx pour étudiant
+      }
+
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: emailRegex && emailRegex.test(value)
+          ? ""
+          : `Veuillez entrer une adresse email valide`,
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -147,6 +169,7 @@ const CreateUtilisateur = () => {
               placeholder="Adresse email"
               required
             />
+            {errors.email && <p className="error-message">{errors.email}</p>}
           </label>
         </div>
         <div className="form-group">
