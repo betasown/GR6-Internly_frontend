@@ -13,6 +13,12 @@ const CreateEntreprise = () => {
     domaine: "",
     visibilite: true,
   });
+  const [errors, setErrors] = useState({
+    email: "",
+    telephone: "",
+  });
+  const [showResetPopup, setShowResetPopup] = useState(false);
+  const [showCreationPopup, setShowCreationPopup] = useState(false); // État pour la popup de confirmation
 
   // Vérification des droits d'accès
   useEffect(() => {
@@ -29,14 +35,49 @@ const CreateEntreprise = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+
+    // Mettre à jour les données du formulaire
     setFormData({
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     });
+
+    // Validation en direct
+    if (name === "email") {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: emailRegex.test(value) ? "" : "Veuillez entrer une adresse email valide.",
+      }));
+    }
+
+    if (name === "telephone") {
+      const phoneRegex = /^\+?[0-9]{10,15}$/;
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        telephone: phoneRegex.test(value) ? "" : "Veuillez entrer un numéro de téléphone valide (10 à 15 chiffres).",
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Expressions régulières
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const phoneRegex = /^\+?[0-9]{10,15}$/;
+
+    // Validation des champs
+    if (!emailRegex.test(formData.email)) {
+      alert("Veuillez entrer une adresse email valide.");
+      return;
+    }
+
+    if (!phoneRegex.test(formData.telephone)) {
+      alert("Veuillez entrer un numéro de téléphone valide (10 à 15 chiffres).");
+      return;
+    }
+
     try {
       const response = await fetch(
         "http://localhost:8000/index.php?route=create_entreprise",
@@ -51,7 +92,7 @@ const CreateEntreprise = () => {
 
       if (response.ok) {
         const data = await response.json();
-        alert("Entreprise créée avec succès !");
+        setShowCreationPopup(true); // Afficher la popup de confirmation
         console.log(data);
 
         // Réinitialiser les champs du formulaire
@@ -134,6 +175,7 @@ const CreateEntreprise = () => {
               placeholder="Adresse email"
               required
             />
+            {errors.email && <p className="error-message">{errors.email}</p>}
           </label>
         </div>
         <div className="form-group">
@@ -150,6 +192,7 @@ const CreateEntreprise = () => {
               placeholder="Numéro de téléphone"
               required
             />
+            {errors.telephone && <p className="error-message">{errors.telephone}</p>}
           </label>
         </div>
         <div className="form-group">
@@ -188,21 +231,59 @@ const CreateEntreprise = () => {
           <button
             type="button"
             className="reinitialiser"
-            onClick={() =>
-              setFormData({
-                nom: "",
-                description: "",
-                email: "",
-                telephone: "",
-                domaine: "",
-                visibilite: true,
-              })
-            }
+            onClick={() => setShowResetPopup(true)}
           >
             Réinitialiser
           </button>
         </div>
       </form>
+      {showResetPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Êtes-vous sûr de vouloir réinitialiser le formulaire ?</p>
+            <div className="popup-buttons">
+              <button
+                onClick={() => {
+                  setFormData({
+                    nom: "",
+                    description: "",
+                    email: "",
+                    telephone: "",
+                    domaine: "",
+                    visibilite: true,
+                  });
+                  setShowResetPopup(false);
+                }}
+                className="popup-confirm-button"
+              >
+                Oui
+              </button>
+              <button
+                onClick={() => setShowResetPopup(false)}
+                className="popup-cancel-button"
+              >
+                Non
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {showCreationPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Entreprise créée avec succès !</p>
+            <button
+              onClick={() => {
+                setShowCreationPopup(false);
+                router.push("/gestionEntreprise"); // Rediriger vers la page gestionEntreprise
+              }}
+              className="popup-close-button"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

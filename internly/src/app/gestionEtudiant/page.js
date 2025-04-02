@@ -4,8 +4,30 @@ import { useState, useEffect } from "react";
 import { Trash, Pencil, ArrowLeft, FileChartColumn } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-const handleDeleteUser = async (id) => {
-    if (confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?")) {
+export default function Page() {
+    const [etudiants, setEtudiants] = useState([]);
+    const [currentPageEtudiants, setCurrentPageEtudiants] = useState(1);
+    const itemsPerPage = 5;
+    const router = useRouter();
+
+    const [showDeletePopup, setShowDeletePopup] = useState(false);
+    const [showDeleteSuccessPopup, setShowDeleteSuccessPopup] = useState(false);
+    const [showDeleteErrorPopup, setShowDeleteErrorPopup] = useState(false);
+    const [selectedUserId, setSelectedUserId] = useState(null);
+
+    useEffect(() => {
+        fetch("http://localhost:8000/index.php?route=users&status=etudiant")
+            .then((response) => response.json())
+            .then((data) => setEtudiants(data))
+            .catch((error) => console.error("Error fetching etudiants:", error));
+    }, []);
+
+    const handleDeleteUser = (id) => {
+        setSelectedUserId(id);
+        setShowDeletePopup(true);
+    };
+
+    const confirmDeleteUser = async () => {
         try {
             const response = await fetch(
                 "http://localhost:8000/index.php?route=delete_user",
@@ -14,22 +36,25 @@ const handleDeleteUser = async (id) => {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ id }),
+                    body: JSON.stringify({ id: selectedUserId }),
                 }
             );
 
             const responseData = await response.json();
 
-            if (responseData.success) {
-                alert("Utilisateur supprimé avec succès !");
-                // Rafraîchir la page après suppression
-                window.location.reload();
+            if (response.ok && responseData.success) {
+                setShowDeleteSuccessPopup(true);
+                setEtudiants((prevEtudiants) =>
+                    prevEtudiants.filter((etudiant) => etudiant.utilisateur_id !== selectedUserId)
+                );
             } else {
-                alert(`Erreur : ${responseData.error || "Une erreur est survenue."}`);
+                setShowDeleteErrorPopup(true);
             }
         } catch (error) {
             console.error("Erreur lors de la suppression :", error);
-            alert("Une erreur est survenue.");
+            setShowDeleteErrorPopup(true);
+        } finally {
+            setShowDeletePopup(false);
         }
     }
 };
@@ -60,6 +85,7 @@ export default function Page() {
             .then((data) => setEtudiants(data))
             .catch((error) => console.error("Error fetching etudiants:", error));
     }, []);
+
 
     const totalPagesEtudiants = Math.ceil(etudiants.length / itemsPerPage);
 
@@ -172,6 +198,55 @@ export default function Page() {
             </div>
         </div>
         <img className="assets" src="/Assets/separateur-w2b.png" />
+        {showDeletePopup && (
+          <div className="popup">
+            <div className="popup-content">
+              <p>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
+              <div className="popup-buttons">
+                <button
+                  onClick={confirmDeleteUser}
+                  className="popup-confirm-button"
+                >
+                  Oui
+                </button>
+                <button
+                  onClick={() => setShowDeletePopup(false)}
+                  className="popup-cancel-button"
+                >
+                  Non
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {showDeleteSuccessPopup && (
+          <div className="popup">
+            <div className="popup-content">
+              <p>Utilisateur supprimé avec succès !</p>
+              <button
+                onClick={() => setShowDeleteSuccessPopup(false)}
+                className="popup-close-button"
+              >
+                Fermer
+              </button>
+            </div>
+          </div>
+        )}
+
+        {showDeleteErrorPopup && (
+          <div className="popup">
+            <div className="popup-content">
+              <p>Une erreur est survenue lors de la suppression de l'utilisateur.</p>
+              <button
+                onClick={() => setShowDeleteErrorPopup(false)}
+                className="popup-close-button"
+              >
+                Fermer
+              </button>
+            </div>
+          </div>
+        )}
     </div>
     );
 }

@@ -21,6 +21,8 @@ const CreateOffre = () => {
   const [entreprises, setEntreprises] = useState([]);
   const [competences, setCompetences] = useState([]);
   const [selectedCompetence, setSelectedCompetence] = useState("");
+  const [showCreationPopup, setShowCreationPopup] = useState(false); // Popup de succès
+  const [showErrorPopup, setShowErrorPopup] = useState(false); // Popup d'erreur
 
   // Vérification des droits d'accès
   useEffect(() => {
@@ -102,7 +104,7 @@ const CreateOffre = () => {
       });
 
       if (response.ok) {
-        alert("Offre créée avec succès !");
+        setShowCreationPopup(true); // Afficher la popup de succès
         setFormData({
           titre: "",
           description: "",
@@ -115,13 +117,12 @@ const CreateOffre = () => {
           niveauEtudeMinimal: "",
           competences: [],
         });
-        router.push("/gestionOffres"); // Redirection après création
       } else {
-        alert("Erreur lors de la création de l'offre.");
+        setShowErrorPopup(true); // Afficher la popup d'erreur
       }
     } catch (error) {
       console.error("Erreur:", error);
-      alert("Une erreur est survenue.");
+      setShowErrorPopup(true); // Afficher la popup d'erreur
     }
   };
 
@@ -319,6 +320,37 @@ const CreateOffre = () => {
           </button>
         </div>
       </form>
+
+      {showCreationPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Offre créée avec succès !</p>
+            <button
+              onClick={() => {
+                setShowCreationPopup(false);
+                router.push("/gestionOffres"); // Rediriger après la création
+              }}
+              className="popup-confirm-button"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showErrorPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Une erreur est survenue lors de la création de l'offre.</p>
+            <button
+              onClick={() => setShowErrorPopup(false)}
+              className="popup-close-button"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

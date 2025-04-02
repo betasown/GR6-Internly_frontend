@@ -17,6 +17,12 @@ const EditEntreprise = () => {
   });
 
   const [initialData, setInitialData] = useState(null); // Stocke les données initiales
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false); // Popup pour la mise à jour réussie
+  const [showErrorPopup, setShowErrorPopup] = useState(false); // Popup pour les erreurs
+  const [errors, setErrors] = useState({
+    email: "",
+    telephone: "",
+  }); // Stocke les erreurs de validation
 
   // Vérification des droits d'accès
   useEffect(() => {
@@ -65,10 +71,29 @@ const EditEntreprise = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+
+    // Mettre à jour les données du formulaire
     setFormData({
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     });
+
+    // Validation en direct
+    if (name === "email") {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: emailRegex.test(value) ? "" : "Veuillez entrer une adresse email valide.",
+      }));
+    }
+
+    if (name === "telephone") {
+      const phoneRegex = /^\+?[0-9]{10,15}$/;
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        telephone: phoneRegex.test(value) ? "" : "Veuillez entrer un numéro de téléphone valide (10 à 15 chiffres).",
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -83,14 +108,13 @@ const EditEntreprise = () => {
       });
 
       if (response.ok) {
-        alert("Entreprise mise à jour avec succès !");
-        router.push("/gestionEntreprise"); // Rediriger après la mise à jour
+        setShowUpdatePopup(true); // Afficher la popup de mise à jour réussie
       } else {
-        alert("Erreur lors de la mise à jour de l'entreprise.");
+        setShowErrorPopup(true); // Afficher la popup d'erreur
       }
     } catch (error) {
       console.error("Erreur :", error);
-      alert("Une erreur est survenue.");
+      setShowErrorPopup(true); // Afficher la popup d'erreur
     }
   };
 
@@ -160,6 +184,7 @@ const EditEntreprise = () => {
               placeholder="Adresse email"
               required
             />
+            {errors.email && <p className="error-message">{errors.email}</p>}
           </label>
         </div>
         <div className="form-group">
@@ -176,6 +201,7 @@ const EditEntreprise = () => {
               placeholder="Numéro de téléphone"
               required
             />
+            {errors.telephone && <p className="error-message">{errors.telephone}</p>}
           </label>
         </div>
         <div className="form-group">
@@ -220,6 +246,37 @@ const EditEntreprise = () => {
           </button>
         </div>
       </form>
+
+      {showUpdatePopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Entreprise mise à jour avec succès !</p>
+            <button
+              onClick={() => {
+                setShowUpdatePopup(false);
+                router.push("/gestionEntreprise"); // Rediriger après la mise à jour
+              }}
+              className="popup-confirm-button"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showErrorPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Une erreur est survenue lors de la mise à jour de l'entreprise.</p>
+            <button
+              onClick={() => setShowErrorPopup(false)}
+              className="popup-close-button"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
