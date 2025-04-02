@@ -40,7 +40,7 @@ const EditEntreprise = () => {
   useEffect(() => {
     const fetchEntreprise = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/index.php?route=entreprise&id=${id}`);
+        const response = await fetch(`http://20.123.199.44:8000/index.php?route=entreprise&id=${id}`);
         if (!response.ok) {
           throw new Error(`Erreur HTTP : ${response.status}`);
         }
@@ -99,7 +99,7 @@ const EditEntreprise = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:8000/index.php?route=update_entreprise&id=${id}`, {
+      const response = await fetch(`http://20.123.199.44:8000/index.php?route=update_entreprise&id=${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

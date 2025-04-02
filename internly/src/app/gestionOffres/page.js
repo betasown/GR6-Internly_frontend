@@ -30,7 +30,7 @@ export default function Page() {
 
     useEffect(() => {
         // Fetch data from the API
-        fetch("http://localhost:8000/index.php?route=offers_display")
+        fetch("http://20.123.199.44:8000/index.php?route=offers_display")
             .then((response) => response.json())
             .then((data) => setEntreprises(data))
             .catch((error) => console.error("Error fetching entreprises:", error));
@@ -55,7 +55,7 @@ export default function Page() {
 
     const confirmDelete = async () => {
         try {
-            const response = await fetch("http://localhost:8000/index.php?route=delete_offer", {
+            const response = await fetch("http://20.123.199.44:8000/index.php?route=delete_offer", {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",

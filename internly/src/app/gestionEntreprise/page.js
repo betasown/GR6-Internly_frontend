@@ -30,7 +30,7 @@ export default function Page() {
 
     const fetchEntreprises = async () => {
         try {
-            const response = await fetch("http://localhost:8000/index.php?route=entreprise");
+            const response = await fetch("http://20.123.199.44:8000/index.php?route=entreprise");
             const data = await response.json();
             setEntreprises(data);
         } catch (error) {
@@ -51,7 +51,7 @@ export default function Page() {
     const confirmDelete = async () => {
         try {
             const response = await fetch(
-                "http://localhost:8000/index.php?route=delete_entreprise",
+                "http://20.123.199.44:8000/index.php?route=delete_entreprise",
                 {
                     method: "DELETE",
                     headers: {

@@ -40,9 +40,9 @@ export default function Home() {
     async function fetchStats() {
       try {
         const [studentsRes, offersRes, entreprisesRes] = await Promise.all([
-          fetch('http://localhost:8000/index.php?route=users&count=students'),
-          fetch('http://localhost:8000/index.php?route=offers&count=offers'),
-          fetch('http://localhost:8000/index.php?route=entreprise&count=entreprises'),
+          fetch('http://20.123.199.44:8000/index.php?route=users&count=students'),
+          fetch('http://20.123.199.44:8000/index.php?route=offers&count=offers'),
+          fetch('http://20.123.199.44:8000/index.php?route=entreprise&count=entreprises'),
         ]);
 
         const studentsData = await studentsRes.json();
@@ -61,7 +61,7 @@ export default function Home() {
 
     const fetchData = async () => {
       try {
-          const res = await fetch('http://localhost:8000/index.php?route=offers&recent=true');
+          const res = await fetch('http://20.123.199.44:8000/index.php?route=offers&recent=true');
           if (!res.ok) {
               throw new Error(`HTTP error! status: ${res.status}`);
           }

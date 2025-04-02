@@ -26,7 +26,7 @@ export default function Page() {
             setUserInfo({ isLoggedIn: true, status: user.status });
 
             // Récupération du prénom de l'utilisateur
-            fetch(`http://localhost:8000/index.php?route=user_firstname&id=${user.id}&field=prenom`)
+            fetch(`http://20.123.199.44:8000/index.php?route=user_firstname&id=${user.id}&field=prenom`)
                 .then(response => response.json())
                 .then(data => {
                     if (data && data.utilisateur_prenom) {
@@ -36,7 +36,7 @@ export default function Page() {
                 .catch(error => console.error('Error fetching user first name:', error));
 
             // Récupération des candidatures
-            fetch('http://localhost:8000/index.php?route=candidatures_with_details')
+            fetch('http://20.123.199.44:8000/index.php?route=candidatures_with_details')
                 .then(response => response.json())
                 .then(data => setOffers(data))
                 .catch(error => console.error('Error fetching data:', error));

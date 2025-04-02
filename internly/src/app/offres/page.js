@@ -39,7 +39,7 @@ export default function Page() {
         // Charger les offres
         const fetchData = async () => {
             try {
-                const res = await fetch('http://localhost:8000/index.php?route=offers_display');
+                const res = await fetch('http://20.123.199.44:8000/index.php?route=offers_display');
                 if (!res.ok) {
                     throw new Error(`HTTP error! status: ${res.status}`);
                 }
@@ -59,7 +59,7 @@ export default function Page() {
 
         const fetchWishListStats = async () => {
             try {
-                const res = await fetch('http://localhost:8000/index.php?route=offers_stats');
+                const res = await fetch('http://20.123.199.44:8000/index.php?route=offers_stats');
                 if (!res.ok) {
                     throw new Error(`HTTP error! status: ${res.status}`);
                 }
@@ -74,7 +74,7 @@ export default function Page() {
 
         const fetchDurationStats = async () => {
             try {
-                const res = await fetch('http://localhost:8000/index.php?route=offers_duration');
+                const res = await fetch('http://20.123.199.44:8000/index.php?route=offers_duration');
                 if (!res.ok) {
                     throw new Error(`HTTP error! status: ${res.status}`);
                 }

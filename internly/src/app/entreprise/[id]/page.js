@@ -32,7 +32,7 @@ export default function EntrepriseDetail() {
     if (id) {
       const fetchEntrepriseData = async () => {
         try {
-          const res = await fetch(`http://localhost:8000/index.php?route=entreprise&id=${id}`);
+          const res = await fetch(`http://20.123.199.44:8000/index.php?route=entreprise&id=${id}`);
           if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
           }
@@ -45,7 +45,7 @@ export default function EntrepriseDetail() {
 
       const fetchOffersData = async () => {
         try {
-          const res = await fetch(`http://localhost:8000/index.php?route=offers_by_entreprise&entreprise_id=${id}`);
+          const res = await fetch(`http://20.123.199.44:8000/index.php?route=offers_by_entreprise&entreprise_id=${id}`);
           if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
           }
@@ -68,7 +68,7 @@ export default function EntrepriseDetail() {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/index.php?route=add_evaluation", {
+      const response = await fetch("http://20.123.199.44:8000/index.php?route=add_evaluation", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

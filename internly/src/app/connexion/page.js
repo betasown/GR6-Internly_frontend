@@ -35,7 +35,7 @@ export default function Page() {
     
         setLoading(true);
         try {
-            const response = await fetch('http://localhost:8000/api/login', {
+            const response = await fetch('http://20.123.199.44:8000/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

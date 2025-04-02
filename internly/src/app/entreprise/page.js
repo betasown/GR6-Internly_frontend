@@ -19,7 +19,7 @@ export default function EntreprisesPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:8000/index.php?route=entreprise");
+        const res = await fetch("http://20.123.199.44:8000/index.php?route=entreprise");
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
@@ -33,7 +33,7 @@ export default function EntreprisesPage() {
 
     const fetchTopRatedCompanies = async () => {
       try {
-        const res = await fetch("http://localhost:8000/index.php?route=entreprise_stats&type=top_rated");
+        const res = await fetch("http://20.123.199.44:8000/index.php?route=entreprise_stats&type=top_rated");
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
@@ -46,7 +46,7 @@ export default function EntreprisesPage() {
 
     const fetchDomainStats = async () => {
       try {
-        const res = await fetch("http://localhost:8000/index.php?route=entreprise_stats&type=count_by_domain");
+        const res = await fetch("http://20.123.199.44:8000/index.php?route=entreprise_stats&type=count_by_domain");
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
