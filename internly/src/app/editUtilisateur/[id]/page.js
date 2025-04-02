@@ -30,7 +30,7 @@ const EditUtilisateur = () => {
   useEffect(() => {
     const fetchUtilisateur = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/user/${id}`);
+        const response = await fetch(`http://20.123.199.44:8000/api/user/${id}`);
         if (!response.ok) {
           throw new Error(`Erreur HTTP : ${response.status}`);
         }
@@ -63,7 +63,7 @@ const EditUtilisateur = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:8000/index.php?route=update_user&id=${id}`, {
+      const response = await fetch(`http://20.123.199.44:8000/index.php?route=update_user&id=${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

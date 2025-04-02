@@ -39,7 +39,7 @@ const CreateOffre = () => {
   useEffect(() => {
     const fetchEntreprises = async () => {
       try {
-        const response = await fetch("http://localhost:8000/index.php?route=entreprise");
+        const response = await fetch("http://20.123.199.44:8000/index.php?route=entreprise");
         const data = await response.json();
         setEntreprises(data);
       } catch (error) {
@@ -49,7 +49,7 @@ const CreateOffre = () => {
 
     const fetchCompetences = async () => {
       try {
-        const response = await fetch("http://localhost:8000/index.php?route=competencies");
+        const response = await fetch("http://20.123.199.44:8000/index.php?route=competencies");
         const data = await response.json();
         setCompetences(data);
       } catch (error) {
@@ -93,7 +93,7 @@ const CreateOffre = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/index.php?route=create_offer", {
+      const response = await fetch("http://20.123.199.44:8000/index.php?route=create_offer", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

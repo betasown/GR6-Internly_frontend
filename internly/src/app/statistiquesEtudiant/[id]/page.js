@@ -26,13 +26,13 @@ export default function Page() {
         if (!id) return;
 
         // Fetch candidatures for the user
-        fetch(`http://localhost:8000/index.php?route=candidatures_by_user&user_id=${id}`)
+        fetch(`http://20.123.199.44:8000/index.php?route=candidatures_by_user&user_id=${id}`)
             .then((response) => response.json())
             .then((data) => setCandidatures(data))
             .catch((error) => console.error("Error fetching candidatures:", error));
 
         // Fetch user information
-        fetch(`http://localhost:8000/api/user/${id}`)
+        fetch(`http://20.123.199.44:8000/api/user/${id}`)
             .then((response) => response.json())
             .then((data) => setUserInfo(data))
             .catch((error) => console.error("Error fetching user info:", error));

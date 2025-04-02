@@ -49,4 +49,4 @@ Nous sommes web4all, une entreprise charger de réalisé un site web de recherch
     npm run dev
     ```
 
-5. Ouvrez votre navigateur et accédez à `http://localhost:3000` pour voir l'application en action.
+5. Ouvrez votre navigateur et accédez à `http://20.123.199.44:3000` pour voir l'application en action.

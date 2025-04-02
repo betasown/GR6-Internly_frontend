@@ -41,7 +41,7 @@ const CreateUtilisateur = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:8000/index.php?route=create_user",
+        "http://20.123.199.44:8000/index.php?route=create_user",
         {
           method: "POST",
           headers: {

@@ -61,8 +61,8 @@ export default function OffreDetail() {
 
     try {
       const url = isWishlisted
-        ? "http://localhost:8000/index.php?route=remove_from_wishlist" // URL pour retirer de la wishlist
-        : "http://localhost:8000/index.php?route=add_to_wishlist"; // URL pour ajouter à la wishlist
+        ? "http://20.123.199.44:8000/index.php?route=remove_from_wishlist" // URL pour retirer de la wishlist
+        : "http://20.123.199.44:8000/index.php?route=add_to_wishlist"; // URL pour ajouter à la wishlist
 
       const response = await fetch(url, {
         method: "POST",
@@ -108,7 +108,7 @@ export default function OffreDetail() {
 
     try {
       const response = await fetch(
-        "http://localhost:8000/index.php?route=create_candidature",
+        "http://20.123.199.44:8000/index.php?route=create_candidature",
         {
           method: "POST",
           headers: {
@@ -140,7 +140,7 @@ export default function OffreDetail() {
         const userId = userCookie.id; // Récupère l'ID utilisateur
 
         try {
-          const res = await fetch(`http://localhost:8000/api/user/${userId}`); // URL de l'API utilisateur
+          const res = await fetch(`http://20.123.199.44:8000/api/user/${userId}`); // URL de l'API utilisateur
           if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
           }
@@ -169,7 +169,7 @@ export default function OffreDetail() {
 
       try {
         const response = await fetch(
-          `http://localhost:8000/index.php?route=wishlist_status&offre_id=${id}&utilisateur_id=${userCookie.id}`
+          `http://20.123.199.44:8000/index.php?route=wishlist_status&offre_id=${id}&utilisateur_id=${userCookie.id}`
         );
         if (!response.ok) {
           throw new Error(`Erreur HTTP: ${response.status}`);
@@ -188,7 +188,7 @@ export default function OffreDetail() {
     if (id) {
       const fetchData = async () => {
         try {
-          const res = await fetch(`http://localhost:8000/index.php?route=offers&id=${id}`);
+          const res = await fetch(`http://20.123.199.44:8000/index.php?route=offers&id=${id}`);
           if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
           }

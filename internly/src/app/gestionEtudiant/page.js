@@ -8,7 +8,7 @@ const handleDeleteUser = async (id) => {
     if (confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?")) {
         try {
             const response = await fetch(
-                "http://localhost:8000/index.php?route=delete_user",
+                "http://20.123.199.44:8000/index.php?route=delete_user",
                 {
                     method: "DELETE",
                     headers: {
@@ -55,7 +55,7 @@ export default function Page() {
 
     useEffect(() => {
         // Fetch data for etudiants
-        fetch("http://localhost:8000/index.php?route=users&status=etudiant")
+        fetch("http://20.123.199.44:8000/index.php?route=users&status=etudiant")
             .then((response) => response.json())
             .then((data) => setEtudiants(data))
             .catch((error) => console.error("Error fetching etudiants:", error));

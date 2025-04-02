@@ -43,7 +43,7 @@ export default function Page() {
             setUserInfo({ isLoggedIn: true, status: user.status, id: user.id });
 
             // Récupération du prénom de l'utilisateur
-            fetch(`http://localhost:8000/index.php?route=user_firstname&id=${user.id}&field=prenom`)
+            fetch(`http://20.123.199.44:8000/index.php?route=user_firstname&id=${user.id}&field=prenom`)
                 .then(response => response.json())
                 .then(data => {
                     if (data && data.utilisateur_prenom) {
@@ -53,19 +53,19 @@ export default function Page() {
                 .catch(error => console.error('Error fetching user first name:', error));
 
             // Fetch wishlist based on user ID
-            fetch(`http://localhost:8000/index.php?route=wishlist&user_id=${user.id}`)
+            fetch(`http://20.123.199.44:8000/index.php?route=wishlist&user_id=${user.id}`)
                 .then(response => response.json())
                 .then(data => setWishlist(data))
                 .catch(error => console.error('Error fetching wishlist:', error));
 
             // Fetch candidatures based on user ID
-            fetch(`http://localhost:8000/index.php?route=candidatures_by_user&user_id=${user.id}`)
+            fetch(`http://20.123.199.44:8000/index.php?route=candidatures_by_user&user_id=${user.id}`)
                 .then(response => response.json())
                 .then(data => setCandidatures(data))
                 .catch(error => console.error('Error fetching candidatures:', error));
 
             // Fetch candidature stats
-            fetch(`http://localhost:8000/index.php?route=candidatures&user_id=${user.id}&count=status`)
+            fetch(`http://20.123.199.44:8000/index.php?route=candidatures&user_id=${user.id}&count=status`)
                 .then(response => response.json())
                 .then(data => setCandidatureStats(data))
                 .catch(error => console.error('Error fetching candidature stats:', error));
@@ -94,7 +94,7 @@ export default function Page() {
         const userId = userInfo.id; // Récupérer l'ID de l'utilisateur
     
         try {
-            const response = await fetch('http://localhost:8000/index.php?route=remove_from_wishlist', {
+            const response = await fetch('http://20.123.199.44:8000/index.php?route=remove_from_wishlist', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

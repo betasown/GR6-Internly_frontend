@@ -39,7 +39,7 @@ const CreateEntreprise = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:8000/index.php?route=create_entreprise",
+        "http://20.123.199.44:8000/index.php?route=create_entreprise",
         {
           method: "POST",
           headers: {

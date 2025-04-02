@@ -37,7 +37,7 @@ const EditOffre = () => {
 
     useEffect(() => {
         if (offreId) {
-            fetch(`http://localhost:8000/index.php?route=offers&id=${offreId}`)
+            fetch(`http://20.123.199.44:8000/index.php?route=offers&id=${offreId}`)
                 .then((response) => response.json())
                 .then((data) => {
                     setFormData({
@@ -55,7 +55,7 @@ const EditOffre = () => {
                 .catch((error) => console.error("Erreur lors du chargement de l'offre :", error));
         }
 
-        fetch("http://localhost:8000/index.php?route=competencies")
+        fetch("http://20.123.199.44:8000/index.php?route=competencies")
             .then((response) => response.json())
             .then((data) => setCompetences(data))
             .catch((error) => console.error("Erreur lors de la récupération des compétences :", error));
@@ -101,7 +101,7 @@ const EditOffre = () => {
 
         try {
             const response = await fetch(
-                `http://localhost:8000/index.php?route=update_offer&id=${offreId}`,
+                `http://20.123.199.44:8000/index.php?route=update_offer&id=${offreId}`,
                 {
                     method: "PUT",
                     headers: {
