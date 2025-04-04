@@ -4,6 +4,7 @@
 
 Ce projet fait partie du cursus de développement web de CESI. Il vise à fournir une compréhension complète des technologies web et des pratiques de développement.
 
+<u>Lien du site </u> : http://rl.internly.fr 
 
 ## Context du projet 
 
