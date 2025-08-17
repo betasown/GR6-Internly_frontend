@@ -26,7 +26,9 @@ Nous sommes web4all, une entreprise charger de réalisé un site web de recherch
 
 ## Prérequi
 
-- Node.js & npm
+- Node.js & npm 
+- Le backend en PHP
+- une base de données (sinon aucune offres de stage)
 
 ## Installation et Configuration
 
